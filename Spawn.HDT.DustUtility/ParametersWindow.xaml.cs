@@ -4,9 +4,6 @@ using System.Windows;
 
 namespace Spawn.HDT.DustUtility
 {
-    /// <summary>
-    /// Interaktionslogik für ParametersWindow.xaml
-    /// </summary>
     public partial class ParametersWindow
     {
         public Parameters Parameters { get; set; }
