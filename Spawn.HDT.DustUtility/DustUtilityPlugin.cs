@@ -11,7 +11,7 @@ namespace Spawn.HDT.DustUtility
     {
         public string Name => "Dust Utility";
 
-        public string Description => "Enter the amount of dust you want to get and check which cards are currently not used in any deck in order to disenchant it.";
+        public string Description => "Enter the amount of dust you want to get and check which cards are currently not used in any deck in order to disenchant them.";
 
         public string ButtonText => null;
 
