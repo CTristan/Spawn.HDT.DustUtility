@@ -121,7 +121,7 @@ namespace Spawn.HDT.DustUtility
                         else { }
                     }
 
-                    if (cardWrapper.MaxCountInDecks <= 1 && !(cardWrapper.GetDBCard().Rarity == Rarity.LEGENDARY && cardWrapper.MaxCountInDecks == 1))
+                    if (cardWrapper.MaxCountInDecks <= 1 && !(cardWrapper.DBCard.Rarity == Rarity.LEGENDARY && cardWrapper.MaxCountInDecks == 1))
                     {
                         m_lstUnusedCards.Add(cardWrapper);
                     }
@@ -140,7 +140,7 @@ namespace Spawn.HDT.DustUtility
 
             for (int i = 0; i < lstClasses.Count; i++)
             {
-                List<CardWrapper> chunk = lstCards.FindAll(delegate (CardWrapper cw) { return cw.GetDBCard().Class == lstClasses[i]; });
+                List<CardWrapper> chunk = lstCards.FindAll(delegate (CardWrapper cw) { return cw.DBCard.Class == lstClasses[i]; });
 
                 lstRet.AddRange(chunk);
             }

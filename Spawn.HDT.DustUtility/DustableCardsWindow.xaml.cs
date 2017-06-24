@@ -104,9 +104,9 @@ namespace Spawn.HDT.DustUtility
                     Count = $"{cardWrapper.Card.Count}x",
                     Dust = cardWrapper.GetDustValue(),
                     Golden = cardWrapper.Card.Premium,
-                    Name = cardWrapper.GetDBCard().Name,
-                    Rarity = cardWrapper.GetDBCard().Rarity,
-                    CardClass = cardWrapper.GetDBCard().Class
+                    Name = cardWrapper.DBCard.Name,
+                    Rarity = cardWrapper.DBCard.Rarity,
+                    CardClass = cardWrapper.DBCard.Class
                 };
 
                 switch (item.Rarity)
