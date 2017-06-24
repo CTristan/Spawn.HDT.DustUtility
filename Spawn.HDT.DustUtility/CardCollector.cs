@@ -105,7 +105,7 @@ namespace Spawn.HDT.DustUtility
                         {
                             if (cardWrapper.MaxCountInDecks == 0)
                             {
-                                cardWrapper.SetMaxCountInDecks(lstDecks[j].GetCard(card.Id).Count);
+                                cardWrapper.MaxCountInDecks = lstDecks[j].GetCard(card.Id).Count;
                             }
                             else
                             {
@@ -113,7 +113,7 @@ namespace Spawn.HDT.DustUtility
 
                                 if (c.Count > cardWrapper.MaxCountInDecks)
                                 {
-                                    cardWrapper.SetMaxCountInDecks(c.Count);
+                                    cardWrapper.MaxCountInDecks = c.Count;
                                 }
                                 else { }
                             }
