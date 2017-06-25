@@ -39,6 +39,9 @@ namespace Spawn.HDT.DustUtility
 
                 //Non golden
                 ProcessCards(parameters, lstRet, false, ref nTotalAmount, ref blnDone);
+
+                //Post processing
+                //Remove lowest rarity cards if the total amount is over the targeted amount
             }
             else { }
 
@@ -103,25 +106,18 @@ namespace Spawn.HDT.DustUtility
                     {
                         if (lstDecks[j].Contains(card.Id))
                         {
-                            if (cardWrapper.MaxCountInDecks == 0)
-                            {
-                                cardWrapper.MaxCountInDecks = lstDecks[j].GetCard(card.Id).Count;
-                            }
-                            else
-                            {
-                                Card c = lstDecks[j].GetCard(card.Id);
+                            Card c = lstDecks[j].GetCard(card.Id);
 
-                                if (c.Count > cardWrapper.MaxCountInDecks)
-                                {
-                                    cardWrapper.MaxCountInDecks = c.Count;
-                                }
-                                else { }
+                            if (c.Count > cardWrapper.MaxCountInDecks)
+                            {
+                                cardWrapper.MaxCountInDecks = c.Count;
                             }
+                            else { }
                         }
                         else { }
                     }
 
-                    if (cardWrapper.MaxCountInDecks <= 1 && !(cardWrapper.DBCard.Rarity == Rarity.LEGENDARY && cardWrapper.MaxCountInDecks == 1))
+                    if (cardWrapper.MaxCountInDecks <= 1 && cardWrapper.Card.Count > cardWrapper.MaxCountInDecks && !(cardWrapper.DBCard.Rarity == Rarity.LEGENDARY && cardWrapper.MaxCountInDecks == 1))
                     {
                         m_lstUnusedCards.Add(cardWrapper);
                     }

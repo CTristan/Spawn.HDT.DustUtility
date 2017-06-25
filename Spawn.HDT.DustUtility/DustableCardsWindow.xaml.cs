@@ -101,7 +101,7 @@ namespace Spawn.HDT.DustUtility
 
                 GridItem item = new GridItem()
                 {
-                    Count = $"{cardWrapper.Card.Count}x",
+                    Count = $"{cardWrapper.Count}x",
                     Dust = cardWrapper.GetDustValue(),
                     Golden = cardWrapper.Card.Premium,
                     Name = cardWrapper.DBCard.Name,
@@ -112,21 +112,21 @@ namespace Spawn.HDT.DustUtility
                 switch (item.Rarity)
                 {
                     case HearthDb.Enums.Rarity.COMMON:
-                        nCommons += cardWrapper.Card.Count;
+                        nCommons += cardWrapper.Count;
                         break;
                     case HearthDb.Enums.Rarity.RARE:
-                        nRares += cardWrapper.Card.Count;
+                        nRares += cardWrapper.Count;
                         break;
                     case HearthDb.Enums.Rarity.EPIC:
-                        nEpics += cardWrapper.Card.Count;
+                        nEpics += cardWrapper.Count;
                         break;
                     case HearthDb.Enums.Rarity.LEGENDARY:
-                        nLegendaries += cardWrapper.Card.Count;
+                        nLegendaries += cardWrapper.Count;
                         break;
                 }
 
                 nTotalDustAmount += item.Dust;
-                nTotalCount += cardWrapper.Card.Count;
+                nTotalCount += cardWrapper.Count;
 
                 vRet[i] = item;
             }
@@ -179,10 +179,15 @@ namespace Spawn.HDT.DustUtility
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show($"Your whole collection is worth: {m_cardCollector.GetTotalDustValueForAllCards()} Dust", "Dust Utitlity", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show($"Your collection is worth: {m_cardCollector.GetTotalDustValueForAllCards()} Dust", "Dust Utitlity", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
-        private void dataGrid_AutoGeneratingColumn(object sender, System.Windows.Controls.DataGridAutoGeneratingColumnEventArgs e)
+        /// <summary>
+        /// Called when a column is automatically generated.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.Windows.Controls.DataGridAutoGeneratingColumnEventArgs"/> instance containing the event data.</param>
+        private void OnAutoGeneratingColumn(object sender, System.Windows.Controls.DataGridAutoGeneratingColumnEventArgs e)
         {
             if (e.Column.Header.ToString().ToLower().Equals("cardclass"))
             {
