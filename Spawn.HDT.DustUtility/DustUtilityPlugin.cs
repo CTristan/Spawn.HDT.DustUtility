@@ -1,9 +1,9 @@
-﻿using Hearthstone_Deck_Tracker.API;
-using Hearthstone_Deck_Tracker.Plugins;
-using System;
+﻿using System;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
+using Hearthstone_Deck_Tracker.API;
+using Hearthstone_Deck_Tracker.Plugins;
 
 namespace Spawn.HDT.DustUtility
 {

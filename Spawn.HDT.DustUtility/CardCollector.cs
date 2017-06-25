@@ -1,9 +1,9 @@
-﻿using HearthDb.Enums;
-using HearthMirror;
-using HearthMirror.Objects;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Windows;
+using HearthDb.Enums;
+using HearthMirror;
+using HearthMirror.Objects;
 
 namespace Spawn.HDT.DustUtility
 {
@@ -41,11 +41,38 @@ namespace Spawn.HDT.DustUtility
                 ProcessCards(parameters, lstRet, false, ref nTotalAmount, ref blnDone);
 
                 //Post processing
-                //Remove lowest rarity cards if the total amount is over the targeted amount
+                //Remove low rarity cards if the total amount is over the targeted amount
+                if (nTotalAmount > parameters.DustAmount)
+                {
+                    PostProcessCards(lstRet, parameters.Rarities, ref nTotalAmount); 
+                }
+                else { }
             }
             else { }
 
             return lstRet.ToArray();
+        }
+
+        private void PostProcessCards(List<CardWrapper> lstCards, List<Rarity> lstRarites, ref int nTotalAmount)
+        {
+            if (lstCards.Count > 0 && lstRarites.Count > 0)
+            {
+                bool blnDone = false;
+
+                for (int i = 0; i < lstRarites.Count && !blnDone; i++)
+                {
+                    Rarity lowestRarity = lstRarites[i];
+
+                    bool blnContinue = true;
+
+                    do
+                    {
+
+                    }
+                    while (blnContinue);
+                }
+            }
+            else { }
         }
 
         private void ProcessCards(Parameters parameters, List<CardWrapper> lstRet, bool blnGolden, ref int nTotalAmount, ref bool blnDone)

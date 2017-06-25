@@ -1,6 +1,6 @@
-﻿using HearthDb.Enums;
-using System;
+﻿using System;
 using System.Windows;
+using HearthDb.Enums;
 
 namespace Spawn.HDT.DustUtility
 {

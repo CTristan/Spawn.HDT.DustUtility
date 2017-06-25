@@ -1,5 +1,5 @@
-﻿using HearthDb.Enums;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using HearthDb.Enums;
 
 namespace Spawn.HDT.DustUtility
 {
