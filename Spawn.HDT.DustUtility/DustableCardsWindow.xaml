@@ -12,7 +12,7 @@
         <TextBox Name="inputBox" HorizontalAlignment="Stretch" Margin="115,10,90,0" VerticalAlignment="Top" Height="20" PreviewTextInput="ValidateInput" />
         <Button Content="Filters" Name="filterButton" HorizontalAlignment="Right" Margin="0,10,10,0" Width="75" VerticalAlignment="Top" Click="Button_Click_1" />
         <Border BorderBrush="Silver" BorderThickness="1" HorizontalAlignment="Stretch" Margin="10,40,165,10" VerticalAlignment="Stretch">
-            <DataGrid Name="dataGrid" AutoGenerateColumns="True" AutoGeneratingColumn="OnAutoGeneratingColumn" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" IsReadOnly="True" GridLinesVisibility="All" />
+            <DataGrid Name="dataGrid" CanUserSortColumns="False" AutoGenerateColumns="True" AutoGeneratingColumn="OnAutoGeneratingColumn" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" IsReadOnly="True" GridLinesVisibility="All" />
         </Border>
         <GroupBox Header="Info" HorizontalAlignment="Right" Height="269" Margin="0,40,10,0" VerticalAlignment="Top" Width="150">
             <Grid>

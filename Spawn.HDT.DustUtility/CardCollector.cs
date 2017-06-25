@@ -27,24 +27,14 @@ namespace Spawn.HDT.DustUtility
             if (lstCollection.Count > 0)
             {
                 int nTotalAmount = 0;
-
-                bool blnDone = false;
-
-                //Golden
-                if (parameters.IncludeGoldenCards)
-                {
-                    ProcessCards(parameters, lstRet, true, ref nTotalAmount, ref blnDone);
-                }
-                else { }
-
-                //Non golden
-                ProcessCards(parameters, lstRet, false, ref nTotalAmount, ref blnDone);
+                
+                ProcessCards(parameters, lstRet, parameters.IncludeGoldenCards, ref nTotalAmount);
 
                 //Post processing
                 //Remove low rarity cards if the total amount is over the targeted amount
                 if (nTotalAmount > parameters.DustAmount)
                 {
-                    PostProcessCards(lstRet, parameters.Rarities, ref nTotalAmount); 
+                    PostProcessCards(lstRet, parameters, ref nTotalAmount); 
                 }
                 else { }
             }
@@ -53,33 +43,71 @@ namespace Spawn.HDT.DustUtility
             return lstRet.ToArray();
         }
 
-        private void PostProcessCards(List<CardWrapper> lstCards, List<Rarity> lstRarites, ref int nTotalAmount)
+        private void PostProcessCards(List<CardWrapper> lstCards, Parameters parameters, ref int nTotalAmount)
         {
-            if (lstCards.Count > 0 && lstRarites.Count > 0)
+            if (lstCards.Count > 0 && parameters.Rarities.Count > 0)
             {
-                bool blnDone = false;
+                int nDifference = nTotalAmount - parameters.DustAmount;
 
-                for (int i = 0; i < lstRarites.Count && !blnDone; i++)
+                if (nDifference > 0)
                 {
-                    Rarity lowestRarity = lstRarites[i];
+                    bool blnDone = false;
 
-                    bool blnContinue = true;
+                    int nCurrentAmount = 0;
 
-                    do
+                    for (int i = 0; i < parameters.Rarities.Count && !blnDone; i++)
                     {
+                        Rarity rarity = parameters.Rarities[i];
 
+                        List<CardWrapper> lstChunk = lstCards.FindAll(delegate (CardWrapper cw) { return cw.DBCard.Rarity == rarity; });
+
+                        lstChunk.Sort(PostCompareCards);
+
+                        for (int j = 0; j < lstChunk.Count && !blnDone; j++)
+                        {
+                            CardWrapper cardWrapper = lstChunk[j];
+
+                            nCurrentAmount += cardWrapper.GetDustValue();
+
+                            int nCurrentDifference = nDifference - nCurrentAmount;
+
+                            blnDone = nCurrentDifference == 0;
+
+                            if (!blnDone)
+                            {
+                                if (nCurrentDifference < 0)
+                                {
+                                    blnDone = true;
+                                }
+                                else
+                                {
+                                    lstCards.Remove(cardWrapper);
+                                }
+                            }
+                            else
+                            {
+                                lstCards.Remove(cardWrapper);
+                            }
+                        }
                     }
-                    while (blnContinue);
                 }
+                else { }
             }
             else { }
         }
 
-        private void ProcessCards(Parameters parameters, List<CardWrapper> lstRet, bool blnGolden, ref int nTotalAmount, ref bool blnDone)
+        private int PostCompareCards(CardWrapper a, CardWrapper b)
         {
+            return a.Count.CompareTo(b.Count);
+        }
+
+        private void ProcessCards(Parameters parameters, List<CardWrapper> lstRet, bool blnIncludeGolden, ref int nTotalAmount)
+        {
+            bool blnDone = false;
+
             for (int i = 0; i < parameters.Rarities.Count && !blnDone; i++)
             {
-                List<CardWrapper> lstCards = GetCardsForRarity(parameters.Rarities[i], blnGolden);
+                List<CardWrapper> lstCards = GetCardsForRarity(parameters.Rarities[i], blnIncludeGolden);
 
                 lstCards = FilterForClasses(lstCards, parameters.Classes);
 
@@ -163,17 +191,28 @@ namespace Spawn.HDT.DustUtility
 
             for (int i = 0; i < lstClasses.Count; i++)
             {
-                List<CardWrapper> chunk = lstCards.FindAll(delegate (CardWrapper cw) { return cw.DBCard.Class == lstClasses[i]; });
+                List<CardWrapper> lstChunk = lstCards.FindAll(delegate (CardWrapper cw) { return cw.DBCard.Class == lstClasses[i]; });
 
-                lstRet.AddRange(chunk);
+                lstRet.AddRange(lstChunk);
             }
 
             return lstRet;
         }
 
-        private List<CardWrapper> GetCardsForRarity(Rarity rarity, bool blnGolden = false)
+        private List<CardWrapper> GetCardsForRarity(Rarity rarity, bool blnIncludeGoldenCards = false)
         {
-            return m_lstUnusedCards.FindAll(delegate (CardWrapper c) { return HearthDb.Cards.All[c.Card.Id].Rarity == rarity && c.Card.Premium == blnGolden; });
+            List<CardWrapper> lstRet = new List<CardWrapper>();
+
+            if (blnIncludeGoldenCards)
+            {
+                lstRet = m_lstUnusedCards.FindAll(delegate (CardWrapper c) { return HearthDb.Cards.All[c.Card.Id].Rarity == rarity; });
+            }
+            else
+            {
+                lstRet = m_lstUnusedCards.FindAll(delegate (CardWrapper c) { return HearthDb.Cards.All[c.Card.Id].Rarity == rarity && c.Card.Premium == false; });
+            }
+
+            return lstRet;
         }
     }
 }

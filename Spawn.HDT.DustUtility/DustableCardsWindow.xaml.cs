@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
@@ -62,11 +64,11 @@ namespace Spawn.HDT.DustUtility
 
                 Task.Run(() => m_cardCollector.GetDustableCards(m_parameters)).ContinueWith(t =>
                 {
-                    GridItem[] vItems = Convert(t.Result);
+                    List<GridItem> lstItems = ConvertAndSort(t.Result);
 
                     Dispatcher.Invoke(() =>
                     {
-                        dataGrid.ItemsSource = vItems;
+                        dataGrid.ItemsSource = lstItems;
 
                         searchButton.IsEnabled = true;
                         searchButton.Content = "GO!";
@@ -79,13 +81,15 @@ namespace Spawn.HDT.DustUtility
         }
 
         /// <summary>
-        /// Converts the specified cards.
+        /// Converts the specified cards and sorts them.
         /// </summary>
         /// <param name="vCards">The cards.</param>
         /// <returns></returns>
-        private GridItem[] Convert(CardWrapper[] vCards)
+        private List<GridItem> ConvertAndSort(CardWrapper[] vCards)
         {
-            GridItem[] vRet = new GridItem[vCards.Length];
+            List<GridItem> lstRet = new List<GridItem>(vCards.Length);
+
+            //Convert
 
             int nTotalDustAmount = 0;
             int nTotalCount = 0;
@@ -128,8 +132,11 @@ namespace Spawn.HDT.DustUtility
                 nTotalDustAmount += item.Dust;
                 nTotalCount += cardWrapper.Count;
 
-                vRet[i] = item;
+                lstRet.Add(item);
             }
+
+            //Sort
+            lstRet = lstRet.OrderBy(item => item.Rarity).ThenBy(item => item.Golden).ThenBy(item => item.Dust).ThenBy(item => item.CardClass).ThenBy(item => item.Name).ToList();
 
             Dispatcher.Invoke(() =>
             {
@@ -141,7 +148,7 @@ namespace Spawn.HDT.DustUtility
                 lblLegendaries.Content = $"Legendaries: {nLegendaries}";
             });
 
-            return vRet;
+            return lstRet;
         }
 
         /// <summary>
