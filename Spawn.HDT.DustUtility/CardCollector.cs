@@ -61,7 +61,7 @@ namespace Spawn.HDT.DustUtility
 
                         List<CardWrapper> lstChunk = lstCards.FindAll(delegate (CardWrapper cw) { return cw.DBCard.Rarity == rarity; });
 
-                        lstChunk.Sort(PostCompareCards);
+                        lstChunk.Sort(CompareCount);
 
                         for (int j = 0; j < lstChunk.Count && !blnDone; j++)
                         {
@@ -96,7 +96,7 @@ namespace Spawn.HDT.DustUtility
             else { }
         }
 
-        private int PostCompareCards(CardWrapper a, CardWrapper b)
+        private int CompareCount(CardWrapper a, CardWrapper b)
         {
             return a.Count.CompareTo(b.Count);
         }
