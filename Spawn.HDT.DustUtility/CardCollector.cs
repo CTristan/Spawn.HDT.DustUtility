@@ -101,13 +101,13 @@ namespace Spawn.HDT.DustUtility
             return a.Count.CompareTo(b.Count);
         }
 
-        private void ProcessCards(Parameters parameters, List<CardWrapper> lstRet, bool blnIncludeGolden, ref int nTotalAmount)
+        private void ProcessCards(Parameters parameters, List<CardWrapper> lstRet, ref int nTotalAmount)
         {
             bool blnDone = false;
 
             for (int i = 0; i < parameters.Rarities.Count && !blnDone; i++)
             {
-                List<CardWrapper> lstCards = GetCardsForRarity(parameters.Rarities[i], blnIncludeGolden);
+                List<CardWrapper> lstCards = GetCardsForRarity(parameters.Rarities[i], parameters.IncludeGoldenCards);
 
                 lstCards = FilterForClasses(lstCards, parameters.Classes);
 
