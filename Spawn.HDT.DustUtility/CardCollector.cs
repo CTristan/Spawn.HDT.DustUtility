@@ -101,7 +101,7 @@ namespace Spawn.HDT.DustUtility
             return a.Count.CompareTo(b.Count);
         }
 
-        private void ProcessCards(Parameters parameters, List<CardWrapper> lstRet, ref int nTotalAmount)
+        private void ProcessCards(List<CardWrapper> lstRet, Parameters parameters, ref int nTotalAmount)
         {
             bool blnDone = false;
 
