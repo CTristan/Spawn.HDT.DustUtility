@@ -1,6 +1,3 @@
-# Spawn.HDT
-This is a library of plugins for the Hearthstone Deck Tracker.
-
 # Spawn.HDT.DustUtility
 This plugin lets you earch through your collection for cards that you don't use in any deck in order to disenchant them.
 
