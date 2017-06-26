@@ -54,7 +54,7 @@ namespace Spawn.HDT.DustUtility
                 CardSet.LOE,
                 CardSet.KARA,
                 CardSet.PROMO,
-                CardSet.REWARD
+                CardSet.HOF
             };
         }
     }
