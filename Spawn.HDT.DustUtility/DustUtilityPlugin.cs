@@ -15,7 +15,7 @@ namespace Spawn.HDT.DustUtility
 
         public string ButtonText => null;
 
-        public string Author => "CLJunge";
+        public string Author => "BlackHalo";
 
         public Version Version => new Version(Assembly.GetExecutingAssembly().GetName().Version.ToString(2));
 
