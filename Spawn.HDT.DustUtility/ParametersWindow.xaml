@@ -34,18 +34,17 @@
         </GroupBox>
         <GroupBox Header="Sets" HorizontalAlignment="Left" Height="125" Margin="10,140,0,0" VerticalAlignment="Top" Width="280">
             <Grid>
-                <CheckBox Name="cbCore" Content="Basic" HorizontalAlignment="Left" Margin="5,5,0,0" VerticalAlignment="Top"/>
-                <CheckBox Name="cbExpert" Content="Classic" HorizontalAlignment="Left" Margin="5,25,0,0" VerticalAlignment="Top"/>
-                <CheckBox Name="cbGoblins" Content="GvG" HorizontalAlignment="Left" Margin="5,45,0,0" VerticalAlignment="Top"/>
-                <CheckBox Name="cbTournament" Content="TGT" HorizontalAlignment="Left" Margin="5,65,0,0" VerticalAlignment="Top"/>
-                <CheckBox Name="cbOldGods" Content="Old Gods" HorizontalAlignment="Left" Margin="75,5,0,0" VerticalAlignment="Top"/>
-                <CheckBox Name="cbGadgetzan" Content="MSG" HorizontalAlignment="Left" Margin="75,25,0,0" VerticalAlignment="Top"/>
-                <CheckBox Name="cbUngoro" Content="Un'Goro" HorizontalAlignment="Left" Margin="75,45,0,0" VerticalAlignment="Top"/>
-                <CheckBox Name="cbNaxx" Content="Naxx" HorizontalAlignment="Left" Margin="75,65,0,0" VerticalAlignment="Top"/>
-                <CheckBox Name="cbMountain" Content="BRM" HorizontalAlignment="Left" Margin="160,5,0,0" VerticalAlignment="Top"/>
-                <CheckBox Name="cbLeague" Content="LOE" HorizontalAlignment="Left" Margin="160,25,0,0" VerticalAlignment="Top"/>
-                <CheckBox Name="cbKarazhan" Content="Karazhan" HorizontalAlignment="Left" Margin="160,45,0,0" VerticalAlignment="Top"/>
-                <CheckBox Name="cbHall" Content="Hall of Fame" HorizontalAlignment="Left" Margin="160,65,0,0" VerticalAlignment="Top"/>
+                <CheckBox Name="cbExpert" Content="Classic" HorizontalAlignment="Left" Margin="5,5,0,0" VerticalAlignment="Top"/>
+                <CheckBox Name="cbGoblins" Content="GvG" HorizontalAlignment="Left" Margin="5,25,0,0" VerticalAlignment="Top"/>
+                <CheckBox Name="cbTournament" Content="TGT" HorizontalAlignment="Left" Margin="5,45,0,0" VerticalAlignment="Top"/>
+                <CheckBox Name="cbOldGods" Content="Old Gods" HorizontalAlignment="Left" Margin="5,65,0,0" VerticalAlignment="Top"/>
+                <CheckBox Name="cbGadgetzan" Content="MSG" HorizontalAlignment="Left" Margin="85,5,0,0" VerticalAlignment="Top"/>
+                <CheckBox Name="cbUngoro" Content="Un'Goro" HorizontalAlignment="Left" Margin="85,25,0,0" VerticalAlignment="Top"/>
+                <CheckBox Name="cbNaxx" Content="Naxx" HorizontalAlignment="Left" Margin="85,45,0,0" VerticalAlignment="Top"/>
+                <CheckBox Name="cbMountain" Content="BRM" HorizontalAlignment="Left" Margin="85,65,0,0" VerticalAlignment="Top"/>
+                <CheckBox Name="cbLeague" Content="LOE" HorizontalAlignment="Left" Margin="165,5,0,0" VerticalAlignment="Top"/>
+                <CheckBox Name="cbKarazhan" Content="Karazhan" HorizontalAlignment="Left" Margin="165,25,0,0" VerticalAlignment="Top"/>
+                <CheckBox Name="cbHall" Content="Hall of Fame" HorizontalAlignment="Left" Margin="165,45,0,0" VerticalAlignment="Top"/>
             </Grid>
         </GroupBox>
         <GroupBox Header="Misc." HorizontalAlignment="Left" Height="70" Margin="295,140,0,0" VerticalAlignment="Top" Width="123">

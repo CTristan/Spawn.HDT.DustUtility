@@ -43,7 +43,6 @@ namespace Spawn.HDT.DustUtility
 
             Sets = new List<CardSet>
             {
-                CardSet.CORE,
                 CardSet.EXPERT1,
                 CardSet.GVG,
                 CardSet.TGT,
