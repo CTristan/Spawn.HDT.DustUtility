@@ -50,7 +50,7 @@ namespace Spawn.HDT.DustUtility
 
                 try
                 {
-                    m_parameters.DustAmount = System.Convert.ToInt32(inputBox.Text);
+                    m_parameters.DustAmount = Convert.ToInt32(inputBox.Text);
                 }
                 catch
                 {
@@ -110,7 +110,8 @@ namespace Spawn.HDT.DustUtility
                     Golden = cardWrapper.Card.Premium,
                     Name = cardWrapper.DBCard.Name,
                     Rarity = cardWrapper.DBCard.Rarity,
-                    CardClass = cardWrapper.DBCard.Class
+                    CardClass = cardWrapper.DBCard.Class,
+                    CardSet = cardWrapper.DBCard.Set
                 };
 
                 switch (item.Rarity)
@@ -136,7 +137,7 @@ namespace Spawn.HDT.DustUtility
             }
 
             //Sort
-            lstRet = lstRet.OrderBy(item => item.Rarity).ThenBy(item => item.Golden).ThenBy(item => item.Dust).ThenBy(item => item.CardClass).ThenBy(item => item.Name).ToList();
+            lstRet = lstRet.OrderBy(item => item.Rarity).ThenBy(item => item.Golden).ThenBy(item => item.Dust).ThenBy(item => item.CardClass).ThenBy(item => item.CardSet).ThenBy(item => item.Name).ToList();
 
             Dispatcher.Invoke(() =>
             {
@@ -199,6 +200,10 @@ namespace Spawn.HDT.DustUtility
             if (e.Column.Header.ToString().ToLower().Equals("cardclass"))
             {
                 e.Column.Header = "Class";
+            }
+            else if (e.Column.Header.ToString().ToLower().Equals("cardset"))
+            {
+                e.Cancel = true;
             }
             else { }
         }

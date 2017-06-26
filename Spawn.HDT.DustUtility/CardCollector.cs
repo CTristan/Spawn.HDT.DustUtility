@@ -111,6 +111,8 @@ namespace Spawn.HDT.DustUtility
 
                 lstCards = FilterForClasses(lstCards, parameters.Classes);
 
+                lstCards = FilterForSets(lstCards, parameters.Sets);
+
                 for (int j = 0; j < lstCards.Count && !blnDone; j++)
                 {
                     CardWrapper card = lstCards[j];
@@ -192,6 +194,20 @@ namespace Spawn.HDT.DustUtility
             for (int i = 0; i < lstClasses.Count; i++)
             {
                 List<CardWrapper> lstChunk = lstCards.FindAll(delegate (CardWrapper cw) { return cw.DBCard.Class == lstClasses[i]; });
+
+                lstRet.AddRange(lstChunk);
+            }
+
+            return lstRet;
+        }
+
+        private List<CardWrapper> FilterForSets(List<CardWrapper> lstCards, List<CardSet> lstSets)
+        {
+            List<CardWrapper> lstRet = new List<CardWrapper>();
+
+            for (int i = 0; i < lstSets.Count; i++)
+            {
+                List<CardWrapper> lstChunk = lstCards.FindAll(delegate (CardWrapper cw) { return cw.DBCard.Set == lstSets[i]; });
 
                 lstRet.AddRange(lstChunk);
             }
