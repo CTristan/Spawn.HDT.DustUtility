@@ -28,7 +28,7 @@ namespace Spawn.HDT.DustUtility
             {
                 int nTotalAmount = 0;
                 
-                ProcessCards(parameters, lstRet, ref nTotalAmount);
+                ProcessCards(lstRet, parameters, ref nTotalAmount);
 
                 //Post processing
                 //Remove low rarity cards if the total amount is over the targeted amount
