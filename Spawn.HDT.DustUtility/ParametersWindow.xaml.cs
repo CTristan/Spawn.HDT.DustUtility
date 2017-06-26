@@ -34,7 +34,7 @@ namespace Spawn.HDT.DustUtility
             else { }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Close_Click(object sender, RoutedEventArgs e)
         {
             if (Parameters != null)
             {

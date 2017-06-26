@@ -39,7 +39,7 @@ namespace Spawn.HDT.DustUtility
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Go_Click(object sender, RoutedEventArgs e)
         {
             if (!string.IsNullOrEmpty(inputBox.Text) && m_cardCollector != null && m_parameters != null)
             {
@@ -167,7 +167,7 @@ namespace Spawn.HDT.DustUtility
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void Filter_Click(object sender, RoutedEventArgs e)
         {
             if (m_cardCollector != null && m_parameters != null)
             {
@@ -185,7 +185,7 @@ namespace Spawn.HDT.DustUtility
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void TotalDust_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show($"Your collection is worth: {m_cardCollector.GetTotalDustValueForAllCards()} Dust", "Dust Utitlity", MessageBoxButton.OK, MessageBoxImage.Information);
         }
