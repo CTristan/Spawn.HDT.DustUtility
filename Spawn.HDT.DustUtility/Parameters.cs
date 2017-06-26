@@ -13,6 +13,8 @@ namespace Spawn.HDT.DustUtility
 
         public List<CardClass> Classes { get; set; }
 
+        public List<CardSet> Sets { get; set; }
+
         public Parameters()
         {
             IncludeGoldenCards = false;
@@ -37,6 +39,23 @@ namespace Spawn.HDT.DustUtility
                 CardClass.WARLOCK,
                 CardClass.WARRIOR,
                 CardClass.NEUTRAL
+            };
+
+            Sets = new List<CardSet>
+            {
+                CardSet.CORE,
+                CardSet.EXPERT1,
+                CardSet.GVG,
+                CardSet.TGT,
+                CardSet.OG,
+                CardSet.GANGS,
+                CardSet.UNGORO,
+                CardSet.NAXX,
+                CardSet.BRM,
+                CardSet.LOE,
+                CardSet.KARA,
+                CardSet.PROMO,
+                CardSet.REWARD
             };
         }
     }
