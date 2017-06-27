@@ -13,4 +13,4 @@ Keep track of which cards in your hand didn't start in your deck.
 - Documentation
 - Offline Collection Cache
 - Clean up/Commentate source code
-- Added proper logging to build tool
+- Add proper logging to build tool
