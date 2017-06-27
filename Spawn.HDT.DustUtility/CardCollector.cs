@@ -59,7 +59,7 @@ namespace Spawn.HDT.DustUtility
                     {
                         Rarity rarity = parameters.Rarities[i];
 
-                        List<CardWrapper> lstChunk = lstCards.FindAll(delegate (CardWrapper cw) { return cw.DBCard.Rarity == rarity; });
+                        List<CardWrapper> lstChunk = lstCards.FindAll(delegate (CardWrapper cw) { return cw.DbCard.Rarity == rarity; });
 
                         lstChunk.Sort(CompareCount);
 
@@ -174,7 +174,7 @@ namespace Spawn.HDT.DustUtility
                         else { }
                     }
 
-                    if (cardWrapper.MaxCountInDecks <= 1 && cardWrapper.Card.Count > cardWrapper.MaxCountInDecks && !(cardWrapper.DBCard.Rarity == Rarity.LEGENDARY && cardWrapper.MaxCountInDecks == 1))
+                    if (cardWrapper.MaxCountInDecks <= 1 && cardWrapper.Card.Count > cardWrapper.MaxCountInDecks && !(cardWrapper.DbCard.Rarity == Rarity.LEGENDARY && cardWrapper.MaxCountInDecks == 1))
                     {
                         m_lstUnusedCards.Add(cardWrapper);
                     }
@@ -193,7 +193,7 @@ namespace Spawn.HDT.DustUtility
 
             for (int i = 0; i < lstClasses.Count; i++)
             {
-                List<CardWrapper> lstChunk = lstCards.FindAll(delegate (CardWrapper cw) { return cw.DBCard.Class == lstClasses[i]; });
+                List<CardWrapper> lstChunk = lstCards.FindAll(delegate (CardWrapper cw) { return cw.DbCard.Class == lstClasses[i]; });
 
                 lstRet.AddRange(lstChunk);
             }
@@ -207,7 +207,7 @@ namespace Spawn.HDT.DustUtility
 
             for (int i = 0; i < lstSets.Count; i++)
             {
-                List<CardWrapper> lstChunk = lstCards.FindAll(delegate (CardWrapper cw) { return cw.DBCard.Set == lstSets[i]; });
+                List<CardWrapper> lstChunk = lstCards.FindAll(delegate (CardWrapper cw) { return cw.DbCard.Set == lstSets[i]; });
 
                 lstRet.AddRange(lstChunk);
             }

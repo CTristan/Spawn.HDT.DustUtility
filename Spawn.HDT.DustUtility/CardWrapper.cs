@@ -8,7 +8,7 @@ namespace Spawn.HDT.DustUtility
         private HearthDb.Card m_dbCard;
 
         public Card Card => m_card;
-        public HearthDb.Card DBCard => m_dbCard;
+        public HearthDb.Card DbCard => m_dbCard;
         public int MaxCountInDecks { get; set; }
         public int Count => m_card.Count - MaxCountInDecks;
 
