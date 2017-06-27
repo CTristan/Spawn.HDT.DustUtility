@@ -1,8 +1,8 @@
 ## v1.0
 - Initial release
 
-## v1.1
+## v1.1 [CURRENT]
 - Class and Set filtering
 
 ## v1.2
-- Collection Cache
+- Offline Collection Cache
