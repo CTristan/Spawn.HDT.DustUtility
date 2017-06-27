@@ -21,9 +21,9 @@ namespace Spawn.HDT.DustUtility
 
             if (card != null)
             {
-                Hearthstone_Deck_Tracker.Hearthstone.Card c = new Hearthstone_Deck_Tracker.Hearthstone.Card(Cards.All[card.Id]);
+                Card c = Cards.All[card.Id];
 
-                if (c.CardSet.HasValue && c.CardSet.Value != CardSet.CORE)
+                if (c.Set != CardSet.CORE)
                 {
                     switch (c.Rarity)
                     {
