@@ -1,3 +1,12 @@
+--- Spawn.HDT.Build
+## v1.0
+- Initial release
+
+## v1.1
+- Implemented proper logging
+
+
+--- Spawn.HDT.DustUtility
 ## v1.0
 - Initial release
 
@@ -6,3 +15,8 @@
 
 ## v1.2
 - Offline Collection Cache
+
+
+--- Spawn.HDT.StrangerCards
+## v1.0
+- Initial release
