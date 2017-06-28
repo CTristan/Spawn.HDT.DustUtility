@@ -14,7 +14,7 @@ namespace Spawn.HDT.DustUtility
 
         public string Description => "Enter the amount of dust you want to get and check which cards are currently not used in any deck in order to disenchant them.";
 
-        public string ButtonText => "Toggle Offline Mode";
+        public string ButtonText => "Open Settings";
 
         public string Author => "BlackHalo";
 
@@ -24,7 +24,6 @@ namespace Spawn.HDT.DustUtility
 
         private MenuItem m_menuItem;
         private CardCollector m_cardCollector;
-        private bool m_blnOfflineMode;
         
         public void OnLoad()
         {
@@ -38,11 +37,11 @@ namespace Spawn.HDT.DustUtility
 
         private void OnClick(object sender, RoutedEventArgs e)
         {
-            if (Core.Game.IsRunning || m_blnOfflineMode)
+            if (Core.Game.IsRunning || Settings.OfflineMode)
             {
                 if (m_cardCollector == null)
                 {
-                    m_cardCollector = new CardCollector(!Core.Game.IsRunning && m_blnOfflineMode);
+                    m_cardCollector = new CardCollector(!Core.Game.IsRunning && Settings.OfflineMode);
                 }
                 else { }
 
@@ -50,7 +49,7 @@ namespace Spawn.HDT.DustUtility
 
                 w.Show();
             }
-            else if (!m_blnOfflineMode)
+            else if (!Settings.OfflineMode)
             {
                 MessageBox.Show("Hearthstone isn't running!", "Dust Utility", MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -59,17 +58,9 @@ namespace Spawn.HDT.DustUtility
 
         public void OnButtonPress()
         {
-            m_blnOfflineMode = !m_blnOfflineMode;
+            SettingsWindow w = new SettingsWindow();
 
-            string strMessage = "New mode: ONLINE";
-
-            if (m_blnOfflineMode)
-            {
-                strMessage = "New mode: OFFLINE";
-            }
-            else { }
-
-            MessageBox.Show(strMessage, "Dust Utility", MessageBoxButton.OK, MessageBoxImage.Information);
+            w.ShowDialog();
         }
 
         public void OnUnload()
