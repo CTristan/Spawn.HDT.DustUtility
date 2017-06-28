@@ -10,16 +10,21 @@ namespace Spawn.HDT.DustUtility
 {
     public class CardCollector
     {
+        #region Member Variables
         private List<CardWrapper> m_lstUnusedCards;
         private bool m_blnOfflineMode;
+        #endregion
 
+        #region Ctor
         public CardCollector(bool offlineMode = false)
         {
             m_blnOfflineMode = offlineMode;
 
             m_lstUnusedCards = new List<CardWrapper>();
         }
+        #endregion
 
+        #region GetDustableCards
         public CardWrapper[] GetDustableCards(Parameters parameters)
         {
             List<Card> lstCollection = LoadCollection();
@@ -31,14 +36,14 @@ namespace Spawn.HDT.DustUtility
             if (lstCollection.Count > 0)
             {
                 int nTotalAmount = 0;
-                
+
                 ProcessCards(lstRet, parameters, ref nTotalAmount);
 
                 //Post processing
                 //Remove low rarity cards if the total amount is over the targeted amount
                 if (nTotalAmount > parameters.DustAmount)
                 {
-                    PostProcessCards(lstRet, parameters, ref nTotalAmount); 
+                    PostProcessCards(lstRet, parameters, ref nTotalAmount);
                 }
                 else { }
             }
@@ -46,7 +51,9 @@ namespace Spawn.HDT.DustUtility
 
             return lstRet.ToArray();
         }
+        #endregion
 
+        #region PostProcessCards
         private void PostProcessCards(List<CardWrapper> lstCards, Parameters parameters, ref int nTotalAmount)
         {
             if (lstCards.Count > 0 && parameters.Rarities.Count > 0)
@@ -99,12 +106,16 @@ namespace Spawn.HDT.DustUtility
             }
             else { }
         }
+        #endregion
 
+        #region CompareCount
         private int CompareCount(CardWrapper a, CardWrapper b)
         {
             return a.Count.CompareTo(b.Count);
         }
+        #endregion
 
+        #region ProcessCards
         private void ProcessCards(List<CardWrapper> lstRet, Parameters parameters, ref int nTotalAmount)
         {
             bool blnDone = false;
@@ -129,7 +140,9 @@ namespace Spawn.HDT.DustUtility
                 }
             }
         }
+        #endregion
 
+        #region GetTotalDustValueForAllCards
         public int GetTotalDustValueForAllCards()
         {
             List<Card> lstCards = LoadCollection();
@@ -143,7 +156,9 @@ namespace Spawn.HDT.DustUtility
 
             return nRet;
         }
+        #endregion
 
+        #region CheckForUnusedCards
         private void CheckForUnusedCards(List<Card> lstCollection)
         {
             if (lstCollection == null)
@@ -191,7 +206,9 @@ namespace Spawn.HDT.DustUtility
             }
             else { }
         }
+        #endregion
 
+        #region FilterForClasses
         private List<CardWrapper> FilterForClasses(List<CardWrapper> lstCards, List<CardClass> lstClasses)
         {
             List<CardWrapper> lstRet = new List<CardWrapper>();
@@ -205,7 +222,9 @@ namespace Spawn.HDT.DustUtility
 
             return lstRet;
         }
+        #endregion
 
+        #region FilterForSets
         private List<CardWrapper> FilterForSets(List<CardWrapper> lstCards, List<CardSet> lstSets)
         {
             List<CardWrapper> lstRet = new List<CardWrapper>();
@@ -219,7 +238,9 @@ namespace Spawn.HDT.DustUtility
 
             return lstRet;
         }
+        #endregion
 
+        #region GetCardsForRarity
         private List<CardWrapper> GetCardsForRarity(Rarity rarity, bool blnIncludeGoldenCards = false)
         {
             List<CardWrapper> lstRet = new List<CardWrapper>();
@@ -235,7 +256,9 @@ namespace Spawn.HDT.DustUtility
 
             return lstRet;
         }
+        #endregion
 
+        #region LoadCollection
         private List<Card> LoadCollection()
         {
             List<Card> lstRet = null;
@@ -251,7 +274,9 @@ namespace Spawn.HDT.DustUtility
 
             return lstRet;
         }
+        #endregion
 
+        #region LoadDecks
         private List<Deck> LoadDecks()
         {
             List<Deck> lstRet = null;
@@ -266,6 +291,7 @@ namespace Spawn.HDT.DustUtility
             }
 
             return lstRet;
-        }
+        } 
+        #endregion
     }
 }

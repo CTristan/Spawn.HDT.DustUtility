@@ -6,8 +6,13 @@ namespace Spawn.HDT.DustUtility
 {
     public partial class ParametersWindow
     {
-        public Parameters Parameters { get; set; }
+        #region Properties
+        #region Parameters
+        public Parameters Parameters { get; set; } 
+        #endregion
+        #endregion
 
+        #region Ctor
         public ParametersWindow()
         {
             InitializeComponent();
@@ -18,8 +23,11 @@ namespace Spawn.HDT.DustUtility
         {
             Parameters = parameters;
         }
+        #endregion
 
-        private void Window_Initialized(object sender, EventArgs e)
+        #region Events
+        #region OnWindowInitialized
+        private void OnWindowInitialized(object sender, EventArgs e)
         {
             if (Parameters != null)
             {
@@ -33,8 +41,10 @@ namespace Spawn.HDT.DustUtility
             }
             else { }
         }
+        #endregion
 
-        private void Close_Click(object sender, RoutedEventArgs e)
+        #region OnCloseClick
+        private void OnCloseClick(object sender, RoutedEventArgs e)
         {
             if (Parameters != null)
             {
@@ -50,7 +60,10 @@ namespace Spawn.HDT.DustUtility
 
             Close();
         }
+        #endregion
+        #endregion
 
+        #region SetRarities
         private void SetRarities()
         {
             Parameters.Rarities.Clear();
@@ -79,7 +92,9 @@ namespace Spawn.HDT.DustUtility
             }
             else { }
         }
+        #endregion
 
+        #region SetClasses
         private void SetClasses()
         {
             Parameters.Classes.Clear();
@@ -144,7 +159,9 @@ namespace Spawn.HDT.DustUtility
             }
             else { }
         }
+        #endregion
 
+        #region SetCardSets
         private void SetCardSets()
         {
             Parameters.Sets.Clear();
@@ -216,7 +233,9 @@ namespace Spawn.HDT.DustUtility
             }
             else { }
         }
+        #endregion
 
+        #region LoadRarities
         private void LoadRarities()
         {
             for (int i = 0; i < Parameters.Rarities.Count; i++)
@@ -238,7 +257,9 @@ namespace Spawn.HDT.DustUtility
                 }
             }
         }
+        #endregion
 
+        #region LoadClasses
         private void LoadClasses()
         {
             for (int i = 0; i < Parameters.Classes.Count; i++)
@@ -278,7 +299,9 @@ namespace Spawn.HDT.DustUtility
                 }
             }
         }
+        #endregion
 
+        #region LoadClassSets
         private void LoadClassSets()
         {
             for (int i = 0; i < Parameters.Sets.Count; i++)
@@ -321,6 +344,7 @@ namespace Spawn.HDT.DustUtility
                         break;
                 }
             }
-        }
+        } 
+        #endregion
     }
 }

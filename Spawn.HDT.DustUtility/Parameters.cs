@@ -5,16 +5,29 @@ namespace Spawn.HDT.DustUtility
 {
     public class Parameters
     {
+        #region Properties
+        #region DustAmount
         public int DustAmount { get; set; }
+        #endregion
 
+        #region IncludeGoldenCards
         public bool IncludeGoldenCards { get; set; }
+        #endregion
 
+        #region Rarites
         public List<Rarity> Rarities { get; set; }
+        #endregion
 
+        #region Classes
         public List<CardClass> Classes { get; set; }
+        #endregion
 
-        public List<CardSet> Sets { get; set; }
+        #region Sets
+        public List<CardSet> Sets { get; set; } 
+        #endregion
+        #endregion
 
+        #region Ctor
         public Parameters()
         {
             IncludeGoldenCards = false;
@@ -56,6 +69,7 @@ namespace Spawn.HDT.DustUtility
                 CardSet.PROMO,
                 CardSet.HOF
             };
-        }
+        } 
+        #endregion
     }
 }

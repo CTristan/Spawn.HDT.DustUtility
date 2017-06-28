@@ -10,21 +10,38 @@ namespace Spawn.HDT.DustUtility
 {
     public class DustUtilityPlugin : IPlugin
     {
-        public string Name => "Dust Utility";
-
-        public string Description => "Enter the amount of dust you want to get and check which cards are currently not used in any deck in order to disenchant them.";
-
-        public string ButtonText => "Open Settings";
-
-        public string Author => "BlackHalo";
-
-        public Version Version => new Version(Assembly.GetExecutingAssembly().GetName().Version.ToString(2));
-
-        public MenuItem MenuItem => m_menuItem;
-
+        #region Member Variables
         private MenuItem m_menuItem;
         private CardCollector m_cardCollector;
-        
+        #endregion
+
+        #region Properties
+        #region Name
+        public string Name => "Dust Utility";
+        #endregion
+
+        #region Description
+        public string Description => "Enter the amount of dust you want to get and check which cards are currently not used in any deck in order to disenchant them.";
+        #endregion
+
+        #region ButtonText
+        public string ButtonText => "Open Settings";
+        #endregion
+
+        #region Author
+        public string Author => "BlackHalo";
+        #endregion
+
+        #region Version
+        public Version Version => new Version(Assembly.GetExecutingAssembly().GetName().Version.ToString(2));
+        #endregion
+
+        #region MenuItem
+        public MenuItem MenuItem => m_menuItem; 
+        #endregion
+        #endregion
+
+        #region OnLoad
         public void OnLoad()
         {
             m_menuItem = new MenuItem()
@@ -34,7 +51,40 @@ namespace Spawn.HDT.DustUtility
 
             m_menuItem.Click += OnClick;
         }
+        #endregion
+        
+        #region OnButtonPress
+        public void OnButtonPress()
+        {
+            SettingsWindow w = new SettingsWindow();
 
+            w.ShowDialog();
+        }
+        #endregion
+
+        #region OnUnload
+        public void OnUnload()
+        {
+            if (Cache.TimerEnabled)
+            {
+                Cache.StopTimer();
+            }
+            else { }
+        }
+        #endregion
+
+        #region OnUpdate
+        public void OnUpdate()
+        {
+            if (Core.Game.IsRunning && !Cache.TimerEnabled)
+            {
+                Cache.StartTimer();
+            }
+            else { }
+        }
+        #endregion
+
+        #region OnClick
         private void OnClick(object sender, RoutedEventArgs e)
         {
             if (Core.Game.IsRunning || Settings.OfflineMode)
@@ -55,30 +105,6 @@ namespace Spawn.HDT.DustUtility
             }
             else { }
         }
-
-        public void OnButtonPress()
-        {
-            SettingsWindow w = new SettingsWindow();
-
-            w.ShowDialog();
-        }
-
-        public void OnUnload()
-        {
-            if (Cache.TimerEnabled)
-            {
-                Cache.StopTimer(); 
-            }
-            else { }
-        }
-
-        public void OnUpdate()
-        {
-            if (Core.Game.IsRunning && !Cache.TimerEnabled)
-            {
-                Cache.StartTimer();
-            }
-            else { }
-        }
+        #endregion
     }
 }

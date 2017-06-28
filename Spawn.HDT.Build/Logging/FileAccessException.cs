@@ -7,7 +7,7 @@ namespace Spawn.SDK.Logging
     [Serializable]
     public class FileAccessException : Exception
     {
-        #region Constructor
+        #region Ctor
         public FileAccessException(string Message, Exception InnerException) : base(Message, InnerException) { } 
         #endregion
     }

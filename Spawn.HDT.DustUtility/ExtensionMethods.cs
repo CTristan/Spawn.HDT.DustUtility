@@ -7,16 +7,21 @@ namespace Spawn.HDT.DustUtility
 {
     public static class ExtensionMethods
     {
+        #region Contains
         public static bool Contains(this HearthMirror.Objects.Deck deck, string strId)
         {
             return GetCard(deck, strId) != null;
         }
+        #endregion
 
+        #region GetCard
         public static HearthMirror.Objects.Card GetCard(this HearthMirror.Objects.Deck deck, string strId)
         {
             return deck.Cards.Find(delegate (HearthMirror.Objects.Card c) { return strId.Equals(c.Id); });
         }
+        #endregion
 
+        #region GetDustValue
         public static int GetDustValue(this HearthMirror.Objects.Card card)
         {
             int nRet = 0;
@@ -49,7 +54,9 @@ namespace Spawn.HDT.DustUtility
 
             return nRet;
         }
+        #endregion
 
+        #region ToCachedCards
         public static List<CachedCard> ToCachedCards(this List<HearthMirror.Objects.Card> lstCards)
         {
             List<CachedCard> lstRet = new List<CachedCard>();
@@ -70,7 +77,9 @@ namespace Spawn.HDT.DustUtility
 
             return lstRet;
         }
+        #endregion
 
+        #region ToCards
         public static List<HearthMirror.Objects.Card> ToCards(this List<CachedCard> lstCachedCards)
         {
             List<HearthMirror.Objects.Card> lstRet = new List<HearthMirror.Objects.Card>();
@@ -78,11 +87,12 @@ namespace Spawn.HDT.DustUtility
             for (int i = 0; i < lstCachedCards.Count; i++)
             {
                 CachedCard cachedCard = lstCachedCards[i];
-                
+
                 lstRet.Add(new HearthMirror.Objects.Card(cachedCard.Id, cachedCard.Count, cachedCard.IsGolden));
             }
 
             return lstRet;
-        }
+        } 
+        #endregion
     }
 }

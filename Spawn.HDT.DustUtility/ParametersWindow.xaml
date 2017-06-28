@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:local="clr-namespace:Spawn.HDT.DustUtility"
-        mc:Ignorable="d" ResizeMode="CanMinimize" Loaded="Window_Initialized"
+        mc:Ignorable="d" ResizeMode="CanMinimize" Loaded="OnWindowInitialized"
         WindowStartupLocation="CenterOwner"
         Title="Filters" Height="305" Width="434">
     <Grid>
-        <Button Content="Close" HorizontalAlignment="Right" Height="25" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="75" Click="Close_Click"/>
+        <Button Content="Close" HorizontalAlignment="Right" Height="25" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="75" Click="OnCloseClick"/>
         <GroupBox Header="Rarities" HorizontalAlignment="Left" Height="125" Margin="10,10,0,0" VerticalAlignment="Top" Width="105">
             <Grid>
                 <CheckBox Name="cbCommon" Content="Common" HorizontalAlignment="Left" Margin="5,5,0,0" VerticalAlignment="Top"/>

@@ -10,10 +10,13 @@ namespace Spawn.HDT.DustUtility
 {
     public partial class DustableCardsWindow
     {
+        #region Member Variables
         private CardCollector m_cardCollector;
         private Regex m_numericRegex;
-        private Parameters m_parameters;
+        private Parameters m_parameters; 
+        #endregion
 
+        #region Ctor
         /// <summary>
         /// Initializes a new instance of the <see cref="DustableCardsWindow"/> class.
         /// </summary>
@@ -33,13 +36,16 @@ namespace Spawn.HDT.DustUtility
             m_numericRegex = new Regex("[^0-9]+");
             m_parameters = new Parameters();
         }
+        #endregion
 
+        #region Events
+        #region OnGoClick
         /// <summary>
         /// Handles the Click event of the GO! button.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
-        private void Go_Click(object sender, RoutedEventArgs e)
+        private void OnGoClick(object sender, RoutedEventArgs e)
         {
             if (!string.IsNullOrEmpty(inputBox.Text) && m_cardCollector != null && m_parameters != null)
             {
@@ -79,7 +85,62 @@ namespace Spawn.HDT.DustUtility
             }
             else { }
         }
+        #endregion
 
+        #region OnFiltersClick
+        /// <summary>
+        /// Handles the event of the filters button.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        private void OnFiltersClick(object sender, RoutedEventArgs e)
+        {
+            if (m_cardCollector != null && m_parameters != null)
+            {
+                ParametersWindow rarityWindow = new ParametersWindow(m_parameters);
+
+                rarityWindow.ShowDialog();
+
+                m_parameters = rarityWindow.Parameters;
+            }
+            else { }
+        }
+        #endregion
+
+        #region OnTotalDustClick
+        /// <summary>
+        /// Handles the event of the dust button.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        private void OnTotalDustClick(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show($"Your collection is worth: {m_cardCollector.GetTotalDustValueForAllCards()} Dust", "Dust Utitlity", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        #endregion
+
+        #region OnAutoGeneratingColumn
+        /// <summary>
+        /// Called when a column is automatically generated.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.Windows.Controls.DataGridAutoGeneratingColumnEventArgs"/> instance containing the event data.</param>
+        private void OnAutoGeneratingColumn(object sender, System.Windows.Controls.DataGridAutoGeneratingColumnEventArgs e)
+        {
+            if (e.Column.Header.ToString().ToLower().Equals("cardclass"))
+            {
+                e.Column.Header = "Class";
+            }
+            else if (e.Column.Header.ToString().ToLower().Equals("cardset"))
+            {
+                e.Cancel = true;
+            }
+            else { }
+        }
+        #endregion
+        #endregion
+
+        #region ConvertAndSort
         /// <summary>
         /// Converts the specified cards and sorts them.
         /// </summary>
@@ -151,7 +212,9 @@ namespace Spawn.HDT.DustUtility
 
             return lstRet;
         }
+        #endregion
 
+        #region ValidateInput
         /// <summary>
         /// Validates the input.
         /// </summary>
@@ -161,51 +224,6 @@ namespace Spawn.HDT.DustUtility
         {
             e.Handled = m_numericRegex.IsMatch(e.Text);
         }
-
-        /// <summary>
-        /// Handles the event of the filter button.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
-        private void Filter_Click(object sender, RoutedEventArgs e)
-        {
-            if (m_cardCollector != null && m_parameters != null)
-            {
-                ParametersWindow rarityWindow = new ParametersWindow(m_parameters);
-
-                rarityWindow.ShowDialog();
-
-                m_parameters = rarityWindow.Parameters;
-            }
-            else { }
-        }
-
-        /// <summary>
-        /// Handles the event of the dust button.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
-        private void TotalDust_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show($"Your collection is worth: {m_cardCollector.GetTotalDustValueForAllCards()} Dust", "Dust Utitlity", MessageBoxButton.OK, MessageBoxImage.Information);
-        }
-
-        /// <summary>
-        /// Called when a column is automatically generated.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="System.Windows.Controls.DataGridAutoGeneratingColumnEventArgs"/> instance containing the event data.</param>
-        private void OnAutoGeneratingColumn(object sender, System.Windows.Controls.DataGridAutoGeneratingColumnEventArgs e)
-        {
-            if (e.Column.Header.ToString().ToLower().Equals("cardclass"))
-            {
-                e.Column.Header = "Class";
-            }
-            else if (e.Column.Header.ToString().ToLower().Equals("cardset"))
-            {
-                e.Cancel = true;
-            }
-            else { }
-        }
+        #endregion
     }
 }

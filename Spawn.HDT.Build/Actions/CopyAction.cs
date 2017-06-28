@@ -9,7 +9,9 @@ namespace Spawn.HDT.Build.Action
 {
     public class CopyAction : IAction<Parameters.CopyParameters>, ILoggable
     {
-        private string m_strProcessName = "HearthstoneDeckTracker";
+        #region Member Variables
+        private string m_strProcessName = "HearthstoneDeckTracker"; 
+        #endregion
 
         #region Execute
         public bool Execute(Parameters.CopyParameters parameters)

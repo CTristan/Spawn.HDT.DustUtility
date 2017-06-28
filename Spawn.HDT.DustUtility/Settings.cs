@@ -2,6 +2,8 @@
 {
     public static class Settings
     {
+        #region Properties
+        #region OfflineMode
         public static bool OfflineMode
         {
             get
@@ -13,6 +15,8 @@
                 Properties.Settings.Default.OfflineMode = value;
                 Properties.Settings.Default.Save();
             }
-        }
+        }  
+        #endregion
+        #endregion
     }
 }

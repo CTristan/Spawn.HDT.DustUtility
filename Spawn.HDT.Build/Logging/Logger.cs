@@ -135,7 +135,7 @@ namespace Spawn.SDK.Logging
         }
         #endregion
 
-        #region Constructor
+        #region Ctor
         /// <summary>
         /// Initializes the <see cref="Logger" /> class.
         /// </summary>

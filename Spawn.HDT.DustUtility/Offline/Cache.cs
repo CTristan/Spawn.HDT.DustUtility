@@ -11,15 +11,22 @@ namespace Spawn.HDT.DustUtility.Offline
 {
     public static class Cache
     {
+        #region Static Variables
         private static Timer s_timer;
         private static bool s_blnSaveCollectionInProgress;
-        private static bool s_blnSaveDecksInProgress;
+        private static bool s_blnSaveDecksInProgress; 
+        #endregion
 
+        #region Constants
         private const string COLLECTION = "collection";
         private const string DECKS = "decks";
+        #endregion
 
+        #region Static Properties
         public static bool TimerEnabled => s_timer != null;
-        
+        #endregion
+
+        #region SaveCollection
         public static bool SaveCollection()
         {
             bool blnRet = false;
@@ -52,10 +59,12 @@ namespace Spawn.HDT.DustUtility.Offline
                 blnRet = true;
             }
             else { }
-            
+
             return blnRet;
         }
+        #endregion
 
+        #region SaveDecks
         public static bool SaveDecks()
         {
             bool blnRet = false;
@@ -111,7 +120,9 @@ namespace Spawn.HDT.DustUtility.Offline
 
             return blnRet;
         }
+        #endregion
 
+        #region LoadCollection
         public static List<Card> LoadCollection()
         {
             List<Card> lstRet = new List<Card>();
@@ -132,7 +143,7 @@ namespace Spawn.HDT.DustUtility.Offline
                 for (int i = 0; i < lstCachedCards.Count; i++)
                 {
                     CachedCard cachedCard = lstCachedCards[i];
-                    
+
                     lstRet.Add(new Card(cachedCard.Id, cachedCard.Count, cachedCard.IsGolden));
                 }
             }
@@ -140,7 +151,9 @@ namespace Spawn.HDT.DustUtility.Offline
 
             return lstRet;
         }
+        #endregion
 
+        #region LoadDecks
         public static List<Deck> LoadDecks()
         {
             List<Deck> lstRet = new List<Deck>();
@@ -182,18 +195,24 @@ namespace Spawn.HDT.DustUtility.Offline
 
             return lstRet;
         }
+        #endregion
 
+        #region StartTimer
         public static void StartTimer()
         {
             s_timer = new Timer(OnTick, null, 0, 1000 * 10); //every 10s, if successful then every 5 min
         }
+        #endregion
 
+        #region StopTimer
         public static void StopTimer()
         {
             s_timer.Dispose();
             s_timer = null;
         }
+        #endregion
 
+        #region OnTick
         private static void OnTick(object state)
         {
             Debug.WriteLine("Cache OnTick");
@@ -211,7 +230,9 @@ namespace Spawn.HDT.DustUtility.Offline
             }
             else { }
         }
+        #endregion
 
+        #region GetFullFileName
         private static string GetFullFileName(string strFileName)
         {
             string strBaseDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "HearthstoneDeckTracker", "DustUtility");
@@ -223,6 +244,7 @@ namespace Spawn.HDT.DustUtility.Offline
             else { }
 
             return Path.Combine(strBaseDir, $"{strFileName}.xml");
-        }
+        } 
+        #endregion
     }
 }

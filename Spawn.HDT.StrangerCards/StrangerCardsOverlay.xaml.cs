@@ -1,19 +1,22 @@
-﻿using HearthDb.Enums;
+﻿using System;
+using System.Collections.Generic;
+using System.Windows.Controls;
+using HearthDb.Enums;
 using Hearthstone_Deck_Tracker.API;
 using Hearthstone_Deck_Tracker.Controls;
 using Hearthstone_Deck_Tracker.Enums;
 using Hearthstone_Deck_Tracker.Hearthstone.Entities;
-using System;
-using System.Collections.Generic;
-using System.Windows.Controls;
 
 namespace Spawn.HDT.StrangerCards
 {
     public partial class StrangerCardsOverlay : UserControl
     {
+        #region Member Variables
         private CardMarker[] m_vMarkers;
         private bool m_blnSpellsOnly = false;
+        #endregion
 
+        #region Ctor
         public StrangerCardsOverlay()
         {
             InitializeComponent();
@@ -27,7 +30,9 @@ namespace Spawn.HDT.StrangerCards
                 m_vMarkers[i].SetCostReduction(0);
             }
         }
+        #endregion
 
+        #region UpdateMarker
         public void UpdateMarker()
         {
             List<Entity> lstHand = new List<Entity>(Core.Game.Player.Hand);
@@ -62,11 +67,14 @@ namespace Spawn.HDT.StrangerCards
 
             UpdateLayout();
         }
+        #endregion
 
+        #region UpdatePosition
         public void UpdatePosition()
         {
             Canvas.SetBottom(this, 35);
             Canvas.SetLeft(this, Core.OverlayCanvas.Width * .1);
-        }
+        } 
+        #endregion
     }
 }

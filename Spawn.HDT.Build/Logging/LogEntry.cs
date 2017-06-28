@@ -80,7 +80,7 @@ namespace Spawn.SDK.Logging
         #endregion
         #endregion
 
-        #region Constructor
+        #region Ctor
         /// <summary>
         /// Initializes a new instance of the <see cref="LogEntry" /> class.
         /// </summary>
