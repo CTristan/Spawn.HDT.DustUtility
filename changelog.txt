@@ -5,7 +5,8 @@
 ## v1.1
 - Implemented proper logging
 
-
+## v1.2
+- Can now trigger a build without Visual Studio
 
 --- Spawn.HDT.DustUtility ---
 ## v1.0
