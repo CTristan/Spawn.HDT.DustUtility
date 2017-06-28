@@ -214,8 +214,6 @@ namespace Spawn.HDT.DustUtility.Offline
 
         private static string GetFullFileName(string strFileName)
         {
-            string strRet = string.Empty;
-
             string strBaseDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "HearthstoneDeckTracker", "DustUtility");
 
             if (!Directory.Exists(strBaseDir))
@@ -224,9 +222,7 @@ namespace Spawn.HDT.DustUtility.Offline
             }
             else { }
 
-            strRet = Path.Combine(strBaseDir, $"{strFileName}.xml");
-
-            return strRet;
+            return Path.Combine(strBaseDir, $"{strFileName}.xml");
         }
     }
 }

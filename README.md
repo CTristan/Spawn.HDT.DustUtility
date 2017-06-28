@@ -10,6 +10,7 @@ Keep track of which cards in your hand didn't start in your deck.
 
 ## ToDo
 - Offline Mode (when Hearthstone isn't running)
+- Add Plugin settings for offline mode
 - Improve README.md (Documentation)
 - Clean up/Commentate source code
 - Add proper logging to build tool
