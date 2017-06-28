@@ -76,7 +76,7 @@ namespace Spawn.HDT.Build.Action
 
                     Log(LogLevel.Trace, $"Copying \"{vFiles[i]}\" to \"{parameters.OutputPath}\"");
 
-                    File.Copy(vFiles[i], Path.Combine(parameters.OutputPath, strFileName));
+                    File.Copy(vFiles[i], Path.Combine(parameters.OutputPath, strFileName), true);
                 }
             }
             else

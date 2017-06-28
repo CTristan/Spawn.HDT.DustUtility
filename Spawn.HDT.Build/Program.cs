@@ -78,10 +78,6 @@ namespace Spawn.HDT.Build
             {
                 Log(LogLevel.Warning, "Passed no or invalid parameters!");
             }
-
-#if DEBUG
-            System.Diagnostics.Process.GetCurrentProcess().WaitForExit();
-#endif
         }
         #endregion
 
