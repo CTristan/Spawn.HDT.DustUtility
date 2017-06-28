@@ -1,8 +1,9 @@
-﻿using CommandLine;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
+using CommandLine;
+using Spawn.SDK.Logging;
 
 namespace Spawn.HDT.Build
 {
@@ -10,15 +11,17 @@ namespace Spawn.HDT.Build
     {
         private static void Main(string[] args)
         {
+            Logger.Default.WriteToConsole = true;
+            
             Parameters parameters = new Parameters();
             
             if (Parser.Default.ParseArguments(args, parameters))
             {
-                Console.WriteLine($"[INFO] SPAWN BUILD TOOL v{Assembly.GetExecutingAssembly().GetName().Version.ToString(2)}");
-                Console.WriteLine($"[INFO] Parameters");
-                Console.WriteLine($"[INFO] SourceFile=\"{parameters.SourceFile}\"");
-                Console.WriteLine($"[INFO] TargetFileName=\"{parameters.TargetFileName}\"");
-                Console.WriteLine($"[INFO] Launch=\"{parameters.Launch}\"");
+                Log(LogLevel.Trace, $"SPAWN BUILD TOOL v{Assembly.GetExecutingAssembly().GetName().Version.ToString(2)}");
+                Log(LogLevel.Trace, $"Parameters");
+                Log(LogLevel.Trace, $"SourceFile=\"{parameters.SourceFile}\"");
+                Log(LogLevel.Trace, $"TargetFileName=\"{parameters.TargetFileName}\"");
+                Log(LogLevel.Trace, $"Launch=\"{parameters.Launch}\"");
 
                 string strProcessName = "HearthstoneDeckTracker";
 
@@ -28,7 +31,7 @@ namespace Spawn.HDT.Build
                 }
                 else { }
 
-                Console.WriteLine($"[INFO] Finished.");
+                Log(LogLevel.Trace, $"Finished.");
             }
             else { }
         }
@@ -41,7 +44,7 @@ namespace Spawn.HDT.Build
 
             if (vProcesses.Length > 0)
             {
-                Console.WriteLine("[INFO] HDT process found, closing...");
+                Log(LogLevel.Trace, $"HDT process found, closing...");
 
                 using (Process p = vProcesses[0])
                 {
@@ -51,19 +54,19 @@ namespace Spawn.HDT.Build
 
                     if (p.HasExited)
                     {
-                        Console.WriteLine("[INFO] HDT successfuly closed");
+                        Log(LogLevel.Trace, $"HDT successfuly closed");
 
                         blnRet = true;
                     }
                     else
                     {
-                        Console.WriteLine("[ERROR] Couldn't close HDT!");
+                        Log(LogLevel.Warning, $"Couldn't close HDT!");
                     }
                 }
             }
             else
             {
-                Console.WriteLine("[INFO] HDT not running");
+                Log(LogLevel.Trace, $"HDT not running");
 
                 blnRet = true;
             }
@@ -73,7 +76,7 @@ namespace Spawn.HDT.Build
 
         private static void CopyPlugin(Parameters parameters, string strProcessName)
         {
-            Console.WriteLine("[INFO] Copying plugin...");
+            Log(LogLevel.Trace, $"Copying plugin...");
 
             AssemblyName asm = AssemblyName.GetAssemblyName(parameters.SourceFile);
             string strTargetFileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), $@"{strProcessName}\Plugins\{parameters.TargetFileName}.v{asm.Version.ToString(2)}.dll");
@@ -82,11 +85,11 @@ namespace Spawn.HDT.Build
 
             if (File.Exists(strTargetFileName))
             {
-                Console.WriteLine("[INFO] Plugin copied");
+                Log(LogLevel.Trace, $"Plugin copied");
 
                 if (parameters.Launch)
                 {
-                    Console.WriteLine("[INFO] Launching HDT...");
+                    Log(LogLevel.Trace, $"Launching HDT...");
 
                     string strBasePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), strProcessName);
                     string strFileName = Path.Combine(strBasePath, $@"{GetLatestVersionDirectory(strBasePath)}\{strProcessName}.exe");
@@ -97,7 +100,7 @@ namespace Spawn.HDT.Build
             }
             else
             {
-                Console.WriteLine("[ERROR] Couldn't copy plugin!");
+                Log(LogLevel.Error, $"Couldn't copy plugin!");
             }
         }
         
@@ -132,7 +135,14 @@ namespace Spawn.HDT.Build
                 else { }
             }
 
+            Log(LogLevel.Trace, $"Latest version: v{strRet.Replace("app-", string.Empty)}");
+
             return strRet;
+        }
+
+        public static LogEntry Log(LogLevel level, string strMessage, params object[] vArgs)
+        {
+            return Logger.Default.Log(level, strMessage, vArgs);
         }
     }
 }
