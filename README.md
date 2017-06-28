@@ -9,8 +9,7 @@ Keep track of which cards in your hand didn't start in your deck.
 ![Overlay](https://i.imgur.com/MXdwt24.png)
 
 ## ToDo
-- Improve README.md
-- Documentation
+- Improve README.md (Documentation)
 - Offline Mode (when Hearthstone isn't running)
 - Clean up/Commentate source code
 - Add proper logging to build tool
