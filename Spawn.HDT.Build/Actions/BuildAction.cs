@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using System.Text;
 using Spawn.HDT.Build.Logging;
 using Spawn.SDK.Logging;
@@ -12,9 +13,6 @@ namespace Spawn.HDT.Build.Action
         public bool Execute(Parameters.BuildParameters parameters)
         {
             bool blnRet = false;
-
-            // /p:Configuration=Release
-            // /nologo
 
             try
             {
@@ -38,6 +36,12 @@ namespace Spawn.HDT.Build.Action
 
                 Log(LogLevel.Trace, "Build complete");
 
+                if (!string.IsNullOrEmpty(parameters.OutputPath))
+                {
+                    CopyGeneratedFiles(parameters);
+                }
+                else { }
+
                 blnRet = true;
             }
             catch (Exception ex)
@@ -46,7 +50,40 @@ namespace Spawn.HDT.Build.Action
             }
 
             return blnRet;
-        } 
+        }
+        #endregion
+
+        #region CopyGeneratedFiles
+        private void CopyGeneratedFiles(Parameters.BuildParameters parameters)
+        {
+            string strBuildDir = Path.Combine(Path.GetDirectoryName(parameters.ProjectPath), $"bin\\{parameters.BuildConfiguration}");
+
+            if (!Directory.Exists(parameters.OutputPath))
+            {
+                Directory.CreateDirectory(parameters.OutputPath);
+            }
+            else { }
+            
+            if (Directory.Exists(strBuildDir))
+            {
+                Log(LogLevel.Trace, $"Build directory: \"{strBuildDir}\"");
+
+                string[] vFiles = Directory.GetFiles(strBuildDir, "*.dll");
+
+                for (int i = 0; i < vFiles.Length; i++)
+                {
+                    string strFileName = Path.GetFileName(vFiles[i]);
+
+                    Log(LogLevel.Trace, $"Copying \"{vFiles[i]}\" to \"{parameters.OutputPath}\"");
+
+                    File.Copy(vFiles[i], Path.Combine(parameters.OutputPath, strFileName));
+                }
+            }
+            else
+            {
+                Log(LogLevel.Warning, $"Build directory \"{strBuildDir}\" not found!");
+            }
+        }
         #endregion
 
         #region Log

@@ -55,6 +55,7 @@ namespace Spawn.HDT.Build
                             Log(LogLevel.Trace, $"BuildConfiguration=\"{buildParameters.BuildConfiguration}\"");
                             Log(LogLevel.Trace, $"MSBuildPath=\"{buildParameters.MSBuildPath}\"");
                             Log(LogLevel.Trace, $"ProjectPath=\"{buildParameters.ProjectPath}\"");
+                            Log(LogLevel.Trace, $"OutputPath=\"{buildParameters.OutputPath}\"");
                             Log(LogLevel.Trace, $"---------------------------------");
 
                             if (new BuildAction().Execute(buildParameters))

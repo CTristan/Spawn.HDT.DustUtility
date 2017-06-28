@@ -38,6 +38,9 @@ namespace Spawn.HDT.Build
 
             [Option("project", Required = true, HelpText = "Path to the project file")]
             public string ProjectPath { get; set; }
+
+            [Option("output", HelpText = "Generated files are going to be copied into this directory")]
+            public string OutputPath { get; set; }
         }
     }
 }
