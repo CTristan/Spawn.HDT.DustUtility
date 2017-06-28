@@ -11,7 +11,7 @@
 ## v1.0
 - Initial release
 
-## v1.1 [CURRENT]
+## v1.1 
 - Class and Set filtering
 
 ## v1.2
