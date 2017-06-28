@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using Hearthstone_Deck_Tracker.API;
 using Hearthstone_Deck_Tracker.Plugins;
+using Spawn.HDT.DustUtility.Offline;
 
 namespace Spawn.HDT.DustUtility
 {
@@ -23,6 +24,7 @@ namespace Spawn.HDT.DustUtility
 
         private MenuItem m_menuItem;
         private CardCollector m_cardCollector;
+        private bool m_blnOfflineMode;
         
         public void OnLoad()
         {
@@ -36,11 +38,11 @@ namespace Spawn.HDT.DustUtility
 
         private void OnClick(object sender, RoutedEventArgs e)
         {
-            if (Core.Game.IsRunning)
+            if (Core.Game.IsRunning || m_blnOfflineMode)
             {
                 if (m_cardCollector == null)
                 {
-                    m_cardCollector = new CardCollector();
+                    m_cardCollector = new CardCollector(!Core.Game.IsRunning && m_blnOfflineMode);
                 }
                 else { }
 
@@ -48,10 +50,11 @@ namespace Spawn.HDT.DustUtility
 
                 w.Show();
             }
-            else
+            else if (!m_blnOfflineMode)
             {
                 MessageBox.Show("Hearthstone isn't running!", "Dust Utility", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            else { }
         }
 
         public void OnButtonPress()
@@ -60,10 +63,20 @@ namespace Spawn.HDT.DustUtility
 
         public void OnUnload()
         {
+            if (Cache.TimerEnabled)
+            {
+                Cache.StopTimer(); 
+            }
+            else { }
         }
 
         public void OnUpdate()
         {
+            if (Core.Game.IsRunning && !Cache.TimerEnabled)
+            {
+                Cache.StartTimer();
+            }
+            else { }
         }
     }
 }

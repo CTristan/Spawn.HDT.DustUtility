@@ -4,21 +4,25 @@ using System.Windows;
 using HearthDb.Enums;
 using HearthMirror;
 using HearthMirror.Objects;
+using Spawn.HDT.DustUtility.Offline;
 
 namespace Spawn.HDT.DustUtility
 {
     public class CardCollector
     {
         private List<CardWrapper> m_lstUnusedCards;
+        private bool m_blnOfflineMode;
 
-        public CardCollector()
+        public CardCollector(bool offlineMode = false)
         {
+            m_blnOfflineMode = offlineMode;
+
             m_lstUnusedCards = new List<CardWrapper>();
         }
 
         public CardWrapper[] GetDustableCards(Parameters parameters)
         {
-            List<Card> lstCollection = Reflection.GetCollection();
+            List<Card> lstCollection = LoadCollection();
 
             CheckForUnusedCards(lstCollection);
 
@@ -128,7 +132,7 @@ namespace Spawn.HDT.DustUtility
 
         public int GetTotalDustValueForAllCards()
         {
-            List<Card> lstCards = Reflection.GetCollection();
+            List<Card> lstCards = LoadCollection();
 
             int nRet = 0;
 
@@ -150,7 +154,7 @@ namespace Spawn.HDT.DustUtility
 
             m_lstUnusedCards.Clear();
 
-            List<Deck> lstDecks = Reflection.GetDecks();
+            List<Deck> lstDecks = LoadDecks();
 
             if (lstDecks.Count > 0 && lstDecks[0].Cards.Count > 0)
             {
@@ -181,10 +185,11 @@ namespace Spawn.HDT.DustUtility
                     else { }
                 }
             }
-            else
+            else if (!m_blnOfflineMode)
             {
                 MessageBox.Show("Navigate to the \"Play\" page first!", "Dust Utility", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            else { }
         }
 
         private List<CardWrapper> FilterForClasses(List<CardWrapper> lstCards, List<CardClass> lstClasses)
@@ -226,6 +231,38 @@ namespace Spawn.HDT.DustUtility
             else
             {
                 lstRet = m_lstUnusedCards.FindAll(delegate (CardWrapper c) { return HearthDb.Cards.All[c.Card.Id].Rarity == rarity && c.Card.Premium == false; });
+            }
+
+            return lstRet;
+        }
+
+        private List<Card> LoadCollection()
+        {
+            List<Card> lstRet = null;
+
+            if (m_blnOfflineMode)
+            {
+                lstRet = Cache.LoadCollection();
+            }
+            else
+            {
+                lstRet = Reflection.GetCollection();
+            }
+
+            return lstRet;
+        }
+
+        private List<Deck> LoadDecks()
+        {
+            List<Deck> lstRet = null;
+
+            if (m_blnOfflineMode)
+            {
+                lstRet = Cache.LoadDecks();
+            }
+            else
+            {
+                lstRet = Reflection.GetDecks();
             }
 
             return lstRet;

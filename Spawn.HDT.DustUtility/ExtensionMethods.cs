@@ -1,5 +1,7 @@
-﻿using HearthDb;
+﻿using System.Collections.Generic;
+using HearthDb;
 using HearthDb.Enums;
+using Spawn.HDT.DustUtility.Offline;
 
 namespace Spawn.HDT.DustUtility
 {
@@ -46,6 +48,41 @@ namespace Spawn.HDT.DustUtility
             else { }
 
             return nRet;
+        }
+
+        public static List<CachedCard> ToCachedCards(this List<HearthMirror.Objects.Card> lstCards)
+        {
+            List<CachedCard> lstRet = new List<CachedCard>();
+
+            for (int i = 0; i < lstCards.Count; i++)
+            {
+                HearthMirror.Objects.Card card = lstCards[i];
+
+                CachedCard cachedCard = new CachedCard()
+                {
+                    Id = card.Id,
+                    Count = card.Count,
+                    IsGolden = card.Premium
+                };
+
+                lstRet.Add(cachedCard);
+            }
+
+            return lstRet;
+        }
+
+        public static List<HearthMirror.Objects.Card> ToCards(this List<CachedCard> lstCachedCards)
+        {
+            List<HearthMirror.Objects.Card> lstRet = new List<HearthMirror.Objects.Card>();
+
+            for (int i = 0; i < lstCachedCards.Count; i++)
+            {
+                CachedCard cachedCard = lstCachedCards[i];
+                
+                lstRet.Add(new HearthMirror.Objects.Card(cachedCard.Id, cachedCard.Count, cachedCard.IsGolden));
+            }
+
+            return lstRet;
         }
     }
 }

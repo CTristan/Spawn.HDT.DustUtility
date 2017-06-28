@@ -65,6 +65,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CardCollector.cs" />
+    <Compile Include="Offline\Cache.cs" />
+    <Compile Include="Offline\CachedCard.cs" />
+    <Compile Include="Offline\CachedDeck.cs" />
     <Compile Include="Parameters.cs" />
     <Compile Include="DustableCardsWindow.xaml.cs">
       <DependentUpon>DustableCardsWindow.xaml</DependentUpon>
