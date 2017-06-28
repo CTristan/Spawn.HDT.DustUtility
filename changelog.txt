@@ -5,4 +5,4 @@
 - Class and Set filtering
 
 ## v1.2
-- Offline Collection Cache
+- Offline Mode
