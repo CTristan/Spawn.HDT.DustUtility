@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:local="clr-namespace:Spawn.HDT.DustUtility"
-        mc:Ignorable="d"
+        mc:Ignorable="d" ResizeMode="NoResize"
         Title="Dust Utility - Settings" Height="100" Width="250">
     <Grid>
         <CheckBox Name="cbOfflineMode" Content="Offline Mode" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
