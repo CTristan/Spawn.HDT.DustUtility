@@ -30,9 +30,7 @@ namespace Spawn.HDT.Build.Action
                     UseShellExecute = false
                 };
 
-                Process p = Process.Start(startInfo);
-
-                p.WaitForExit();
+                Process.Start(startInfo).WaitForExit();
 
                 Log(LogLevel.Trace, "Build complete");
 
