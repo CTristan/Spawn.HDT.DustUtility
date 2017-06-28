@@ -14,7 +14,7 @@ namespace Spawn.HDT.DustUtility
 
         public string Description => "Enter the amount of dust you want to get and check which cards are currently not used in any deck in order to disenchant them.";
 
-        public string ButtonText => GetButtonText();
+        public string ButtonText => "Toggle Offline Mode";
 
         public string Author => "BlackHalo";
 
@@ -60,6 +60,16 @@ namespace Spawn.HDT.DustUtility
         public void OnButtonPress()
         {
             m_blnOfflineMode = !m_blnOfflineMode;
+
+            string strMessage = "New mode: ONLINE";
+
+            if (m_blnOfflineMode)
+            {
+                strMessage = "New mode: OFFLINE";
+            }
+            else { }
+
+            MessageBox.Show(strMessage, "Dust Utility", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         public void OnUnload()
@@ -78,19 +88,6 @@ namespace Spawn.HDT.DustUtility
                 Cache.StartTimer();
             }
             else { }
-        }
-
-        private string GetButtonText()
-        {
-            string strRet = "Mode: ONLINE";
-
-            if (m_blnOfflineMode)
-            {
-                strRet = "Mode: OFFLINE";
-            }
-            else { }
-
-            return strRet;
         }
     }
 }
