@@ -38,7 +38,14 @@ namespace Spawn.HDT.Build
                             Log(LogLevel.Trace, $"Launch=\"{copyParameters.Launch}\"");
                             Log(LogLevel.Trace, $"---------------------------------");
 
-                            new CopyAction().Execute(copyParameters);
+                            if (new CopyAction().Execute(copyParameters))
+                            {
+                                Log(LogLevel.Trace, "Action successful");
+                            }
+                            else
+                            {
+                                Log(LogLevel.Error, "Couln't complete action!");
+                            }
                         }
                         break;
                     case "build":
@@ -50,7 +57,14 @@ namespace Spawn.HDT.Build
                             Log(LogLevel.Trace, $"ProjectPath=\"{buildParameters.ProjectPath}\"");
                             Log(LogLevel.Trace, $"---------------------------------");
 
-                            new BuildAction().Execute(buildParameters);
+                            if (new BuildAction().Execute(buildParameters))
+                            {
+                                Log(LogLevel.Trace, "Action successful");
+                            }
+                            else
+                            {
+                                Log(LogLevel.Error, "Couln't complete action!");
+                            }
                         }
                         break;
                     default:
