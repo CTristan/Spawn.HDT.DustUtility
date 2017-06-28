@@ -13,12 +13,12 @@ namespace Spawn.HDT.Build
             Logger.Default.WriteToConsole = true;
             
             string strAction = string.Empty;
-            object objActionInstance = null;
+            object objActionParameters = null;
 
             bool blnSuccess = Parser.Default.ParseArguments(args, new Parameters(), (action, instance) =>
             {
                 strAction = action;
-                objActionInstance = instance;
+                objActionParameters = instance;
             });
             
             if (blnSuccess)
@@ -31,7 +31,7 @@ namespace Spawn.HDT.Build
                 {
                     case "copy":
                         {
-                            Parameters.CopyParameters copyParameters = (Parameters.CopyParameters)objActionInstance;
+                            Parameters.CopyParameters copyParameters = (Parameters.CopyParameters)objActionParameters;
 
                             Log(LogLevel.Trace, $"SourceFile=\"{copyParameters.SourceFile}\"");
                             Log(LogLevel.Trace, $"TargetFileName=\"{copyParameters.TargetFileName}\"");
@@ -43,7 +43,7 @@ namespace Spawn.HDT.Build
                         break;
                     case "build":
                         {
-                            Parameters.BuildParameters buildParameters = (Parameters.BuildParameters)objActionInstance;
+                            Parameters.BuildParameters buildParameters = (Parameters.BuildParameters)objActionParameters;
 
                             Log(LogLevel.Trace, $"BuildConfiguration=\"{buildParameters.BuildConfiguration}\"");
                             Log(LogLevel.Trace, $"MSBuildPath=\"{buildParameters.MSBuildPath}\"");
