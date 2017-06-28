@@ -11,6 +11,6 @@ Keep track of which cards in your hand didn't start in your deck.
 ## ToDo
 - Improve README.md
 - Documentation
-- Offline Collection Cache
+- Offline Mode (when Hearthstone isn't running)
 - Clean up/Commentate source code
 - Add proper logging to build tool
