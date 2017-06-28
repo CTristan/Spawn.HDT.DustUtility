@@ -42,7 +42,7 @@
     <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Actions\BuildReleaseAction.cs" />
+    <Compile Include="Actions\BuildAction.cs" />
     <Compile Include="Actions\CopyPluginAction.cs" />
     <Compile Include="Actions\IAction.cs" />
     <Compile Include="Logging\FileAccessException.cs" />

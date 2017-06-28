@@ -4,7 +4,7 @@ using Spawn.SDK.Logging;
 
 namespace Spawn.HDT.Build.Action
 {
-    public class BuildReleaseAction : IAction<Parameters.BuildParameters>, ILoggable
+    public class BuildAction : IAction<Parameters.BuildParameters>, ILoggable
     {
         public bool Execute(Parameters.BuildParameters parameters)
         {
@@ -13,7 +13,7 @@ namespace Spawn.HDT.Build.Action
 
         public LogEntry Log(LogLevel level, string strMessage, params object[] vArgs)
         {
-            return Logger.Default.Log(level, "BuildRelease", strMessage, vArgs);
+            return Logger.Default.Log(level, "BuildAction", strMessage, vArgs);
         }
     }
 }

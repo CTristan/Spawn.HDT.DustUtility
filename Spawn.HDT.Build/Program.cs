@@ -50,7 +50,7 @@ namespace Spawn.HDT.Build
                             Log(LogLevel.Trace, $"ProjectPath=\"{parameters.ProjectPath}\"");
                             Log(LogLevel.Trace, $"---------------------------------");
 
-                            new BuildReleaseAction().Execute(parameters);
+                            new BuildAction().Execute(parameters);
                         }
                         break;
                     default:

@@ -141,7 +141,7 @@ namespace Spawn.HDT.Build.Action
         #region Log
         public LogEntry Log(LogLevel level, string strMessage, params object[] vArgs)
         {
-            return Logger.Default.Log(level, "CopyPlugin", strMessage, vArgs);
+            return Logger.Default.Log(level, "CopyPluginAction", strMessage, vArgs);
         }
         #endregion
     }
