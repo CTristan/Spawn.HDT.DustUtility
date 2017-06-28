@@ -43,7 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Actions\BuildAction.cs" />
-    <Compile Include="Actions\CopyPluginAction.cs" />
+    <Compile Include="Actions\CopyAction.cs" />
     <Compile Include="Actions\IAction.cs" />
     <Compile Include="Logging\FileAccessException.cs" />
     <Compile Include="Logging\ILoggable.cs" />

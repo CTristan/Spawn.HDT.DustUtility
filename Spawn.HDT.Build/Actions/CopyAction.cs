@@ -7,7 +7,7 @@ using Spawn.SDK.Logging;
 
 namespace Spawn.HDT.Build.Action
 {
-    public class CopyPluginAction : IAction<Parameters.CopyParameters>, ILoggable
+    public class CopyAction : IAction<Parameters.CopyParameters>, ILoggable
     {
         private string m_strProcessName = "HearthstoneDeckTracker";
 
@@ -141,7 +141,7 @@ namespace Spawn.HDT.Build.Action
         #region Log
         public LogEntry Log(LogLevel level, string strMessage, params object[] vArgs)
         {
-            return Logger.Default.Log(level, "CopyPluginAction", strMessage, vArgs);
+            return Logger.Default.Log(level, "CopyAction", strMessage, vArgs);
         }
         #endregion
     }

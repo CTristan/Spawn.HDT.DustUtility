@@ -38,7 +38,7 @@ namespace Spawn.HDT.Build
                             Log(LogLevel.Trace, $"Launch=\"{parameters.Launch}\"");
                             Log(LogLevel.Trace, $"---------------------------------");
 
-                            new CopyPluginAction().Execute(parameters);
+                            new CopyAction().Execute(parameters);
                         }
                         break;
                     case "build":
