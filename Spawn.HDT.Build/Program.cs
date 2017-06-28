@@ -31,26 +31,26 @@ namespace Spawn.HDT.Build
                 {
                     case "copy":
                         {
-                            Parameters.CopyParameters parameters = (Parameters.CopyParameters)objActionInstance;
+                            Parameters.CopyParameters copyParameters = (Parameters.CopyParameters)objActionInstance;
 
-                            Log(LogLevel.Trace, $"SourceFile=\"{parameters.SourceFile}\"");
-                            Log(LogLevel.Trace, $"TargetFileName=\"{parameters.TargetFileName}\"");
-                            Log(LogLevel.Trace, $"Launch=\"{parameters.Launch}\"");
+                            Log(LogLevel.Trace, $"SourceFile=\"{copyParameters.SourceFile}\"");
+                            Log(LogLevel.Trace, $"TargetFileName=\"{copyParameters.TargetFileName}\"");
+                            Log(LogLevel.Trace, $"Launch=\"{copyParameters.Launch}\"");
                             Log(LogLevel.Trace, $"---------------------------------");
 
-                            new CopyAction().Execute(parameters);
+                            new CopyAction().Execute(copyParameters);
                         }
                         break;
                     case "build":
                         {
-                            Parameters.BuildParameters parameters = (Parameters.BuildParameters)objActionInstance;
+                            Parameters.BuildParameters buildParameters = (Parameters.BuildParameters)objActionInstance;
 
-                            Log(LogLevel.Trace, $"BuildConfiguration=\"{parameters.BuildConfiguration}\"");
-                            Log(LogLevel.Trace, $"MSBuildPath=\"{parameters.MSBuildPath}\"");
-                            Log(LogLevel.Trace, $"ProjectPath=\"{parameters.ProjectPath}\"");
+                            Log(LogLevel.Trace, $"BuildConfiguration=\"{buildParameters.BuildConfiguration}\"");
+                            Log(LogLevel.Trace, $"MSBuildPath=\"{buildParameters.MSBuildPath}\"");
+                            Log(LogLevel.Trace, $"ProjectPath=\"{buildParameters.ProjectPath}\"");
                             Log(LogLevel.Trace, $"---------------------------------");
 
-                            new BuildAction().Execute(parameters);
+                            new BuildAction().Execute(buildParameters);
                         }
                         break;
                     default:
