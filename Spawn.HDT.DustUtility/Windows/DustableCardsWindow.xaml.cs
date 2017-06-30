@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
-namespace Spawn.HDT.DustUtility
+namespace Spawn.HDT.DustUtility.Windows
 {
     public partial class DustableCardsWindow
     {

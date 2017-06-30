@@ -1,4 +1,4 @@
-﻿namespace Spawn.HDT.DustUtility
+﻿namespace Spawn.HDT.DustUtility.Windows
 {
     public partial class SettingsWindow
     {
