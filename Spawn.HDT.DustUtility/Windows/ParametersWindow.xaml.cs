@@ -2,7 +2,7 @@
 using System.Windows;
 using HearthDb.Enums;
 
-namespace Spawn.HDT.DustUtility
+namespace Spawn.HDT.DustUtility.Windows
 {
     public partial class ParametersWindow
     {
