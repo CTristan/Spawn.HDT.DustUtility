@@ -2,7 +2,6 @@
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media.Imaging;
 using Hearthstone_Deck_Tracker.API;
 using Hearthstone_Deck_Tracker.Plugins;
 using Spawn.HDT.DustUtility.Offline;
@@ -48,8 +47,7 @@ namespace Spawn.HDT.DustUtility
         {
             m_menuItem = new MenuItem()
             {
-                Header = Name,
-                Icon = new Image() { Source = new BitmapImage(new Uri("pack://application:,,,/Resources/dust_icon.png")) }
+                Header = Name
             };
 
             m_menuItem.Click += OnClick;
