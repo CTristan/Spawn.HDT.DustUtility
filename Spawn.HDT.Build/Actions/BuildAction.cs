@@ -20,7 +20,7 @@ namespace Spawn.HDT.Build.Action
 
                 StringBuilder sb = new StringBuilder();
                 sb.Append("\"").Append(parameters.ProjectPath).Append("\" ");
-                sb.Append($"/p:Configuration={ parameters.BuildConfiguration}").Append(" ");
+                sb.Append($"/p:Configuration={parameters.BuildConfiguration}").Append(" ");
                 sb.Append("/p:PreBuildEvent= /p:PostBuildEvent=").Append(" ");
                 sb.Append("/nologo");
 
