@@ -70,7 +70,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>if $(ConfigurationName) == Debug "$(ProjectDir)..\Build.exe" copy --source "$(TargetPath)" --target "$(ProjectName)" --launch
-if $(ConfigurationName) == Release "$(ProjectDir)..\Build.exe" build --msbuild "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\MSBuild.exe" --project "$(ProjectPath)" --config $(ConfigurationName) --output "$(SolutionDir)Releases\$(ProjectName)"</PostBuildEvent>
+    <PostBuildEvent>if $(ConfigurationName) == Debug "$(SolutionDir)Spawn.Build.exe" copyhdtplugin --source "$(TargetPath)" --target "$(ProjectName)" --launch
+if $(ConfigurationName) == Release "$(SolutionDir)Spawn.Build.exe" buildsolution --msbuild "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\MSBuild.exe" --project "$(ProjectPath)" --config $(ConfigurationName) --output "$(SolutionDir)Releases\$(ProjectName)" --outputext *.dll</PostBuildEvent>
   </PropertyGroup>
 </Project>
