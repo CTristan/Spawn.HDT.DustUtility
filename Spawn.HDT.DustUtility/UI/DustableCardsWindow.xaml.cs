@@ -7,8 +7,10 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
+using MahApps.Metro.Controls.Dialogs;
 using Spawn.HDT.DustUtility.Converter;
 using Spawn.HDT.DustUtility.UI.Dialogs;
+using Spawn.HDT.DustUtility.Update;
 
 namespace Spawn.HDT.DustUtility.UI
 {
@@ -43,6 +45,23 @@ namespace Spawn.HDT.DustUtility.UI
         #endregion
 
         #region Events
+        #region Window_Loaded
+        private async void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (await GitHubUpdateManager.CheckForUpdateAsync())
+            {
+                MessageDialogResult result = await this.ShowMessageAsync("New update available", $"Update {GitHubUpdateManager.NewVersion.ToString(2)} has been released.\r\n\r\nDo you want to download it?", MessageDialogStyle.AffirmativeAndNegative);
+
+                if (result == MessageDialogResult.Affirmative)
+                {
+                    System.Diagnostics.Process.Start(GitHubUpdateManager.LatestReleaseUrl);
+                }
+                else { }
+            }
+            else { }
+        }
+        #endregion
+
         #region OnGoClick
         /// <summary>
         /// Handles the Click event of the GO! button.

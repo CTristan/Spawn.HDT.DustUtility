@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
         mc:Ignorable="d" ResizeMode="CanResizeWithGrip"
-        Title="Dustable Cards" Height="450" Width="600"
+        Title="Dustable Cards" Height="450" Width="600" Loaded="Window_Loaded"
         MinHeight="350" MinWidth="600">
     <Grid>
         <Button Content="GO!" Name="searchButton" HorizontalAlignment="Left" Margin="10,10,0,0" Width="100" VerticalAlignment="Top" Click="OnGoClick" IsEnabled="False"/>
