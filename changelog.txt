@@ -8,6 +8,9 @@
 ## v1.2
 - Offline mode
 
+## v1.3
+- Settings are being saved persistently
+
 ## v1.4
 - Customizable sort order
 -----------------------------
