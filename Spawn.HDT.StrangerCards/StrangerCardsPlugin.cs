@@ -26,7 +26,7 @@ namespace Spawn.HDT.StrangerCards
         #endregion
 
         #region Author
-        public string Author => "BlackHalo";
+        public string Author => "CLJunge";
         #endregion
 
         #region Version

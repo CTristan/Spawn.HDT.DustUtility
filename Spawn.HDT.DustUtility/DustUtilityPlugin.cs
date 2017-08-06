@@ -31,7 +31,7 @@ namespace Spawn.HDT.DustUtility
         #endregion
 
         #region Author
-        public string Author => "BlackHalo";
+        public string Author => "CLJunge";
         #endregion
 
         #region Version
