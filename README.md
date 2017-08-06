@@ -1,10 +1,10 @@
 ## Dust Utility
-Search through your collection for cards that aren't being used in any deck in order to disenchant them.
+Search through your collection for cards that aren't being used in any deck in order to see which can be disenchanted.
 
 ![Overlay](https://i.imgur.com/X91JVMa.png)
 
 ### Settings
-* Offline Mode: Hearthstone has to run at least once with this setting enabled, so it can store your collection locally.
+* Offline Mode: Open Hearthstone, head to "Play" and stay there for a couple of seconds, so the plugin can store your collection locally.
 
 ## Stranger Cards
 Keep track of which cards in your hand didn't start in your deck.
