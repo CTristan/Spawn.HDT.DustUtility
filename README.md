@@ -3,7 +3,7 @@ Search through your collection for cards that aren't being used in any deck in o
 
 ![Overlay](https://i.imgur.com/X91JVMa.png)
 
-###Settings
+### Settings
 * Offline Mode: Hearthstone has to run at least once with this setting enabled, so it can store your collection locally.
 
 ## Spawn.HDT.StrangerCards
