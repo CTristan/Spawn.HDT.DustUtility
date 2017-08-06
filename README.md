@@ -9,5 +9,3 @@ Search through your collection for cards that aren't being used in any deck in o
 ## ToDo
 * Add setting the allows to search through all cards and not only unused ones
 * Improve search (Searching for e.g. 5 Dust shows 2 copies of a card if available instead of just a single copy)
-* Improve README.md (Documentation)
-* Clean up/Commentate source code
