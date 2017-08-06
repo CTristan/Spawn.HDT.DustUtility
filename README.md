@@ -6,11 +6,6 @@ Search through your collection for cards that aren't being used in any deck in o
 ### Settings
 * Offline Mode: Open Hearthstone, head to "Play" and stay there for a couple of seconds, so the plugin can store your collection and decks locally.
 
-## Stranger Cards
-Keep track of which cards in your hand didn't start in your deck.
-
-![Overlay](https://i.imgur.com/MXdwt24.png)
-
 ## ToDo
 * Update notification system
 * Add setting the allows to search through all cards and not only unused ones
