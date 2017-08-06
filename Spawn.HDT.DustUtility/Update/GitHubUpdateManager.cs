@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net;
+using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -43,8 +44,8 @@ namespace Spawn.HDT.DustUtility.Update
                 {
                     Version newVersion = new Version(versionMatch.Value);
 
-                    //blnRet = newVersion > Assembly.GetExecutingAssembly().GetName().Version;
-                    blnRet = newVersion > new Version(0,0);
+                    blnRet = newVersion > Assembly.GetExecutingAssembly().GetName().Version;
+                    //blnRet = newVersion > new Version(0,0);
 
                     if (blnRet)
                     {
