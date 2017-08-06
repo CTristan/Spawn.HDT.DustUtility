@@ -5,8 +5,9 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using Spawn.HDT.DustUtility.UI.Dialogs;
 
-namespace Spawn.HDT.DustUtility.Windows
+namespace Spawn.HDT.DustUtility.UI
 {
     public partial class DustableCardsWindow
     {
@@ -97,7 +98,7 @@ namespace Spawn.HDT.DustUtility.Windows
         {
             if (m_cardCollector != null && m_parameters != null)
             {
-                ParametersWindow rarityWindow = new ParametersWindow(m_parameters);
+                ParametersDialog rarityWindow = new ParametersDialog(m_parameters);
 
                 rarityWindow.ShowDialog();
 
@@ -137,6 +138,13 @@ namespace Spawn.HDT.DustUtility.Windows
             }
             else { }
         }
+        #endregion
+
+        #region OnChangeSortOrderClick
+        private void OnChangeSortOrderClick(object sender, RoutedEventArgs e)
+        {
+
+        } 
         #endregion
         #endregion
 

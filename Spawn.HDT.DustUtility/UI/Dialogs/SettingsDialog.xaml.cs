@@ -1,9 +1,9 @@
-﻿namespace Spawn.HDT.DustUtility.Windows
+﻿namespace Spawn.HDT.DustUtility.UI.Dialogs
 {
-    public partial class SettingsWindow
+    public partial class SettingsDialog
     {
         #region Ctor
-        public SettingsWindow()
+        public SettingsDialog()
         {
             InitializeComponent();
 

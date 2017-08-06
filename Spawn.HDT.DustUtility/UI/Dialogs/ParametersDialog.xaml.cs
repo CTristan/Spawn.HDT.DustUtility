@@ -2,9 +2,9 @@
 using System.Windows;
 using HearthDb.Enums;
 
-namespace Spawn.HDT.DustUtility.Windows
+namespace Spawn.HDT.DustUtility.UI.Dialogs
 {
-    public partial class ParametersWindow
+    public partial class ParametersDialog
     {
         #region Properties
         #region Parameters
@@ -13,12 +13,12 @@ namespace Spawn.HDT.DustUtility.Windows
         #endregion
 
         #region Ctor
-        public ParametersWindow()
+        public ParametersDialog()
         {
             InitializeComponent();
         }
 
-        public ParametersWindow(Parameters parameters)
+        public ParametersDialog(Parameters parameters)
             : this()
         {
             Parameters = parameters;

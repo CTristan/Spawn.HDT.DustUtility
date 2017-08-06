@@ -5,7 +5,8 @@ using System.Windows.Controls;
 using Hearthstone_Deck_Tracker.API;
 using Hearthstone_Deck_Tracker.Plugins;
 using Spawn.HDT.DustUtility.Offline;
-using Spawn.HDT.DustUtility.Windows;
+using Spawn.HDT.DustUtility.UI;
+using Spawn.HDT.DustUtility.UI.Dialogs;
 
 namespace Spawn.HDT.DustUtility
 {
@@ -57,7 +58,7 @@ namespace Spawn.HDT.DustUtility
         #region OnButtonPress
         public void OnButtonPress()
         {
-            SettingsWindow w = new SettingsWindow();
+            SettingsDialog w = new SettingsDialog();
 
             w.ShowDialog();
         }

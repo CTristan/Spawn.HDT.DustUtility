@@ -1,4 +1,4 @@
-﻿<Controls:MetroWindow x:Class="Spawn.HDT.DustUtility.Windows.DustableCardsWindow"
+﻿<Controls:MetroWindow x:Class="Spawn.HDT.DustUtility.UI.DustableCardsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -11,9 +11,13 @@
         <Button Content="GO!" Name="searchButton" HorizontalAlignment="Left" Margin="10,10,0,0" Width="100" VerticalAlignment="Top" Click="OnGoClick"/>
         <TextBox Name="inputBox" HorizontalAlignment="Stretch" Margin="115,10,90,0" VerticalAlignment="Top" Height="20" PreviewTextInput="ValidateInput" />
         <Button Content="Filters" Name="filterButton" HorizontalAlignment="Right" Margin="0,10,10,0" Width="75" VerticalAlignment="Top" Click="OnFiltersClick" />
+        
         <Border BorderBrush="Silver" BorderThickness="1" HorizontalAlignment="Stretch" Margin="10,40,165,10" VerticalAlignment="Stretch">
             <DataGrid Name="dataGrid" CanUserSortColumns="False" AutoGenerateColumns="True" AutoGeneratingColumn="OnAutoGeneratingColumn" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" IsReadOnly="True" GridLinesVisibility="All" />
         </Border>
+
+        <Button Content="Change Sort Order" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,10" Width="150" Click="OnChangeSortOrderClick" Visibility="Hidden"/>
+
         <GroupBox Header="Info" HorizontalAlignment="Right" Height="269" Margin="0,40,10,0" VerticalAlignment="Top" Width="150">
             <Grid>
                 <Label Name="lblDust" Content="Dust: 0" FontSize="14" FontWeight="Bold" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10,5,10,0" />
