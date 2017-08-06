@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Globalization;
 using HearthDb;
 using HearthDb.Enums;
 using Spawn.HDT.DustUtility.Offline;
+using Spawn.HearthstonePackHistory.Hearthstone;
 
 namespace Spawn.HDT.DustUtility
 {
@@ -92,7 +94,28 @@ namespace Spawn.HDT.DustUtility
             }
 
             return lstRet;
-        } 
+        }
+        #endregion
+
+        #region GetString
+        public static string GetString(this CardSet cardSet)
+        {
+            return CardSets.All[cardSet];
+        }
+
+        public static string GetString(this Rarity rarity)
+        {
+            TextInfo textInfo = CultureInfo.InvariantCulture.TextInfo;
+            
+            return textInfo.ToTitleCase(rarity.ToString().ToLowerInvariant());
+        }
+
+        public static string GetString(this CardClass cardClass)
+        {
+            TextInfo textInfo = CultureInfo.InvariantCulture.TextInfo;
+
+            return textInfo.ToTitleCase(cardClass.ToString().ToLowerInvariant());
+        }
         #endregion
     }
 }

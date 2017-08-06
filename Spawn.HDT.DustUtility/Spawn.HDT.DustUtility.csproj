@@ -65,11 +65,22 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\Spawn.HearthstonePackHistory\Spawn.HearthstonePackHistory\Hearthstone\CardSets.cs">
+      <Link>CardSets.cs</Link>
+    </Compile>
     <Compile Include="CardCollector.cs" />
+    <Compile Include="Converter\CountLabelConverter.cs" />
     <Compile Include="Offline\Cache.cs" />
     <Compile Include="Offline\CachedCard.cs" />
     <Compile Include="Offline\CachedDeck.cs" />
     <Compile Include="Parameters.cs" />
+    <Compile Include="SortOrder.cs" />
+    <Compile Include="UI\Dialogs\AddSortOrderItemDialog.xaml.cs">
+      <DependentUpon>AddSortOrderItemDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialogs\SortOrderDialog.xaml.cs">
+      <DependentUpon>SortOrderDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\DustableCardsWindow.xaml.cs">
       <DependentUpon>DustableCardsWindow.xaml</DependentUpon>
     </Compile>
@@ -94,6 +105,14 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="UI\Dialogs\AddSortOrderItemDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Dialogs\SortOrderDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\DustableCardsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

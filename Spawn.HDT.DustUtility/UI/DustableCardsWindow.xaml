@@ -8,26 +8,30 @@
         Title="Dustable Cards" Height="450" Width="600"
         MinHeight="350" MinWidth="600">
     <Grid>
-        <Button Content="GO!" Name="searchButton" HorizontalAlignment="Left" Margin="10,10,0,0" Width="100" VerticalAlignment="Top" Click="OnGoClick"/>
-        <TextBox Name="inputBox" HorizontalAlignment="Stretch" Margin="115,10,90,0" VerticalAlignment="Top" Height="20" PreviewTextInput="ValidateInput" />
+        <Button Content="GO!" Name="searchButton" HorizontalAlignment="Left" Margin="10,10,0,0" Width="100" VerticalAlignment="Top" Click="OnGoClick" IsEnabled="False"/>
+        <TextBox Name="inputBox" HorizontalAlignment="Stretch" Margin="115,10,90,0" VerticalAlignment="Top" Height="20" PreviewTextInput="ValidateInput" TextChanged="OnInputBoxTextChanged" GotFocus="OnInputBoxGotFocus" PreviewKeyDown="OnInputBoxPreviewKeyDown"/>
         <Button Content="Filters" Name="filterButton" HorizontalAlignment="Right" Margin="0,10,10,0" Width="75" VerticalAlignment="Top" Click="OnFiltersClick" />
         
         <Border BorderBrush="Silver" BorderThickness="1" HorizontalAlignment="Stretch" Margin="10,40,165,10" VerticalAlignment="Stretch">
             <DataGrid Name="dataGrid" CanUserSortColumns="False" AutoGenerateColumns="True" AutoGeneratingColumn="OnAutoGeneratingColumn" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" IsReadOnly="True" GridLinesVisibility="All" />
         </Border>
 
-        <Button Content="Change Sort Order" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,10" Width="150" Click="OnChangeSortOrderClick" Visibility="Hidden"/>
+        <Button Name="sortOrderButton" Content="Sort Order" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,20,10" Width="130" Height="21" Click="OnSortOrderClick"/>
 
         <GroupBox Header="Info" HorizontalAlignment="Right" Height="269" Margin="0,40,10,0" VerticalAlignment="Top" Width="150">
             <Grid>
                 <Label Name="lblDust" Content="Dust: 0" FontSize="14" FontWeight="Bold" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10,5,10,0" />
+                
                 <Separator Background="Gray" HorizontalAlignment="Stretch" Height="10" Margin="10,33,10,0" VerticalAlignment="Top" />
+                
                 <Label Name="lblCommons" Content="Commons: 0" FontSize="14" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10,40,10,0" />
                 <Label Name="lblRares" Content="Rares: 0" FontSize="14" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10,70,10,0" />
                 <Label Name="lblEpics" Content="Epics: 0" FontSize="14" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10,100,10,0" />
                 <Label Name="lblLegendaries" Content="Legendaries: 0" FontSize="14" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10,130,10,0" />
                 <Label Name="lblCards" Content="Total: 0" FontSize="14" FontWeight="Bold" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10,160,10,0" />
+                
                 <Separator Background="Gray" HorizontalAlignment="Stretch" Height="10" Margin="10,186,10,0" VerticalAlignment="Top" />
+                
                 <Button Content="Total Dust" HorizontalAlignment="Stretch" Margin="15,0,15,5" VerticalAlignment="Bottom" Click="OnTotalDustClick"/>
             </Grid>
         </GroupBox>

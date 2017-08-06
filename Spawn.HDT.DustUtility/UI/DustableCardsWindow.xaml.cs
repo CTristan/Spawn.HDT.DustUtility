@@ -4,7 +4,10 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
+using Spawn.HDT.DustUtility.Converter;
 using Spawn.HDT.DustUtility.UI.Dialogs;
 
 namespace Spawn.HDT.DustUtility.UI
@@ -14,7 +17,7 @@ namespace Spawn.HDT.DustUtility.UI
         #region Member Variables
         private CardCollector m_cardCollector;
         private Regex m_numericRegex;
-        private Parameters m_parameters; 
+        private Parameters m_parameters;
         #endregion
 
         #region Ctor
@@ -48,43 +51,7 @@ namespace Spawn.HDT.DustUtility.UI
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void OnGoClick(object sender, RoutedEventArgs e)
         {
-            if (!string.IsNullOrEmpty(inputBox.Text) && m_cardCollector != null && m_parameters != null)
-            {
-                searchButton.IsEnabled = false;
-                searchButton.Content = "...";
-                inputBox.IsEnabled = false;
-                filterButton.IsEnabled = false;
-
-                try
-                {
-                    m_parameters.DustAmount = Convert.ToInt32(inputBox.Text);
-                }
-                catch
-                {
-                    m_parameters.DustAmount = Int32.MaxValue;
-                    inputBox.Text = m_parameters.DustAmount.ToString();
-                }
-
-                //CardWrapper[] vCards = m_cardCollector.GetDustableCards(m_parameters);
-
-                //dataGrid.ItemsSource = Convert(vCards);
-
-                Task.Run(() => m_cardCollector.GetDustableCards(m_parameters)).ContinueWith(t =>
-                {
-                    List<GridItem> lstItems = ConvertAndSort(t.Result);
-
-                    Dispatcher.Invoke(() =>
-                    {
-                        dataGrid.ItemsSource = lstItems;
-
-                        searchButton.IsEnabled = true;
-                        searchButton.Content = "GO!";
-                        inputBox.IsEnabled = true;
-                        filterButton.IsEnabled = true;
-                    });
-                });
-            }
-            else { }
+            StartSearch();
         }
         #endregion
 
@@ -98,11 +65,14 @@ namespace Spawn.HDT.DustUtility.UI
         {
             if (m_cardCollector != null && m_parameters != null)
             {
-                ParametersDialog rarityWindow = new ParametersDialog(m_parameters);
+                ParametersDialog dialog = new ParametersDialog(m_parameters)
+                {
+                    Owner = this
+                };
 
-                rarityWindow.ShowDialog();
+                dialog.ShowDialog();
 
-                m_parameters = rarityWindow.Parameters;
+                m_parameters = dialog.Parameters;
             }
             else { }
         }
@@ -125,36 +95,131 @@ namespace Spawn.HDT.DustUtility.UI
         /// Called when a column is automatically generated.
         /// </summary>
         /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="System.Windows.Controls.DataGridAutoGeneratingColumnEventArgs"/> instance containing the event data.</param>
-        private void OnAutoGeneratingColumn(object sender, System.Windows.Controls.DataGridAutoGeneratingColumnEventArgs e)
+        /// <param name="e">The <see cref="DataGridAutoGeneratingColumnEventArgs"/> instance containing the event data.</param>
+        private void OnAutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
-            if (e.Column.Header.ToString().ToLower().Equals("cardclass"))
+            if (e.Column.Header.ToString().ToLowerInvariant().Equals("cardclass"))
             {
                 e.Column.Header = "Class";
             }
-            else if (e.Column.Header.ToString().ToLower().Equals("cardset"))
+            else if (e.Column.Header.ToString().ToLowerInvariant().Equals("count"))
             {
-                e.Cancel = true;
+                ((e.Column as DataGridTextColumn).Binding as Binding).Converter = new CountLabelConverter();
+            }
+            else { }
+
+            e.Cancel = e.Column.Header.ToString().ToLowerInvariant().Equals("cardset") || e.Column.Header.ToString().ToLowerInvariant().Equals("tag");
+        }
+        #endregion
+
+        #region OnSortOrderClick
+        private void OnSortOrderClick(object sender, RoutedEventArgs e)
+        {
+            SortOrderDialog dialog = new SortOrderDialog()
+            {
+                Owner = this
+            };
+
+            if (dialog.ShowDialog().Value)
+            {
+                IEnumerable<GridItem> items = dataGrid.ItemsSource as IEnumerable<GridItem>;
+
+                dataGrid.ItemsSource = OrderItems(items);
             }
             else { }
         }
         #endregion
 
-        #region OnChangeSortOrderClick
-        private void OnChangeSortOrderClick(object sender, RoutedEventArgs e)
+        #region ValidateInput
+        /// <summary>
+        /// Validates the input.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="TextCompositionEventArgs"/> instance containing the event data.</param>
+        private void ValidateInput(object sender, TextCompositionEventArgs e)
         {
+            e.Handled = m_numericRegex.IsMatch(e.Text);
+        }
+        #endregion
 
+        #region OnInputBoxPreviewKeyDown
+        private void OnInputBoxPreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                StartSearch();
+            }
+            else { }
         } 
         #endregion
+
+        #region OnInputBoxTextChanged
+        private void OnInputBoxTextChanged(object sender, TextChangedEventArgs e)
+        {
+            searchButton.IsEnabled = inputBox.Text.Length > 0;
+        }
         #endregion
 
-        #region ConvertAndSort
+        #region OnInputBoxGotFocus
+        private void OnInputBoxGotFocus(object sender, RoutedEventArgs e)
+        {
+            (sender as TextBox).SelectAll();
+        }
+        #endregion
+        #endregion
+
+        #region StartSearch
+        private void StartSearch()
+        {
+            if (!string.IsNullOrEmpty(inputBox.Text) && m_cardCollector != null && m_parameters != null)
+            {
+                searchButton.IsEnabled = false;
+                searchButton.Content = "...";
+                inputBox.IsEnabled = false;
+                filterButton.IsEnabled = false;
+                sortOrderButton.IsEnabled = false;
+
+                try
+                {
+                    m_parameters.DustAmount = Convert.ToInt32(inputBox.Text);
+                }
+                catch
+                {
+                    m_parameters.DustAmount = Int32.MaxValue;
+                    inputBox.Text = m_parameters.DustAmount.ToString();
+                }
+
+                //CardWrapper[] vCards = m_cardCollector.GetDustableCards(m_parameters);
+
+                //dataGrid.ItemsSource = Convert(vCards);
+
+                Task.Run(() => m_cardCollector.GetDustableCards(m_parameters)).ContinueWith(t =>
+                {
+                    List<GridItem> lstItems = CreateGridItems(t.Result);
+
+                    Dispatcher.Invoke(() =>
+                    {
+                        dataGrid.ItemsSource = lstItems;
+
+                        searchButton.IsEnabled = true;
+                        searchButton.Content = "GO!";
+                        inputBox.IsEnabled = true;
+                        filterButton.IsEnabled = true;
+                        sortOrderButton.IsEnabled = true;
+                    });
+                });
+            }
+            else { }
+        } 
+        #endregion
+
+        #region CreateGridItems
         /// <summary>
-        /// Converts the specified cards and sorts them.
+        /// Converts the specified cards into grid items and sorts them.
         /// </summary>
         /// <param name="vCards">The cards.</param>
         /// <returns></returns>
-        private List<GridItem> ConvertAndSort(CardWrapper[] vCards)
+        private List<GridItem> CreateGridItems(CardWrapper[] vCards)
         {
             List<GridItem> lstRet = new List<GridItem>(vCards.Length);
 
@@ -174,16 +239,17 @@ namespace Spawn.HDT.DustUtility.UI
 
                 GridItem item = new GridItem()
                 {
-                    Count = $"{cardWrapper.Count}x",
+                    Count = cardWrapper.Count,
                     Dust = cardWrapper.GetDustValue(),
                     Golden = cardWrapper.Card.Premium,
                     Name = cardWrapper.DbCard.Name,
-                    Rarity = cardWrapper.DbCard.Rarity,
-                    CardClass = cardWrapper.DbCard.Class,
-                    CardSet = cardWrapper.DbCard.Set
+                    Rarity = cardWrapper.DbCard.Rarity.GetString(),
+                    CardClass = cardWrapper.DbCard.Class.GetString(),
+                    Set = cardWrapper.DbCard.Set.GetString(),
+                    Tag = cardWrapper
                 };
 
-                switch (item.Rarity)
+                switch (cardWrapper.DbCard.Rarity)
                 {
                     case HearthDb.Enums.Rarity.COMMON:
                         nCommons += cardWrapper.Count;
@@ -206,7 +272,7 @@ namespace Spawn.HDT.DustUtility.UI
             }
 
             //Sort
-            lstRet = lstRet.OrderBy(item => item.Rarity).ThenBy(item => item.Golden).ThenBy(item => item.Dust).ThenBy(item => item.CardClass).ThenBy(item => item.CardSet).ThenBy(item => item.Name).ToList();
+            lstRet = OrderItems(lstRet).ToList();
 
             Dispatcher.Invoke(() =>
             {
@@ -222,15 +288,85 @@ namespace Spawn.HDT.DustUtility.UI
         }
         #endregion
 
-        #region ValidateInput
-        /// <summary>
-        /// Validates the input.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="TextCompositionEventArgs"/> instance containing the event data.</param>
-        private void ValidateInput(object sender, TextCompositionEventArgs e)
+        #region OrderItems
+        private IEnumerable<GridItem> OrderItems(IEnumerable<GridItem> items)
         {
-            e.Handled = m_numericRegex.IsMatch(e.Text);
+            IEnumerable<GridItem> retVal;
+
+            SortOrder sortOrder = SortOrder.Parse(Settings.SortOrder);
+
+            if (sortOrder != null && sortOrder.Items.Count > 0)
+            {
+                IOrderedEnumerable<GridItem> orderedList = null;
+
+                switch (sortOrder.Items[0])
+                {
+                    case SortOrder.Item.Count:
+                        orderedList = items.OrderBy(c => c.Count);
+                        break;
+                    case SortOrder.Item.Name:
+                        orderedList = items.OrderBy(c => c.Name);
+                        break;
+                    case SortOrder.Item.Golden:
+                        orderedList = items.OrderBy(c => c.Golden);
+                        break;
+                    case SortOrder.Item.Dust:
+                        orderedList = items.OrderBy(c => c.Dust);
+                        break;
+                    case SortOrder.Item.Rarity:
+                        orderedList = items.OrderBy(c => c.Rarity);
+                        break;
+                    case SortOrder.Item.Class:
+                        orderedList = items.OrderBy(c => c.CardClass);
+                        break;
+                    case SortOrder.Item.CardSet:
+                        orderedList = items.OrderBy(c => c.Set);
+                        break;
+                    case SortOrder.Item.Cost:
+                        orderedList = items.OrderBy(c => c.Tag.DbCard.Cost);
+                        break;
+                }
+
+                for (int i = 1; i < sortOrder.Items.Count; i++)
+                {
+                    switch (sortOrder.Items[i])
+                    {
+                        case SortOrder.Item.Count:
+                            orderedList = orderedList.ThenBy(c => c.Count);
+                            break;
+                        case SortOrder.Item.Name:
+                            orderedList = orderedList.ThenBy(c => c.Name);
+                            break;
+                        case SortOrder.Item.Golden:
+                            orderedList = orderedList.ThenBy(c => c.Golden);
+                            break;
+                        case SortOrder.Item.Dust:
+                            orderedList = orderedList.ThenBy(c => c.Dust);
+                            break;
+                        case SortOrder.Item.Rarity:
+                            orderedList = orderedList.ThenBy(c => c.Rarity);
+                            break;
+                        case SortOrder.Item.Class:
+                            orderedList = orderedList.ThenBy(c => c.CardClass);
+                            break;
+                        case SortOrder.Item.CardSet:
+                            orderedList = orderedList.ThenBy(c => c.Set);
+                            break;
+                        case SortOrder.Item.Cost:
+                            orderedList = orderedList.ThenBy(c => c.Tag.DbCard.Cost);
+                            break;
+                    }
+                }
+
+                retVal = orderedList;
+            }
+            else
+            {
+                //lstRet = list.OrderBy(item => item.Rarity).ThenBy(item => item.Golden).ThenBy(item => item.Dust).ThenBy(item => item.CardClass).ThenBy(item => item.CardSet).ThenBy(item => item.Name).ToList();
+                retVal = items;
+            }
+
+            return retVal;
         }
         #endregion
     }

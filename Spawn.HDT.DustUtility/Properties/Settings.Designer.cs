@@ -34,5 +34,17 @@ namespace Spawn.HDT.DustUtility.Properties {
                 this["OfflineMode"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Rarity;Golden;Dust;Class;CardSet;Name")]
+        public string SortOrder {
+            get {
+                return ((string)(this["SortOrder"]));
+            }
+            set {
+                this["SortOrder"] = value;
+            }
+        }
     }
 }

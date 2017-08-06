@@ -5,5 +5,8 @@
     <Setting Name="OfflineMode" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="SortOrder" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Rarity;Golden;Dust;Class;CardSet;Name</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

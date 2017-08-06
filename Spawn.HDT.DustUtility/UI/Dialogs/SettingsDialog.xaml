@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
-        mc:Ignorable="d" ResizeMode="NoResize"
+        mc:Ignorable="d" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
         Title="Dust Utility - Settings" Height="100" Width="250">
     <Grid>
         <CheckBox Name="cbOfflineMode" Content="Offline Mode" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
