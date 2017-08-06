@@ -4,7 +4,7 @@ using System.Windows;
 
 namespace Spawn.HDT.DustUtility.UI.Dialogs
 {
-    public partial class AddSortOrderItemDialog : Window
+    public partial class AddSortOrderItemDialog
     {
         #region Properties
         public SortOrder.Item SelectedItem => (SortOrder.Item)cbItems.SelectedItem; 

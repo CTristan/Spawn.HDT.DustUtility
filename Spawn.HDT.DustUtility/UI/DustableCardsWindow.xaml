@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
-        mc:Ignorable="d" ResizeMode="CanResizeWithGrip"
+        mc:Ignorable="d" ResizeMode="CanResizeWithGrip" GlowBrush="Black"
         Title="Dustable Cards" Height="450" Width="600" Loaded="Window_Loaded"
         MinHeight="350" MinWidth="600">
     <Grid>

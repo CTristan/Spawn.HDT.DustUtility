@@ -4,7 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
-        mc:Ignorable="d" Height="280" MinHeight="280" Width="275" MinWidth="275" MaxWidth="275"
+        mc:Ignorable="d" GlowBrush="Black" Height="280" MinHeight="280" Width="275" MinWidth="275" MaxWidth="275"
         Title="Sort Order" WindowStartupLocation="CenterOwner" ResizeMode="CanResizeWithGrip">
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
