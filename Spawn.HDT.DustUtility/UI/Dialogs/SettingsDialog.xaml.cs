@@ -8,21 +8,23 @@
             InitializeComponent();
 
             cbOfflineMode.IsChecked = Settings.OfflineMode;
-        } 
+            cbCheckForUpdates.IsChecked = Settings.CheckForUpdate;
+        }
         #endregion
 
         #region Events
-        #region OnSaveClick
-        private void OnSaveClick(object sender, System.Windows.RoutedEventArgs e)
+        #region OnOkClick
+        private void OnOkClick(object sender, System.Windows.RoutedEventArgs e)
         {
             Settings.OfflineMode = cbOfflineMode.IsChecked.Value;
+            Settings.CheckForUpdate = cbCheckForUpdates.IsChecked.Value;
 
             Close();
         }
         #endregion
 
-        #region OnCloseClick
-        private void OnCloseClick(object sender, System.Windows.RoutedEventArgs e)
+        #region OnCancelClick
+        private void OnCancelClick(object sender, System.Windows.RoutedEventArgs e)
         {
             Close();
         }

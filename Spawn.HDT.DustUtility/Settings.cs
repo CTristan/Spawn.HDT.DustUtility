@@ -24,7 +24,19 @@
                 Properties.Settings.Default.SortOrder = value;
                 Properties.Settings.Default.Save();
             }
-        } 
+        }
+        #endregion
+
+        #region CheckForUpdate
+        public static bool CheckForUpdate
+        {
+            get => Properties.Settings.Default.CheckForUpdate;
+            set
+            {
+                Properties.Settings.Default.CheckForUpdate = value;
+                Properties.Settings.Default.Save();
+            }
+        }
         #endregion
         #endregion
     }

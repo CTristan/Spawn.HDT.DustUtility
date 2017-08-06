@@ -103,6 +103,7 @@
     <Compile Include="UI\Dialogs\SettingsDialog.xaml.cs">
       <DependentUpon>SettingsDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Update\GitHubUpdateManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="UI\Dialogs\AddSortOrderItemDialog.xaml">

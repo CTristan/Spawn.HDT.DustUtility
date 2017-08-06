@@ -13,6 +13,7 @@ Keep track of which cards in your hand didn't start in your deck.
 
 ## ToDo
 * Update notification system
-* [Dust Utility] Add setting the allows to search through all cards and not only unused ones
+* Add setting the allows to search through all cards and not only unused ones
+* Improve search (Searching for e.g. 5 Dust shows 2 copies of a card if available instead of just a single copy)
 * Improve README.md (Documentation)
 * Clean up/Commentate source code
