@@ -9,7 +9,7 @@
       <Value Profile="(Default)">Rarity;Golden;Dust;Class;CardSet;Name</Value>
     </Setting>
     <Setting Name="CheckForUpdate" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>
 </SettingsFile>
