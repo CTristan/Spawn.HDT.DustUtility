@@ -11,17 +11,17 @@ namespace Spawn.HDT.DustUtility.Offline
 {
     public static class Cache
     {
-        #region Static Variables
-        private static Timer s_timer;
-        private static bool s_blnSaveCollectionInProgress;
-        private static bool s_blnSaveDecksInProgress; 
-        #endregion
-
         #region Constants
         private const string COLLECTION = "collection";
         private const string DECKS = "decks";
         #endregion
 
+        #region Static Variables
+        private static Timer s_timer;
+        private static bool s_blnSaveCollectionInProgress;
+        private static bool s_blnSaveDecksInProgress; 
+        #endregion
+        
         #region Static Properties
         public static bool TimerEnabled => s_timer != null;
         #endregion
