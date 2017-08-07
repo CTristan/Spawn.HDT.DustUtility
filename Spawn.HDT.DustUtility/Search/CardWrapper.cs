@@ -1,6 +1,6 @@
 ﻿using HearthMirror.Objects;
 
-namespace Spawn.HDT.DustUtility
+namespace Spawn.HDT.DustUtility.Search
 {
     public class CardWrapper
     {

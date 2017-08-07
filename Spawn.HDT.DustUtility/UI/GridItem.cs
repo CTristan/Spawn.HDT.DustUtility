@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
+using Spawn.HDT.DustUtility.Search;
 
-namespace Spawn.HDT.DustUtility
+namespace Spawn.HDT.DustUtility.UI
 {
     [DebuggerDisplay("{Name} ({Count})")]
     public class GridItem

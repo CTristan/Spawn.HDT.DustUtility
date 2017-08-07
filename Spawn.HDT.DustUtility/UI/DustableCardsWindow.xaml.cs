@@ -9,6 +9,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 using MahApps.Metro.Controls.Dialogs;
 using Spawn.HDT.DustUtility.Converter;
+using Spawn.HDT.DustUtility.Search;
 using Spawn.HDT.DustUtility.UI.Dialogs;
 using Spawn.HDT.DustUtility.Update;
 
@@ -45,8 +46,8 @@ namespace Spawn.HDT.DustUtility.UI
         #endregion
 
         #region Events
-        #region Window_Loaded
-        private async void Window_Loaded(object sender, RoutedEventArgs e)
+        #region OnWindowLoaded
+        private async void OnWindowLoaded(object sender, RoutedEventArgs e)
         {
             if (Settings.CheckForUpdate && await GitHubUpdateManager.CheckForUpdateAsync())
             {
@@ -149,13 +150,8 @@ namespace Spawn.HDT.DustUtility.UI
         }
         #endregion
 
-        #region ValidateInput
-        /// <summary>
-        /// Validates the input.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="TextCompositionEventArgs"/> instance containing the event data.</param>
-        private void ValidateInput(object sender, TextCompositionEventArgs e)
+        #region OnPreviewTextInput
+        private void OnPreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = m_numericRegex.IsMatch(e.Text);
         }

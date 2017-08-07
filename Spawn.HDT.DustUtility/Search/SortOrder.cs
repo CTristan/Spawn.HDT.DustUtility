@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Spawn.HDT.DustUtility
+namespace Spawn.HDT.DustUtility.Search
 {
     public class SortOrder
     {

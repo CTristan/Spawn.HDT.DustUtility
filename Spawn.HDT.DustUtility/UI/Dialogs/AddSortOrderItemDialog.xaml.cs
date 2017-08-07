@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows;
+using Spawn.HDT.DustUtility.Search;
 
 namespace Spawn.HDT.DustUtility.UI.Dialogs
 {

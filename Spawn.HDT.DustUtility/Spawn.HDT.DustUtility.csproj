@@ -68,13 +68,13 @@
     <Compile Include="..\..\Spawn.HearthstonePackHistory\Spawn.HearthstonePackHistory\Hearthstone\CardSets.cs">
       <Link>CardSets.cs</Link>
     </Compile>
-    <Compile Include="CardCollector.cs" />
+    <Compile Include="Search\CardCollector.cs" />
     <Compile Include="Converter\CountLabelConverter.cs" />
     <Compile Include="Offline\Cache.cs" />
     <Compile Include="Offline\CachedCard.cs" />
     <Compile Include="Offline\CachedDeck.cs" />
-    <Compile Include="Parameters.cs" />
-    <Compile Include="SortOrder.cs" />
+    <Compile Include="Search\Parameters.cs" />
+    <Compile Include="Search\SortOrder.cs" />
     <Compile Include="UI\Dialogs\AddSortOrderItemDialog.xaml.cs">
       <DependentUpon>AddSortOrderItemDialog.xaml</DependentUpon>
     </Compile>
@@ -85,15 +85,15 @@
       <DependentUpon>DustableCardsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="DustUtilityPlugin.cs" />
-    <Compile Include="ExtensionMethods.cs" />
-    <Compile Include="GridItem.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="UI\GridItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="UI\Dialogs\ParametersDialog.xaml.cs">
       <DependentUpon>ParametersDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CardWrapper.cs" />
+    <Compile Include="Search\CardWrapper.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>

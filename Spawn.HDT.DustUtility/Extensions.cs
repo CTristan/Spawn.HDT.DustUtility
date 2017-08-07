@@ -7,7 +7,7 @@ using Spawn.HearthstonePackHistory.Hearthstone;
 
 namespace Spawn.HDT.DustUtility
 {
-    public static class ExtensionMethods
+    public static class Extensions
     {
         #region Contains
         public static bool Contains(this HearthMirror.Objects.Deck deck, string strId)

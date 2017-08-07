@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using HearthDb.Enums;
 
-namespace Spawn.HDT.DustUtility
+namespace Spawn.HDT.DustUtility.Search
 {
     public class Parameters
     {

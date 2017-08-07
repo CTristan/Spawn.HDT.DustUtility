@@ -6,7 +6,7 @@ using HearthMirror;
 using HearthMirror.Objects;
 using Spawn.HDT.DustUtility.Offline;
 
-namespace Spawn.HDT.DustUtility
+namespace Spawn.HDT.DustUtility.Search
 {
     public class CardCollector
     {

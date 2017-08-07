@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using HearthDb.Enums;
+using Spawn.HDT.DustUtility.Search;
 
 namespace Spawn.HDT.DustUtility.UI.Dialogs
 {

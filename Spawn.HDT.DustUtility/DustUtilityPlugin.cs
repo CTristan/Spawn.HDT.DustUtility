@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using Hearthstone_Deck_Tracker.API;
 using Hearthstone_Deck_Tracker.Plugins;
 using Spawn.HDT.DustUtility.Offline;
+using Spawn.HDT.DustUtility.Search;
 using Spawn.HDT.DustUtility.UI;
 using Spawn.HDT.DustUtility.UI.Dialogs;
 
