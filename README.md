@@ -1,7 +1,7 @@
 ## Dust Utility
 Search through your collection for cards that aren't being used in any deck in order to see which can be disenchanted.
 
-![Overlay](https://i.imgur.com/EWdUFyu.png)
+![Overlay](https://i.imgur.com/UzmUZBu.png)
 
 ### Settings
 * Offline Mode: Open Hearthstone, head to "Play" and stay there for a couple of seconds, so the plugin can store your collection and decks locally.
