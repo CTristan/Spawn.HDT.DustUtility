@@ -5,7 +5,6 @@ using System.Windows.Controls;
 using Hearthstone_Deck_Tracker.API;
 using Hearthstone_Deck_Tracker.Plugins;
 using Spawn.HDT.DustUtility.Offline;
-using Spawn.HDT.DustUtility.Search;
 using Spawn.HDT.DustUtility.UI;
 using Spawn.HDT.DustUtility.UI.Dialogs;
 
@@ -15,7 +14,6 @@ namespace Spawn.HDT.DustUtility
     {
         #region Member Variables
         private MenuItem m_menuItem;
-        private CardCollector m_cardCollector;
         #endregion
 
         #region Properties
@@ -36,7 +34,7 @@ namespace Spawn.HDT.DustUtility
         #endregion
 
         #region Version
-        public Version Version => new Version(Assembly.GetExecutingAssembly().GetName().Version.ToString(2));
+        public Version Version => new Version(Assembly.GetExecutingAssembly().GetName().Version.ToString(3));
         #endregion
 
         #region MenuItem
@@ -92,15 +90,9 @@ namespace Spawn.HDT.DustUtility
         {
             if (Core.Game.IsRunning || Settings.OfflineMode)
             {
-                if (m_cardCollector == null)
-                {
-                    m_cardCollector = new CardCollector(!Core.Game.IsRunning && Settings.OfflineMode);
-                }
-                else { }
+                bool blnOfflineMode = !Core.Game.IsRunning && Settings.OfflineMode;
 
-                DustableCardsWindow w = new DustableCardsWindow(m_cardCollector);
-
-                w.Show();
+                new DustableCardsWindow(blnOfflineMode).Show();
             }
             else if (!Settings.OfflineMode)
             {

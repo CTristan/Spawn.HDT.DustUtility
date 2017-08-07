@@ -22,8 +22,9 @@ namespace Spawn.HDT.DustUtility.UI
         #endregion
 
         #region Member Variables
-        private CardCollector m_cardCollector;
         private Regex m_numericRegex;
+
+        private CardCollector m_cardCollector;
         private Parameters m_parameters;
         #endregion
 
@@ -33,12 +34,20 @@ namespace Spawn.HDT.DustUtility.UI
             InitializeComponent();
         }
 
-        public DustableCardsWindow(CardCollector cardCollector)
+        public DustableCardsWindow(bool offlineMode)
             : this()
         {
-            m_cardCollector = cardCollector;
             m_numericRegex = new Regex("[^0-9]+");
+
+            m_cardCollector = new CardCollector(this, offlineMode);
+            
             m_parameters = new Parameters();
+
+            if (offlineMode)
+            {
+                Title = $"{Title} [OFFLINE MODE]";
+            }
+            else { }
         }
         #endregion
 
@@ -181,9 +190,9 @@ namespace Spawn.HDT.DustUtility.UI
                     inputBox.Text = m_parameters.DustAmount.ToString();
                 }
 
-                await Task.Delay(0);
+                await Task.Delay(1); //Return to ui thread
 
-                CardWrapper[] vCards = m_cardCollector.GetDustableCards(m_parameters);
+                CardWrapper[] vCards = await m_cardCollector.GetDustableCardsAsync(m_parameters);
 
                 GetResult(vCards).CopyTo(GetSearchResultComponent());
 

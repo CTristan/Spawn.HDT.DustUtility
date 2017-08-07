@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows;
+using System.Threading.Tasks;
 using HearthDb.Enums;
 using HearthMirror;
 using HearthMirror.Objects;
+using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
 using Spawn.HDT.DustUtility.Offline;
 
 namespace Spawn.HDT.DustUtility.Search
@@ -11,25 +13,37 @@ namespace Spawn.HDT.DustUtility.Search
     public class CardCollector
     {
         #region Member Variables
+        private MetroWindow m_mainWindow;
+
         private List<CardWrapper> m_lstUnusedCards;
         private bool m_blnOfflineMode;
         #endregion
 
-        #region Ctor
-        public CardCollector(bool offlineMode = false)
+        #region Properties
+        public bool OfflineMode
         {
+            get => m_blnOfflineMode;
+            set => m_blnOfflineMode = value;
+        }
+        #endregion
+
+        #region Ctor
+        public CardCollector(MetroWindow mainWindow, bool offlineMode = false)
+        {
+            m_mainWindow = mainWindow;
+
             m_blnOfflineMode = offlineMode;
 
             m_lstUnusedCards = new List<CardWrapper>();
         }
         #endregion
 
-        #region GetDustableCards
-        public CardWrapper[] GetDustableCards(Parameters parameters)
+        #region GetDustableCardsAsync
+        public async Task<CardWrapper[]> GetDustableCardsAsync(Parameters parameters)
         {
             List<Card> lstCollection = LoadCollection();
 
-            CheckForUnusedCards(lstCollection);
+            await CheckForUnusedCardsAsync(lstCollection);
 
             List<CardWrapper> lstRet = new List<CardWrapper>();
 
@@ -158,8 +172,8 @@ namespace Spawn.HDT.DustUtility.Search
         }
         #endregion
 
-        #region CheckForUnusedCards
-        private void CheckForUnusedCards(List<Card> lstCollection)
+        #region CheckForUnusedCardsAsync
+        private async Task CheckForUnusedCardsAsync(List<Card> lstCollection)
         {
             if (lstCollection == null)
             {
@@ -202,7 +216,8 @@ namespace Spawn.HDT.DustUtility.Search
             }
             else if (!m_blnOfflineMode)
             {
-                MessageBox.Show("Navigate to the \"Play\" page first!", "Dust Utility", MessageBoxButton.OK, MessageBoxImage.Error);
+                await m_mainWindow.ShowMessageAsync(string.Empty, "Navigate to the \"Play\" page first!");
+                //MessageBox.Show("Navigate to the \"Play\" page first!", "Dust Utility", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             else { }
         }
