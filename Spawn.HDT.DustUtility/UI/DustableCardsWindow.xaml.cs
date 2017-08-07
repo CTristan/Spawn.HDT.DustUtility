@@ -8,7 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using MahApps.Metro.Controls.Dialogs;
-using Spawn.HDT.DustUtility.Converter;
+using Spawn.HDT.DustUtility.Converters;
 using Spawn.HDT.DustUtility.Search;
 using Spawn.HDT.DustUtility.UI.Dialogs;
 using Spawn.HDT.DustUtility.Update;
@@ -17,6 +17,10 @@ namespace Spawn.HDT.DustUtility.UI
 {
     public partial class DustableCardsWindow
     {
+        #region Constants
+        private const string SearchResultKey = "searchResult";
+        #endregion
+
         #region Member Variables
         private CardCollector m_cardCollector;
         private Regex m_numericRegex;
@@ -24,18 +28,11 @@ namespace Spawn.HDT.DustUtility.UI
         #endregion
 
         #region Ctor
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DustableCardsWindow"/> class.
-        /// </summary>
         public DustableCardsWindow()
         {
             InitializeComponent();
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DustableCardsWindow"/> class.
-        /// </summary>
-        /// <param name="dustManager">The dust manager.</param>
         public DustableCardsWindow(CardCollector cardCollector)
             : this()
         {
@@ -64,23 +61,13 @@ namespace Spawn.HDT.DustUtility.UI
         #endregion
 
         #region OnGoClick
-        /// <summary>
-        /// Handles the Click event of the GO! button.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
-        private void OnGoClick(object sender, RoutedEventArgs e)
+        private async void OnGoClick(object sender, RoutedEventArgs e)
         {
-            StartSearch();
+            await SearchAsync();
         }
         #endregion
 
         #region OnFiltersClick
-        /// <summary>
-        /// Handles the event of the filters button.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void OnFiltersClick(object sender, RoutedEventArgs e)
         {
             if (m_cardCollector != null && m_parameters != null)
@@ -99,11 +86,6 @@ namespace Spawn.HDT.DustUtility.UI
         #endregion
 
         #region OnTotalDustClick
-        /// <summary>
-        /// Handles the event of the dust button.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private async void OnTotalDustClick(object sender, RoutedEventArgs e)
         {
             await this.ShowMessageAsync(string.Empty, $"Your collection is worth: {m_cardCollector.GetTotalDustValueForAllCards()} Dust");
@@ -111,11 +93,6 @@ namespace Spawn.HDT.DustUtility.UI
         #endregion
 
         #region OnAutoGeneratingColumn
-        /// <summary>
-        /// Called when a column is automatically generated.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="DataGridAutoGeneratingColumnEventArgs"/> instance containing the event data.</param>
         private void OnAutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             if (e.Column.Header.ToString().ToLowerInvariant().Equals("cardclass"))
@@ -158,11 +135,11 @@ namespace Spawn.HDT.DustUtility.UI
         #endregion
 
         #region OnInputBoxPreviewKeyDown
-        private void OnInputBoxPreviewKeyDown(object sender, KeyEventArgs e)
+        private async void OnInputBoxPreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                StartSearch();
+                await SearchAsync();
             }
             else { }
         } 
@@ -183,8 +160,8 @@ namespace Spawn.HDT.DustUtility.UI
         #endregion
         #endregion
 
-        #region StartSearch
-        private void StartSearch()
+        #region SearchAsync
+        private async Task SearchAsync()
         {
             if (!string.IsNullOrEmpty(inputBox.Text) && m_cardCollector != null && m_parameters != null)
             {
@@ -204,102 +181,105 @@ namespace Spawn.HDT.DustUtility.UI
                     inputBox.Text = m_parameters.DustAmount.ToString();
                 }
 
-                //CardWrapper[] vCards = m_cardCollector.GetDustableCards(m_parameters);
+                await Task.Delay(0);
+
+                CardWrapper[] vCards = m_cardCollector.GetDustableCards(m_parameters);
+
+                GetResult(vCards).CopyTo(GetSearchResultComponent());
+
+                searchButton.IsEnabled = true;
+                searchButton.Content = "GO!";
+                inputBox.IsEnabled = true;
+                filterButton.IsEnabled = true;
+                sortOrderButton.IsEnabled = true;
 
                 //dataGrid.ItemsSource = Convert(vCards);
 
-                Task.Run(() => m_cardCollector.GetDustableCards(m_parameters)).ContinueWith(t =>
-                {
-                    List<GridItem> lstItems = CreateGridItems(t.Result);
+                //await Task.Run(() => m_cardCollector.GetDustableCards(m_parameters)).ContinueWith(t =>
+                //{
+                //    GetResult(t.Result).CopyTo(GetSearchResultComponent());
 
-                    Dispatcher.Invoke(() =>
-                    {
-                        dataGrid.ItemsSource = lstItems;
+                //    Dispatcher.InvokeAsync(() =>
+                //    {
+                //        //TODO
+                //        //dataGrid.ItemsSource = lstItems;
 
-                        searchButton.IsEnabled = true;
-                        searchButton.Content = "GO!";
-                        inputBox.IsEnabled = true;
-                        filterButton.IsEnabled = true;
-                        sortOrderButton.IsEnabled = true;
-                    });
-                });
+                //        searchButton.IsEnabled = true;
+                //        searchButton.Content = "GO!";
+                //        inputBox.IsEnabled = true;
+                //        filterButton.IsEnabled = true;
+                //        sortOrderButton.IsEnabled = true;
+                //    });
+                //});
             }
             else { }
-        } 
+        }
         #endregion
 
-        #region CreateGridItems
-        /// <summary>
-        /// Converts the specified cards into grid items and sorts them.
-        /// </summary>
-        /// <param name="vCards">The cards.</param>
-        /// <returns></returns>
-        private List<GridItem> CreateGridItems(CardWrapper[] vCards)
+        #region GetResult
+        private SearchResult GetResult(CardWrapper[] vCards)
         {
-            List<GridItem> lstRet = new List<GridItem>(vCards.Length);
+            SearchResult retVal = new SearchResult();
 
-            //Convert
-
-            int nTotalDustAmount = 0;
-            int nTotalCount = 0;
-
-            int nCommons = 0;
-            int nRares = 0;
-            int nEpics = 0;
-            int nLegendaries = 0;
+            List<GridItem> lstItems = new List<GridItem>(vCards.Length);
 
             for (int i = 0; i < vCards.Length; i++)
             {
-                CardWrapper cardWrapper = vCards[i];
+                CardWrapper wrapper = vCards[i];
 
-                GridItem item = new GridItem()
-                {
-                    Count = cardWrapper.Count,
-                    Dust = cardWrapper.GetDustValue(),
-                    Golden = cardWrapper.Card.Premium,
-                    Name = cardWrapper.DbCard.Name,
-                    Rarity = cardWrapper.DbCard.Rarity.GetString(),
-                    CardClass = cardWrapper.DbCard.Class.GetString(),
-                    Set = cardWrapper.DbCard.Set.GetString(),
-                    Tag = cardWrapper
-                };
-
-                switch (cardWrapper.DbCard.Rarity)
+                switch (wrapper.DbCard.Rarity)
                 {
                     case HearthDb.Enums.Rarity.COMMON:
-                        nCommons += cardWrapper.Count;
+                        retVal.CommonsCount += wrapper.Count;
                         break;
                     case HearthDb.Enums.Rarity.RARE:
-                        nRares += cardWrapper.Count;
+                        retVal.RaresCount += wrapper.Count;
                         break;
                     case HearthDb.Enums.Rarity.EPIC:
-                        nEpics += cardWrapper.Count;
+                        retVal.EpicsCount += wrapper.Count;
                         break;
                     case HearthDb.Enums.Rarity.LEGENDARY:
-                        nLegendaries += cardWrapper.Count;
+                        retVal.LegendariesCount += wrapper.Count;
                         break;
                 }
+                
+                GridItem item = new GridItem()
+                {
+                    Count = wrapper.Count,
+                    Dust = wrapper.GetDustValue(),
+                    Golden = wrapper.Card.Premium,
+                    Name = wrapper.DbCard.Name,
+                    Rarity = wrapper.DbCard.Rarity.GetString(),
+                    CardClass = wrapper.DbCard.Class.GetString(),
+                    Set = wrapper.DbCard.Set.GetString(),
+                    Tag = wrapper
+                };
 
-                nTotalDustAmount += item.Dust;
-                nTotalCount += cardWrapper.Count;
+                retVal.TotalCount += item.Count;
+                retVal.Dust += item.Dust;
 
-                lstRet.Add(item);
+                lstItems.Add(item);
             }
 
             //Sort
-            lstRet = OrderItems(lstRet).ToList();
+            lstItems = OrderItems(lstItems).ToList();
 
-            Dispatcher.Invoke(() =>
+            for (int i = 0; i < lstItems.Count; i++)
             {
-                lblCards.Content = $"Total: {nTotalCount}";
-                lblDust.Content = $"Dust: {nTotalDustAmount}";
-                lblCommons.Content = $"Commons: {nCommons}";
-                lblRares.Content = $"Rares: {nRares}";
-                lblEpics.Content = $"Epics: {nEpics}";
-                lblLegendaries.Content = $"Legendaries: {nLegendaries}";
-            });
+                retVal.GridItems.Add(lstItems[i]);
+            }
 
-            return lstRet;
+            //Dispatcher.Invoke(() =>
+            //{
+            //    lblCards.Content = $"Total: {nTotalCount}";
+            //    lblDust.Content = $"Dust: {nTotalDustAmount}";
+            //    lblCommons.Content = $"Commons: {nCommons}";
+            //    lblRares.Content = $"Rares: {nRares}";
+            //    lblEpics.Content = $"Epics: {nEpics}";
+            //    lblLegendaries.Content = $"Legendaries: {nLegendaries}";
+            //});
+            
+            return retVal;
         }
         #endregion
 
@@ -382,6 +362,13 @@ namespace Spawn.HDT.DustUtility.UI
             }
 
             return retVal;
+        }
+        #endregion
+
+        #region GetSearchResultComponent
+        public SearchResult GetSearchResultComponent()
+        {
+            return FindResource(SearchResultKey) as SearchResult;
         }
         #endregion
     }

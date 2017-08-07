@@ -25,9 +25,10 @@ namespace Spawn.HDT.DustUtility.Update
         static GitHubUpdateManager()
         {
             s_versionRegex = new Regex("[0-9]\\.[0-9]{1,2}");
-        } 
+        }
         #endregion
 
+        #region CheckForUpdateAsync
         public static async Task<bool> CheckForUpdateAsync()
         {
             bool blnRet = false;
@@ -58,6 +59,7 @@ namespace Spawn.HDT.DustUtility.Update
             else { }
 
             return blnRet;
-        }
+        } 
+        #endregion
     }
 }

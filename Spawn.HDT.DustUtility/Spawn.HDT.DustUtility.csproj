@@ -68,13 +68,14 @@
     <Compile Include="..\..\Spawn.HearthstonePackHistory\Spawn.HearthstonePackHistory\Hearthstone\CardSets.cs">
       <Link>CardSets.cs</Link>
     </Compile>
+    <Compile Include="Converters\DisplayLabelConverter.cs" />
     <Compile Include="Search\CardCollector.cs" />
-    <Compile Include="Converter\CountLabelConverter.cs" />
+    <Compile Include="Converters\CountLabelConverter.cs" />
     <Compile Include="Offline\Cache.cs" />
     <Compile Include="Offline\CachedCard.cs" />
     <Compile Include="Offline\CachedDeck.cs" />
     <Compile Include="Search\Parameters.cs" />
-    <Compile Include="Search\SearchResult.cs" />
+    <Compile Include="UI\SearchResult.cs" />
     <Compile Include="Search\SortOrder.cs" />
     <Compile Include="UI\Dialogs\AddSortOrderItemDialog.xaml.cs">
       <DependentUpon>AddSortOrderItemDialog.xaml</DependentUpon>

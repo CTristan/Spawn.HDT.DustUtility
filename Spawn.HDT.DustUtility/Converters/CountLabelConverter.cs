@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace Spawn.HDT.DustUtility.Converter
+namespace Spawn.HDT.DustUtility.Converters
 {
     public class CountLabelConverter : IValueConverter
     {

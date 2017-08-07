@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
-using Spawn.HDT.DustUtility.UI;
 
-namespace Spawn.HDT.DustUtility.Search
+namespace Spawn.HDT.DustUtility.UI
 {
     public class SearchResult : INotifyPropertyChanged
     {
@@ -13,7 +12,7 @@ namespace Spawn.HDT.DustUtility.Search
         private int m_nEpicsCount;
         private int m_nLegendariesCount;
         private int m_nTotalCount;
-        private IEnumerable<GridItem> m_gridItems;
+        private ObservableCollection<GridItem> m_lstGridItems;
         #endregion
 
         #region Properties
@@ -74,19 +73,27 @@ namespace Spawn.HDT.DustUtility.Search
                 m_nLegendariesCount = value;
                 OnPropertyChanged("LegendariesCount");
             }
-        } 
+        }
+        #endregion
+
+        #region TotalCount
+        public int TotalCount
+        {
+            get => m_nTotalCount;
+            set
+            {
+                m_nTotalCount = value;
+                OnPropertyChanged("TotalCount");
+            }
+        }
         #endregion
 
         #region GridItems
-        public IEnumerable<GridItem> GridItems
+        public ObservableCollection<GridItem> GridItems
         {
-            get => m_gridItems;
-            set
-            {
-                m_gridItems = value;
-                OnPropertyChanged("GridItems");
-            }
-        } 
+            get => m_lstGridItems;
+            set => m_lstGridItems = value;
+        }
         #endregion
         #endregion
 
@@ -97,8 +104,52 @@ namespace Spawn.HDT.DustUtility.Search
         private void OnPropertyChanged(string strPropertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(strPropertyName));
-        } 
+        }
         #endregion
+        #endregion
+
+        #region Ctor
+        public SearchResult()
+        {
+            m_lstGridItems = new ObservableCollection<GridItem>();
+        }
+        #endregion
+
+        #region CopyTo
+        public void CopyTo(SearchResult searchResult)
+        {
+            if (searchResult != null)
+            {
+                searchResult.Clear();
+
+                searchResult.Dust = m_nDust;
+                searchResult.CommonsCount = m_nCommonsCount;
+                searchResult.RaresCount = m_nRaresCount;
+                searchResult.EpicsCount = m_nEpicsCount;
+                searchResult.LegendariesCount = m_nLegendariesCount;
+                searchResult.TotalCount = m_nTotalCount;
+
+                for (int i = 0; i < m_lstGridItems.Count; i++)
+                {
+                    searchResult.GridItems.Add(m_lstGridItems[i]);
+                }
+            }
+            else { }
+        }
+        #endregion
+
+        #region Clear
+        private void Clear()
+        {
+            Dust = 0;
+            CommonsCount = 0;
+            RaresCount = 0;
+            EpicsCount = 0;
+            LegendariesCount = 0;
+            TotalCount = 0;
+
+            GridItems.Clear();
+        }
         #endregion
     }
 }
