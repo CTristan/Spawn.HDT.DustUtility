@@ -217,9 +217,9 @@ namespace Spawn.HDT.DustUtility.UI
         #endregion
 
         #region GetResult
-        private SearchResult GetResult(CardWrapper[] vCards)
+        private SearchResultContainer GetResult(CardWrapper[] vCards)
         {
-            SearchResult retVal = new SearchResult();
+            SearchResultContainer retVal = new SearchResultContainer();
 
             List<GridItem> lstItems = new List<GridItem>(vCards.Length);
 
@@ -366,9 +366,9 @@ namespace Spawn.HDT.DustUtility.UI
         #endregion
 
         #region GetSearchResultComponent
-        public SearchResult GetSearchResultComponent()
+        public SearchResultContainer GetSearchResultComponent()
         {
-            return FindResource(SearchResultKey) as SearchResult;
+            return FindResource(SearchResultKey) as SearchResultContainer;
         }
         #endregion
     }

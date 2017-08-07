@@ -10,7 +10,7 @@
         Title="Dustable Cards" Height="450" Width="600" Loaded="OnWindowLoaded"
         MinHeight="350" MinWidth="600">
     <Window.Resources>
-        <ui:SearchResult x:Key="searchResult"/>
+        <ui:SearchResultContainer x:Key="searchResult"/>
     </Window.Resources>
     <controls:MetroWindow.RightWindowCommands>
         <controls:WindowCommands>

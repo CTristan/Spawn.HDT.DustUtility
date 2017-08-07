@@ -75,8 +75,8 @@
     <Compile Include="Offline\CachedCard.cs" />
     <Compile Include="Offline\CachedDeck.cs" />
     <Compile Include="Search\Parameters.cs" />
-    <Compile Include="UI\SearchResult.cs" />
-    <Compile Include="Search\SortOrder.cs" />
+    <Compile Include="UI\SearchResultContainer.cs" />
+    <Compile Include="UI\SortOrder.cs" />
     <Compile Include="UI\Dialogs\AddSortOrderItemDialog.xaml.cs">
       <DependentUpon>AddSortOrderItemDialog.xaml</DependentUpon>
     </Compile>

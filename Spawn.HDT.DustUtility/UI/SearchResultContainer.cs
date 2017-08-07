@@ -3,7 +3,7 @@ using System.ComponentModel;
 
 namespace Spawn.HDT.DustUtility.UI
 {
-    public class SearchResult : INotifyPropertyChanged
+    public class SearchResultContainer : INotifyPropertyChanged
     {
         #region Member Variables
         private int m_nDust;
@@ -109,14 +109,14 @@ namespace Spawn.HDT.DustUtility.UI
         #endregion
 
         #region Ctor
-        public SearchResult()
+        public SearchResultContainer()
         {
             m_lstGridItems = new ObservableCollection<GridItem>();
         }
         #endregion
 
         #region CopyTo
-        public void CopyTo(SearchResult searchResult)
+        public void CopyTo(SearchResultContainer searchResult)
         {
             if (searchResult != null)
             {
