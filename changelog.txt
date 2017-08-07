@@ -13,5 +13,9 @@
 
 ## v1.4
 - Customizable sort order
+
+## v1.5
+- Added an update notification system.
+- Updated UI.
 -----------------------------
 
