@@ -44,7 +44,14 @@ namespace Spawn.HDT.DustUtility.Search
         {
             List<Card> lstCollection = LoadCollection();
 
-            await CheckForUnusedCardsAsync(lstCollection);
+            if (parameters.UnusedCardsOnly)
+            {
+                await CheckForUnusedCardsAsync(lstCollection); 
+            }
+            else
+            {
+                m_lstUnusedCards = lstCollection.Select(c => new CardWrapper(c)).ToList();
+            }
 
             List<CardWrapper> lstRet = new List<CardWrapper>();
 
@@ -203,7 +210,7 @@ namespace Spawn.HDT.DustUtility.Search
                         else { }
                     }
 
-                    if (cardWrapper.MaxCountInDecks <= 1 && cardWrapper.Card.Count > cardWrapper.MaxCountInDecks && !(cardWrapper.DbCard.Rarity == Rarity.LEGENDARY && cardWrapper.MaxCountInDecks == 1))
+                    if (cardWrapper.MaxCountInDecks < 2 && cardWrapper.Card.Count > cardWrapper.MaxCountInDecks && !(cardWrapper.DbCard.Rarity == Rarity.LEGENDARY && cardWrapper.MaxCountInDecks == 1))
                     {
                         m_lstUnusedCards.Add(cardWrapper);
                     }

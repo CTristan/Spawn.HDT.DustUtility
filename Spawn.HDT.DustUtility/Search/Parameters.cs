@@ -14,6 +14,10 @@ namespace Spawn.HDT.DustUtility.Search
         public bool IncludeGoldenCards { get; set; }
         #endregion
 
+        #region UnusedCardsOnly
+        public bool UnusedCardsOnly { get; set; }
+        #endregion
+
         #region Rarites
         public List<Rarity> Rarities { get; set; }
         #endregion
@@ -31,6 +35,7 @@ namespace Spawn.HDT.DustUtility.Search
         public Parameters()
         {
             IncludeGoldenCards = false;
+            UnusedCardsOnly = true;
 
             Rarities = new List<Rarity>
             {

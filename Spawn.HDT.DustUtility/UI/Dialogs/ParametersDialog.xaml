@@ -46,8 +46,11 @@
                 <CheckBox Name="cbHall" Content="Hall of Fame" HorizontalAlignment="Left" Margin="165,45,0,0" VerticalAlignment="Top"/>
             </Grid>
         </GroupBox>
-        <GroupBox Header="Misc." HorizontalAlignment="Left" Height="70" Margin="295,140,0,0" VerticalAlignment="Top" Width="123">
-            <CheckBox x:Name="cbGolden" Content="Golden Cards" HorizontalAlignment="Left" Margin="5,5,0,0" VerticalAlignment="Top"/>
+        <GroupBox Header="Misc." HorizontalAlignment="Left" Height="85" Margin="295,140,0,0" VerticalAlignment="Top" Width="123">
+            <Grid>
+                <CheckBox x:Name="cbGolden" Content="Golden Cards" HorizontalAlignment="Left" Margin="5,5,0,0" VerticalAlignment="Top"/>
+                <CheckBox x:Name="cbUnusedOnly" Content="Unused Only" HorizontalAlignment="Left" Margin="5,25,0,0" VerticalAlignment="Top"/>
+            </Grid>
         </GroupBox>
     </Grid>
 </Controls:MetroWindow>
