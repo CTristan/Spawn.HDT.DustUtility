@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
@@ -57,7 +58,14 @@ namespace Spawn.HDT.DustUtility.UI
         {
             if (Settings.CheckForUpdate && await GitHubUpdateManager.CheckForUpdateAsync())
             {
-                MessageDialogResult result = await this.ShowMessageAsync("New update available", $"Update {GitHubUpdateManager.NewVersion.ToString(2)} has been released.\r\n\r\nDo you want to download it?", MessageDialogStyle.AffirmativeAndNegative);
+                StringBuilder sb = new StringBuilder();
+
+                sb.Append($"Update {GitHubUpdateManager.NewVersion.ToString(2)} has been released.").Append(Environment.NewLine + Environment.NewLine)
+                    .Append("Release Notes:").Append(Environment.NewLine)
+                    .Append(GitHubUpdateManager.ReleaseNotes).Append(Environment.NewLine + Environment.NewLine)
+                    .Append("Would you like to download it?");
+
+                MessageDialogResult result = await this.ShowMessageAsync("New update available", sb.ToString(), MessageDialogStyle.AffirmativeAndNegative);
 
                 if (result == MessageDialogResult.Affirmative)
                 {
