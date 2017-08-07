@@ -5,6 +5,7 @@ Search through your collection for cards that aren't being used in any deck in o
 
 ### Settings
 * Offline Mode: Open Hearthstone, head to "Play" and stay there for a couple of seconds, so the plugin can store your collection and decks locally.
+* Check For Updates: Checks if there is new release available on the GitHub page
 
 ## ToDo
 * Improve search (Searching for e.g. 5 Dust shows 2 copies of a card if available instead of just a single copy)
