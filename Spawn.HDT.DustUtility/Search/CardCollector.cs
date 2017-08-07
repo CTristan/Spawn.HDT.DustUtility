@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using HearthDb.Enums;
 using HearthMirror;
@@ -84,7 +85,7 @@ namespace Spawn.HDT.DustUtility.Search
                     {
                         Rarity rarity = parameters.Rarities[i];
 
-                        List<CardWrapper> lstChunk = lstCards.FindAll(delegate (CardWrapper cw) { return cw.DbCard.Rarity == rarity; });
+                        List<CardWrapper> lstChunk = lstCards.FindAll(c => c.DbCard.Rarity == rarity);
 
                         lstChunk.Sort(CompareCount);
 
@@ -142,6 +143,8 @@ namespace Spawn.HDT.DustUtility.Search
 
                 lstCards = FilterForSets(lstCards, parameters.Sets);
 
+                lstCards = lstCards.OrderBy(c => c.Count).ToList();
+
                 for (int j = 0; j < lstCards.Count && !blnDone; j++)
                 {
                     CardWrapper card = lstCards[j];
@@ -161,14 +164,7 @@ namespace Spawn.HDT.DustUtility.Search
         {
             List<Card> lstCards = LoadCollection();
 
-            int nRet = 0;
-
-            for (int i = 0; i < lstCards.Count; i++)
-            {
-                nRet += new CardWrapper(lstCards[i]).GetDustValue();
-            }
-
-            return nRet;
+            return lstCards.Sum(c => new CardWrapper(c).GetDustValue());
         }
         #endregion
 
@@ -230,7 +226,7 @@ namespace Spawn.HDT.DustUtility.Search
 
             for (int i = 0; i < lstClasses.Count; i++)
             {
-                List<CardWrapper> lstChunk = lstCards.FindAll(delegate (CardWrapper cw) { return cw.DbCard.Class == lstClasses[i]; });
+                List<CardWrapper> lstChunk = lstCards.FindAll(c => c.DbCard.Class == lstClasses[i]);
 
                 lstRet.AddRange(lstChunk);
             }
@@ -246,7 +242,7 @@ namespace Spawn.HDT.DustUtility.Search
 
             for (int i = 0; i < lstSets.Count; i++)
             {
-                List<CardWrapper> lstChunk = lstCards.FindAll(delegate (CardWrapper cw) { return cw.DbCard.Set == lstSets[i]; });
+                List<CardWrapper> lstChunk = lstCards.FindAll(c => c.DbCard.Set == lstSets[i]);
 
                 lstRet.AddRange(lstChunk);
             }
@@ -262,11 +258,11 @@ namespace Spawn.HDT.DustUtility.Search
 
             if (blnIncludeGoldenCards)
             {
-                lstRet = m_lstUnusedCards.FindAll(delegate (CardWrapper c) { return HearthDb.Cards.All[c.Card.Id].Rarity == rarity; });
+                lstRet = m_lstUnusedCards.FindAll(c => HearthDb.Cards.All[c.Card.Id].Rarity == rarity);
             }
             else
             {
-                lstRet = m_lstUnusedCards.FindAll(delegate (CardWrapper c) { return HearthDb.Cards.All[c.Card.Id].Rarity == rarity && c.Card.Premium == false; });
+                lstRet = m_lstUnusedCards.FindAll(c => HearthDb.Cards.All[c.Card.Id].Rarity == rarity && c.Card.Premium == false);
             }
 
             return lstRet;
