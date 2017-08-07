@@ -48,7 +48,7 @@ namespace Spawn.HDT.DustUtility.UI
         #region Window_Loaded
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            if (await GitHubUpdateManager.CheckForUpdateAsync())
+            if (Settings.CheckForUpdate && await GitHubUpdateManager.CheckForUpdateAsync())
             {
                 MessageDialogResult result = await this.ShowMessageAsync("New update available", $"Update {GitHubUpdateManager.NewVersion.ToString(2)} has been released.\r\n\r\nDo you want to download it?", MessageDialogStyle.AffirmativeAndNegative);
 
@@ -103,9 +103,9 @@ namespace Spawn.HDT.DustUtility.UI
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
-        private void OnTotalDustClick(object sender, RoutedEventArgs e)
+        private async void OnTotalDustClick(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show($"Your collection is worth: {m_cardCollector.GetTotalDustValueForAllCards()} Dust", "Dust Utitlity", MessageBoxButton.OK, MessageBoxImage.Information);
+            await this.ShowMessageAsync(string.Empty, $"Your collection is worth: {m_cardCollector.GetTotalDustValueForAllCards()} Dust");
         }
         #endregion
 
