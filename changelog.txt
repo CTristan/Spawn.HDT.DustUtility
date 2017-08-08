@@ -17,5 +17,11 @@
 ## v1.5
 - Added an update notification system.
 - Updated UI.
+
+## v1.6
+- Added parameter to search for all cards
+- Update notification shows release notes
+- Updated UI
+- Set .NET version to 4.5
 -----------------------------
 
