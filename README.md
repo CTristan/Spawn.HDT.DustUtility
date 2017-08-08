@@ -1,4 +1,4 @@
-## Dust Utility
+# Dust Utility
 Search through your collection for cards that aren't being used in any deck in order to see which can be disenchanted.
 
 ![Overlay](https://i.imgur.com/UzmUZBu.png)
