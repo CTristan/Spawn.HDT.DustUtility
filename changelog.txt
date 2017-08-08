@@ -23,5 +23,8 @@
 - Update notification shows release notes
 - Updated UI
 - Set .NET version to 4.5
+
+## v1.6.1
+- Ready for Knights of the Frozen Throne
 -----------------------------
 
