@@ -60,7 +60,7 @@ namespace Spawn.HDT.DustUtility.UI
             {
                 StringBuilder sb = new StringBuilder();
 
-                sb.Append($"Update {GitHubUpdateManager.NewVersion.ToString(2)} has been released.").Append(Environment.NewLine + Environment.NewLine)
+                sb.Append($"Update {GitHubUpdateManager.NewVersion.ToString(3)} has been released.").Append(Environment.NewLine + Environment.NewLine)
                     .Append("Release Notes:").Append(Environment.NewLine)
                     .Append(GitHubUpdateManager.ReleaseNotes).Append(Environment.NewLine + Environment.NewLine)
                     .Append("Would you like to download it?");
