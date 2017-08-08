@@ -35,20 +35,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="HearthDb">
-      <HintPath>..\..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.3.5\HearthDb.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.3.6\HearthDb.dll</HintPath>
     </Reference>
     <Reference Include="HearthMirror">
-      <HintPath>..\..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.3.5\HearthMirror.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.3.6\HearthMirror.dll</HintPath>
     </Reference>
     <Reference Include="HearthstoneDeckTracker">
-      <HintPath>..\..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.3.5\HearthstoneDeckTracker.exe</HintPath>
-      <Private>False</Private>
+      <HintPath>..\..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.3.6\HearthstoneDeckTracker.exe</HintPath>
     </Reference>
     <Reference Include="MahApps.Metro">
-      <HintPath>..\..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.3.5\MahApps.Metro.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.3.6\MahApps.Metro.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
