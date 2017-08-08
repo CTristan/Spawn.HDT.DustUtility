@@ -3,6 +3,8 @@ Search through your collection for cards that aren't being used in any deck in o
 
 ![Overlay](https://i.imgur.com/tIDgbNL.png)
 
+![Overlay](https://i.imgur.com/cXyneeJ.png)
+
 ### Settings
 * Offline Mode: Open Hearthstone, head to "Play" and stay there for a couple of seconds, so the plugin can store your collection and decks locally.
 * Check For Updates: Checks if there is new release available on the GitHub page
