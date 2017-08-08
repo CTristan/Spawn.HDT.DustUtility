@@ -27,5 +27,8 @@
 ## v1.6.1
 - Updated to HDT 1.4.0
 - Ready for the Knights of the Frozen Throne expansion
+
+## v1.6.2
+- New version is being display correctly now
 -----------------------------
 
