@@ -25,6 +25,7 @@
 - Set .NET version to 4.5
 
 ## v1.6.1
-- Ready for Knights of the Frozen Throne
+- Updated to HDT 1.4.0
+- Ready for the Knights of the Frozen Throne expansion
 -----------------------------
 
