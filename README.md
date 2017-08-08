@@ -10,7 +10,7 @@ Search through your collection for cards that aren't being used in any deck in o
 ## ToDo
 * Nothing to do for now...
 
-## Hearthstone Pack History
+# Hearthstone Pack History
 Also take a look at the [Hearthstone Pack History](https://github.com/CLJunge/Spawn.HearthstonePackHistoryHearthstone).
 
 ![Overlay](https://i.imgur.com/FCWzyBu.png)
