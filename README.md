@@ -11,7 +11,7 @@ Search through your collection for cards that aren't being used in any deck in o
 * Nothing to do for now...
 
 # Hearthstone Pack History
-Also take a look at the [Hearthstone Pack History](https://github.com/CLJunge/Spawn.HearthstonePackHistory).
+Also take a look at the [Hearthstone Pack History](https://github.com/CLJunge/Spawn.HearthstonePackHistory) app.
 
 ![Overlay](https://i.imgur.com/RYQOYCe.png)
 
