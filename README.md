@@ -13,7 +13,7 @@ Search through your collection for cards that aren't being used in any deck in o
 # Hearthstone Pack History
 Also take a look at the [Hearthstone Pack History](https://github.com/CLJunge/Spawn.HearthstonePackHistory).
 
-![Overlay](https://i.imgur.com/FCWzyBu.png)
+![Overlay](https://i.imgur.com/RYQOYCe.png)
 
 A neat app that automatically keeps track of your pack openings and offers statistics based on them.
 * Supports multiple accounts and regions!
