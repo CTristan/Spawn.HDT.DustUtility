@@ -6,7 +6,7 @@
         xmlns:ui="clr-namespace:Spawn.HDT.DustUtility.UI"
         xmlns:converters="clr-namespace:Spawn.HDT.DustUtility.Converters"
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
-        mc:Ignorable="d" ResizeMode="CanResizeWithGrip" GlowBrush="Black" Title="Dustable Cards"
+        mc:Ignorable="d" ResizeMode="CanResizeWithGrip" GlowBrush="Black" Title="Dust Utility"
         Height="450" Width="800" MinHeight="350" MinWidth="600" Loaded="OnWindowLoaded" >
     <Window.Resources>
         <ui:SearchResultContainer x:Key="searchResult"/>
