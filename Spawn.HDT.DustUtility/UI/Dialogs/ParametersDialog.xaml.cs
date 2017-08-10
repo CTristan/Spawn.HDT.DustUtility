@@ -45,8 +45,8 @@ namespace Spawn.HDT.DustUtility.UI.Dialogs
         }
         #endregion
 
-        #region OnCloseClick
-        private void OnCloseClick(object sender, RoutedEventArgs e)
+        #region OnOkClick
+        private void OnOkClick(object sender, RoutedEventArgs e)
         {
             if (Parameters != null)
             {
@@ -61,8 +61,17 @@ namespace Spawn.HDT.DustUtility.UI.Dialogs
             }
             else { }
 
+            DialogResult = true;
+
             Close();
         }
+        #endregion
+
+        #region OnCancelClick
+        private void OnCancelClick(object sender, RoutedEventArgs e)
+        {
+            Close();
+        } 
         #endregion
         #endregion
 
@@ -205,6 +214,12 @@ namespace Spawn.HDT.DustUtility.UI.Dialogs
             }
             else { }
 
+            if (cbFrozenThrone.IsChecked.Value)
+            {
+                Parameters.Sets.Add(CardSet.ICECROWN);
+            }
+            else { }
+
             if (cbNaxx.IsChecked.Value)
             {
                 Parameters.Sets.Add(CardSet.NAXX);
@@ -329,6 +344,9 @@ namespace Spawn.HDT.DustUtility.UI.Dialogs
                     case CardSet.UNGORO:
                         cbUngoro.IsChecked = true;
                         break;
+                    case CardSet.ICECROWN:
+                        cbFrozenThrone.IsChecked = true;
+                        break;
                     case CardSet.NAXX:
                         cbNaxx.IsChecked = true;
                         break;
@@ -347,7 +365,7 @@ namespace Spawn.HDT.DustUtility.UI.Dialogs
                         break;
                 }
             }
-        } 
+        }
         #endregion
     }
 }

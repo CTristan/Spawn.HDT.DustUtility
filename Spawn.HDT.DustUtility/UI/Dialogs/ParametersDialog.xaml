@@ -6,51 +6,111 @@
         xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
         mc:Ignorable="d" ResizeMode="NoResize" Loaded="OnWindowInitialized"
         WindowStartupLocation="CenterOwner" GlowBrush="Black"
-        Title="Filters" Height="305" Width="434">
-    <Grid>
-        <Button Content="Close" HorizontalAlignment="Right" Height="25" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="75" Click="OnCloseClick"/>
-        <GroupBox Header="Rarities" HorizontalAlignment="Left" Height="125" Margin="10,10,0,0" VerticalAlignment="Top" Width="105">
+        Title="Filters" SizeToContent="WidthAndHeight">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="150"/>
+            <RowDefinition Height="150"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="340"/>
+            <ColumnDefinition Width="130"/>
+        </Grid.ColumnDefinitions>
+
+        <GroupBox Header="Sets" Grid.Row="0" Grid.Column="0">
             <Grid>
-                <CheckBox Name="cbCommon" Content="Common" HorizontalAlignment="Left" Margin="5,5,0,0" VerticalAlignment="Top"/>
-                <CheckBox Name="cbRare" Content="Rare" HorizontalAlignment="Left" Margin="5,25,0,0" VerticalAlignment="Top"/>
-                <CheckBox Name="cbEpic"  Content="Epic" HorizontalAlignment="Left" Margin="5,45,0,0" VerticalAlignment="Top"/>
-                <CheckBox Name="cbLegendary" Content="Legendary" HorizontalAlignment="Left" Margin="5,65,0,0" VerticalAlignment="Top"/>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition Height="5"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <CheckBox Name="cbExpert" Content="Classic" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"/>
+                <CheckBox Name="cbGoblins" Content="GvG" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"/>
+                <CheckBox Name="cbTournament" Content="TGT" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"/>
+                <CheckBox Name="cbOldGods" Content="Old Gods" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"/>
+                <CheckBox Name="cbGadgetzan" Content="MSG" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center"/>
+                <CheckBox Name="cbUngoro" Content="Un'Goro" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center"/>
+                <CheckBox Name="cbFrozenThrone" Content="Frozen Throne" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center"/>
+                <CheckBox Name="cbNaxx" Content="Naxx" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center"/>
+                <CheckBox Name="cbMountain" Content="BRM" Grid.Row="0" Grid.Column="2" VerticalAlignment="Center"/>
+                <CheckBox Name="cbLeague" Content="LOE" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center"/>
+                <CheckBox Name="cbKarazhan" Content="Karazhan" Grid.Row="2" Grid.Column="2" VerticalAlignment="Center"/>
+                <CheckBox Name="cbHall" Content="Hall of Fame" Grid.Row="3" Grid.Column="2" VerticalAlignment="Center"/>
             </Grid>
         </GroupBox>
-        <GroupBox Header="Classes" HorizontalAlignment="Left" Height="125" Margin="120,10,0,0" VerticalAlignment="Top" Width="298">
+
+        <GroupBox Header="Rarities" Grid.Row="0" Grid.Column="1">
             <Grid>
-                <CheckBox Name="cbDruid" Content="Druid" HorizontalAlignment="Left" Margin="5,5,0,0" VerticalAlignment="Top"/>
-                <CheckBox Name="cbHunter" Content="Hunter" HorizontalAlignment="Left" Margin="5,25,0,0" VerticalAlignment="Top"/>
-                <CheckBox Name="cbMage" Content="Mage" HorizontalAlignment="Left" Margin="5,45,0,0" VerticalAlignment="Top"/>
-                <CheckBox Name="cbPaladin" Content="Paladin" HorizontalAlignment="Left" Margin="5,65,0,0" VerticalAlignment="Top"/>
-                <CheckBox Name="cbPriest" Content="Priest" HorizontalAlignment="Left" Margin="105,5,0,0" VerticalAlignment="Top"/>
-                <CheckBox Name="cbRogue" Content="Rogue" HorizontalAlignment="Left" Margin="105,25,0,0" VerticalAlignment="Top"/>
-                <CheckBox Name="cbShaman" Content="Shaman" HorizontalAlignment="Left" Margin="105,45,0,0" VerticalAlignment="Top"/>
-                <CheckBox Name="cbWarlock" Content="Warlock" HorizontalAlignment="Left" Margin="105,65,0,0" VerticalAlignment="Top"/>
-                <CheckBox Name="cbWarrior" Content="Warrior" HorizontalAlignment="Left" Margin="205,5,0,0" VerticalAlignment="Top"/>
-                <CheckBox Name="cbNeutral" Content="Neutral" HorizontalAlignment="Left" Margin="205,25,0,0" VerticalAlignment="Top"/>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition Height="5"/>
+                </Grid.RowDefinitions>
+                
+                <CheckBox Name="cbCommon" Content="Common" Grid.Row="0" VerticalAlignment="Center"/>
+                <CheckBox Name="cbRare" Content="Rare" Grid.Row="1" VerticalAlignment="Center"/>
+                <CheckBox Name="cbEpic"  Content="Epic" Grid.Row="2" VerticalAlignment="Center"/>
+                <CheckBox Name="cbLegendary" Content="Legendary" Grid.Row="3" VerticalAlignment="Center"/>
             </Grid>
         </GroupBox>
-        <GroupBox Header="Sets" HorizontalAlignment="Left" Height="125" Margin="10,140,0,0" VerticalAlignment="Top" Width="280">
+
+        <GroupBox Header="Classes" Grid.Row="1" Grid.Column="0">
             <Grid>
-                <CheckBox Name="cbExpert" Content="Classic" HorizontalAlignment="Left" Margin="5,5,0,0" VerticalAlignment="Top"/>
-                <CheckBox Name="cbGoblins" Content="GvG" HorizontalAlignment="Left" Margin="5,25,0,0" VerticalAlignment="Top"/>
-                <CheckBox Name="cbTournament" Content="TGT" HorizontalAlignment="Left" Margin="5,45,0,0" VerticalAlignment="Top"/>
-                <CheckBox Name="cbOldGods" Content="Old Gods" HorizontalAlignment="Left" Margin="5,65,0,0" VerticalAlignment="Top"/>
-                <CheckBox Name="cbGadgetzan" Content="MSG" HorizontalAlignment="Left" Margin="85,5,0,0" VerticalAlignment="Top"/>
-                <CheckBox Name="cbUngoro" Content="Un'Goro" HorizontalAlignment="Left" Margin="85,25,0,0" VerticalAlignment="Top"/>
-                <CheckBox Name="cbNaxx" Content="Naxx" HorizontalAlignment="Left" Margin="85,45,0,0" VerticalAlignment="Top"/>
-                <CheckBox Name="cbMountain" Content="BRM" HorizontalAlignment="Left" Margin="85,65,0,0" VerticalAlignment="Top"/>
-                <CheckBox Name="cbLeague" Content="LOE" HorizontalAlignment="Left" Margin="165,5,0,0" VerticalAlignment="Top"/>
-                <CheckBox Name="cbKarazhan" Content="Karazhan" HorizontalAlignment="Left" Margin="165,25,0,0" VerticalAlignment="Top"/>
-                <CheckBox Name="cbHall" Content="Hall of Fame" HorizontalAlignment="Left" Margin="165,45,0,0" VerticalAlignment="Top"/>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition Height="5"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <CheckBox Name="cbDruid" Content="Druid" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"/>
+                <CheckBox Name="cbHunter" Content="Hunter" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"/>
+                <CheckBox Name="cbMage" Content="Mage" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"/>
+                <CheckBox Name="cbPaladin" Content="Paladin" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"/>
+                <CheckBox Name="cbPriest" Content="Priest" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center"/>
+                <CheckBox Name="cbRogue" Content="Rogue" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center"/>
+                <CheckBox Name="cbShaman" Content="Shaman" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center"/>
+                <CheckBox Name="cbWarlock" Content="Warlock" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center"/>
+                <CheckBox Name="cbWarrior" Content="Warrior" Grid.Row="0" Grid.Column="2" VerticalAlignment="Center"/>
+                <CheckBox Name="cbNeutral" Content="Neutral" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center"/>
             </Grid>
         </GroupBox>
-        <GroupBox Header="Misc." HorizontalAlignment="Left" Height="85" Margin="295,140,0,0" VerticalAlignment="Top" Width="123">
+
+        <GroupBox Header="Misc." Grid.Row="1" Grid.Column="1">
             <Grid>
-                <CheckBox x:Name="cbGolden" Content="Golden Cards" HorizontalAlignment="Left" Margin="5,5,0,0" VerticalAlignment="Top"/>
-                <CheckBox x:Name="cbUnusedOnly" Content="Unused Only" HorizontalAlignment="Left" Margin="5,25,0,0" VerticalAlignment="Top"/>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition Height="5"/>
+                </Grid.RowDefinitions>
+                
+                <CheckBox x:Name="cbGolden" Content="Golden Cards" Grid.Row="0" VerticalAlignment="Center"/>
+                <CheckBox x:Name="cbUnusedOnly" Content="Unused Only" Grid.Row="1" VerticalAlignment="Center"/>
             </Grid>
         </GroupBox>
+
+        <WrapPanel Grid.Row="100" Grid.ColumnSpan="2" HorizontalAlignment="Right" Margin="0,10,5,5">
+            <Button Content="_Ok" IsDefault="True" Click="OnOkClick" Width="75" Margin="0,0,10,0"/>
+            <Button Content="_Cancel" IsCancel="True" Click="OnCancelClick" Width="75"/>
+        </WrapPanel>
     </Grid>
 </Controls:MetroWindow>
