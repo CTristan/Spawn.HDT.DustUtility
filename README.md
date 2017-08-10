@@ -11,7 +11,7 @@ Enter the amout of dust you are aiming for and the plugin searches through your 
 ![Overlay](https://i.imgur.com/zxdXdwf.png)
 
 ### Settings
-* Offline Mode: Open Hearthstone, head to "Play" and stay there for a couple of seconds, the plugin will store your collection and decks locally.
+* Offline Mode: Open Hearthstone, head to "Play" and stay there for a couple of seconds, the plugin will store your collection and decks locally. After that it is going to store collection and decks every 5 min.
 * Check For Updates: Checks if there is new release available on the GitHub page
 
 ## ToDo
