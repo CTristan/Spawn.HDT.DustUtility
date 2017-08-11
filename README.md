@@ -17,13 +17,4 @@ Enter the amout of dust you are aiming for and the plugin searches through your 
 ## ToDo
 * Save set filters after main window closes
 * History of disenchanted cards (only works with Offline Mode enabled)
-* Enter card name, card id, card ability (Lifesteal, Taunt, etc.) to search for specific cards
-
-
-# Hearthstone Pack History
-Also take a look at my [Hearthstone Pack History](https://github.com/CLJunge/Spawn.HearthstonePackHistory) app.
-
-A neat app that automatically keeps track of your pack openings and offers statistics based on them.
-* Supports multiple accounts and regions!
-
-![Overlay](https://i.imgur.com/RYQOYCe.png)
+* Enter card name, card id, card ability (Lifesteal, Taunt, etc.) to search for specific card
