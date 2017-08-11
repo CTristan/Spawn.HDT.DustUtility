@@ -15,6 +15,7 @@ Enter the amout of dust you are aiming for and the plugin searches through your 
 * Check For Updates: Checks if there is new release available on the GitHub page
 
 ## ToDo
+* Save set filters after main window closes
 * History of disenchanted cards (only works with Offline Mode enabled)
 * Enter card name, card id, card ability (Lifesteal, Taunt, etc.) to search for specific cards
 
