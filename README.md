@@ -11,18 +11,10 @@ Enter the amout of dust you are aiming for and the plugin searches through your 
 ![Overlay](https://i.imgur.com/zxdXdwf.png)
 
 ### Settings
-* Offline Mode: Open Hearthstone, head to "Play" and stay there for a couple of seconds, so the plugin can store your collection and decks locally.
+* Offline Mode: Open Hearthstone, head to "Play" and stay there for a couple of seconds, the plugin will store your collection and decks locally. After that it is going to store collection and decks every 5 min.
 * Check For Updates: Checks if there is new release available on the GitHub page
 
 ## ToDo
+* Save set filters after main window closes
 * History of disenchanted cards (only works with Offline Mode enabled)
-* Enter card name, card id, card ability (Lifesteal, Taunt, etc.) to search for specific cards
-
-
-# Hearthstone Pack History
-Also take a look at my [Hearthstone Pack History](https://github.com/CLJunge/Spawn.HearthstonePackHistory) app.
-
-A neat app that automatically keeps track of your pack openings and offers statistics based on them.
-* Supports multiple accounts and regions!
-
-![Overlay](https://i.imgur.com/RYQOYCe.png)
+* Enter card name, card id, card ability (Lifesteal, Taunt, etc.) to search for specific card
