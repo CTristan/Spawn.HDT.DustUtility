@@ -11,5 +11,8 @@
     <Setting Name="CheckForUpdate" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
+    <Setting Name="SearchParameters" Type="Spawn.HDT.DustUtility.Search.Parameters" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

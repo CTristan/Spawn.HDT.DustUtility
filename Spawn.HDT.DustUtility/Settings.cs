@@ -1,4 +1,6 @@
-﻿namespace Spawn.HDT.DustUtility
+﻿using Spawn.HDT.DustUtility.Search;
+
+namespace Spawn.HDT.DustUtility
 {
     public static class Settings
     {
@@ -34,6 +36,18 @@
             set
             {
                 Properties.Settings.Default.CheckForUpdate = value;
+                Properties.Settings.Default.Save();
+            }
+        }
+        #endregion
+
+        #region SearchParameters
+        public static Parameters SearchParameters
+        {
+            get => Properties.Settings.Default.SearchParameters;
+            set
+            {
+                Properties.Settings.Default.SearchParameters = value;
                 Properties.Settings.Default.Save();
             }
         }

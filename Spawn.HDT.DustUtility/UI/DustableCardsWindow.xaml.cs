@@ -41,8 +41,15 @@ namespace Spawn.HDT.DustUtility.UI
             m_numericRegex = new Regex("[^0-9]+");
 
             m_cardCollector = new CardCollector(this, offlineMode);
-            
-            m_parameters = new Parameters();
+
+            if (Settings.SearchParameters == null)
+            {
+                m_parameters = new Parameters(true); 
+            }
+            else
+            {
+                m_parameters = Settings.SearchParameters.DeepClone();
+            }
 
             if (offlineMode)
             {
@@ -89,14 +96,18 @@ namespace Spawn.HDT.DustUtility.UI
         {
             if (m_cardCollector != null && m_parameters != null)
             {
-                ParametersDialog dialog = new ParametersDialog(m_parameters)
+                ParametersDialog dialog = new ParametersDialog(m_parameters.DeepClone())
                 {
                     Owner = this
                 };
 
-                dialog.ShowDialog();
+                if (dialog.ShowDialog().Value)
+                {
+                    m_parameters = dialog.Parameters.DeepClone();
 
-                m_parameters = dialog.Parameters;
+                    Settings.SearchParameters = dialog.Parameters.DeepClone();
+                }
+                else { }
             }
             else { }
         }
