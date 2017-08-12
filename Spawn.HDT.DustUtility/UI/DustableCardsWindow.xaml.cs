@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
@@ -61,7 +59,7 @@ namespace Spawn.HDT.DustUtility.UI
 
         #region Events
         #region OnWindowLoaded
-        private async void OnWindowLoaded(object sender, RoutedEventArgs e)
+        private async void OnWindowLoaded(object sender, System.Windows.RoutedEventArgs e)
         {
             if (Settings.CheckForUpdate && await GitHubUpdateManager.CheckForUpdateAsync())
             {
@@ -85,14 +83,14 @@ namespace Spawn.HDT.DustUtility.UI
         #endregion
 
         #region OnGoClick
-        private async void OnGoClick(object sender, RoutedEventArgs e)
+        private async void OnGoClick(object sender, System.Windows.RoutedEventArgs e)
         {
             await SearchAsync();
         }
         #endregion
 
         #region OnFiltersClick
-        private void OnFiltersClick(object sender, RoutedEventArgs e)
+        private void OnFiltersClick(object sender, System.Windows.RoutedEventArgs e)
         {
             if (m_cardCollector != null && m_parameters != null)
             {
@@ -114,7 +112,7 @@ namespace Spawn.HDT.DustUtility.UI
         #endregion
 
         #region OnTotalDustClick
-        private async void OnTotalDustClick(object sender, RoutedEventArgs e)
+        private async void OnTotalDustClick(object sender, System.Windows.RoutedEventArgs e)
         {
             await this.ShowMessageAsync(string.Empty, $"Your collection is worth: {m_cardCollector.GetTotalDustValueForAllCards()} Dust");
         }
@@ -138,7 +136,7 @@ namespace Spawn.HDT.DustUtility.UI
         #endregion
 
         #region OnSortOrderClick
-        private void OnSortOrderClick(object sender, RoutedEventArgs e)
+        private void OnSortOrderClick(object sender, System.Windows.RoutedEventArgs e)
         {
             SortOrderDialog dialog = new SortOrderDialog()
             {
@@ -147,9 +145,9 @@ namespace Spawn.HDT.DustUtility.UI
 
             if (dialog.ShowDialog().Value)
             {
-                IEnumerable<GridItem> items = dataGrid.ItemsSource as IEnumerable<GridItem>;
+                //IEnumerable<GridItem> items = dataGrid.ItemsSource as IEnumerable<GridItem>;
 
-                dataGrid.ItemsSource = OrderItems(items);
+                //dataGrid.ItemsSource = OrderItems(items);
             }
             else { }
         }
@@ -181,7 +179,7 @@ namespace Spawn.HDT.DustUtility.UI
         #endregion
 
         #region OnInputBoxGotFocus
-        private void OnInputBoxGotFocus(object sender, RoutedEventArgs e)
+        private void OnInputBoxGotFocus(object sender, System.Windows.RoutedEventArgs e)
         {
             (sender as TextBox).SelectAll();
         }
@@ -290,7 +288,7 @@ namespace Spawn.HDT.DustUtility.UI
             }
 
             //Sort
-            lstItems = OrderItems(lstItems).ToList();
+            //lstItems = OrderItems(lstItems).ToList();
 
             for (int i = 0; i < lstItems.Count; i++)
             {
@@ -311,87 +309,87 @@ namespace Spawn.HDT.DustUtility.UI
         }
         #endregion
 
-        #region OrderItems
-        private IEnumerable<GridItem> OrderItems(IEnumerable<GridItem> items)
-        {
-            IEnumerable<GridItem> retVal;
+        //#region OrderItems
+        //private IEnumerable<GridItem> OrderItems(IEnumerable<GridItem> items)
+        //{
+        //    IEnumerable<GridItem> retVal;
 
-            SortOrder sortOrder = SortOrder.Parse(Settings.SortOrder);
+        //    SortOrder sortOrder = SortOrder.Parse(Settings.SortOrder);
 
-            if (sortOrder != null && sortOrder.Items.Count > 0)
-            {
-                IOrderedEnumerable<GridItem> orderedList = null;
+        //    if (sortOrder != null && sortOrder.Items.Count > 0)
+        //    {
+        //        IOrderedEnumerable<GridItem> orderedList = null;
 
-                switch (sortOrder.Items[0])
-                {
-                    case SortOrder.Item.Count:
-                        orderedList = items.OrderBy(c => c.Count);
-                        break;
-                    case SortOrder.Item.Name:
-                        orderedList = items.OrderBy(c => c.Name);
-                        break;
-                    case SortOrder.Item.Golden:
-                        orderedList = items.OrderBy(c => c.Golden);
-                        break;
-                    case SortOrder.Item.Dust:
-                        orderedList = items.OrderBy(c => c.Dust);
-                        break;
-                    case SortOrder.Item.Rarity:
-                        orderedList = items.OrderBy(c => c.Rarity);
-                        break;
-                    case SortOrder.Item.Class:
-                        orderedList = items.OrderBy(c => c.CardClass);
-                        break;
-                    case SortOrder.Item.CardSet:
-                        orderedList = items.OrderBy(c => c.Set);
-                        break;
-                    case SortOrder.Item.Cost:
-                        orderedList = items.OrderBy(c => c.Tag.DbCard.Cost);
-                        break;
-                }
+        //        switch (sortOrder.Items[0])
+        //        {
+        //            case SortOrder.Item.Count:
+        //                orderedList = items.OrderBy(item => item.Count);
+        //                break;
+        //            case SortOrder.Item.Name:
+        //                orderedList = items.OrderBy(item => item.Name);
+        //                break;
+        //            case SortOrder.Item.Golden:
+        //                orderedList = items.OrderBy(item => item.Golden);
+        //                break;
+        //            case SortOrder.Item.Dust:
+        //                orderedList = items.OrderBy(item => item.Dust);
+        //                break;
+        //            case SortOrder.Item.Rarity:
+        //                orderedList = items.OrderBy(item => item.Rarity);
+        //                break;
+        //            case SortOrder.Item.Class:
+        //                orderedList = items.OrderBy(item => item.CardClass);
+        //                break;
+        //            case SortOrder.Item.CardSet:
+        //                orderedList = items.OrderBy(item => item.Set);
+        //                break;
+        //            case SortOrder.Item.Cost:
+        //                orderedList = items.OrderBy(item => item.Tag.DbCard.Cost);
+        //                break;
+        //        }
 
-                for (int i = 1; i < sortOrder.Items.Count; i++)
-                {
-                    switch (sortOrder.Items[i])
-                    {
-                        case SortOrder.Item.Count:
-                            orderedList = orderedList.ThenBy(c => c.Count);
-                            break;
-                        case SortOrder.Item.Name:
-                            orderedList = orderedList.ThenBy(c => c.Name);
-                            break;
-                        case SortOrder.Item.Golden:
-                            orderedList = orderedList.ThenBy(c => c.Golden);
-                            break;
-                        case SortOrder.Item.Dust:
-                            orderedList = orderedList.ThenBy(c => c.Dust);
-                            break;
-                        case SortOrder.Item.Rarity:
-                            orderedList = orderedList.ThenBy(c => c.Rarity);
-                            break;
-                        case SortOrder.Item.Class:
-                            orderedList = orderedList.ThenBy(c => c.CardClass);
-                            break;
-                        case SortOrder.Item.CardSet:
-                            orderedList = orderedList.ThenBy(c => c.Set);
-                            break;
-                        case SortOrder.Item.Cost:
-                            orderedList = orderedList.ThenBy(c => c.Tag.DbCard.Cost);
-                            break;
-                    }
-                }
+        //        for (int i = 1; i < sortOrder.Items.Count; i++)
+        //        {
+        //            switch (sortOrder.Items[i])
+        //            {
+        //                case SortOrder.Item.Count:
+        //                    orderedList = orderedList.ThenBy(item => item.Count);
+        //                    break;
+        //                case SortOrder.Item.Name:
+        //                    orderedList = orderedList.ThenBy(item => item.Name);
+        //                    break;
+        //                case SortOrder.Item.Golden:
+        //                    orderedList = orderedList.ThenBy(item => item.Golden);
+        //                    break;
+        //                case SortOrder.Item.Dust:
+        //                    orderedList = orderedList.ThenBy(item => item.Dust);
+        //                    break;
+        //                case SortOrder.Item.Rarity:
+        //                    orderedList = orderedList.ThenBy(item => item.Rarity);
+        //                    break;
+        //                case SortOrder.Item.Class:
+        //                    orderedList = orderedList.ThenBy(item => item.CardClass);
+        //                    break;
+        //                case SortOrder.Item.CardSet:
+        //                    orderedList = orderedList.ThenBy(item => item.Set);
+        //                    break;
+        //                case SortOrder.Item.Cost:
+        //                    orderedList = orderedList.ThenBy(item => item.Tag.DbCard.Cost);
+        //                    break;
+        //            }
+        //        }
 
-                retVal = orderedList;
-            }
-            else
-            {
-                //lstRet = list.OrderBy(item => item.Rarity).ThenBy(item => item.Golden).ThenBy(item => item.Dust).ThenBy(item => item.CardClass).ThenBy(item => item.CardSet).ThenBy(item => item.Name).ToList();
-                retVal = items;
-            }
+        //        retVal = orderedList;
+        //    }
+        //    else
+        //    {
+        //        //lstRet = list.OrderBy(item => item.Rarity).ThenBy(item => item.Golden).ThenBy(item => item.Dust).ThenBy(item => item.CardClass).ThenBy(item => item.CardSet).ThenBy(item => item.Name).ToList();
+        //        retVal = items;
+        //    }
 
-            return retVal;
-        }
-        #endregion
+        //    return retVal;
+        //}
+        //#endregion
 
         #region GetSearchResultComponent
         public SearchResultContainer GetSearchResultComponent()

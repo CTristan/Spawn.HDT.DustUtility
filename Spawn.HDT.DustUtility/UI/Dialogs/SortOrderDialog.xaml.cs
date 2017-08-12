@@ -1,11 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Spawn.HDT.DustUtility.Search;
 
 namespace Spawn.HDT.DustUtility.UI.Dialogs
 {
     public partial class SortOrderDialog
     {
+        #region Static Variables
+        private static ItemContainerComparer s_itemContainerComparer = new ItemContainerComparer();
+        #endregion
+
         #region Member Variables
         private int m_nMaxCount; 
         #endregion
@@ -45,20 +50,7 @@ namespace Spawn.HDT.DustUtility.UI.Dialogs
         #region OnAddItemClick
         private void OnAddItemClick(object sender, System.Windows.RoutedEventArgs e)
         {
-            SortOrder.Item[] vItems = (SortOrder.Item[])Enum.GetValues(typeof(SortOrder.Item));
-
-            List<SortOrder.Item> lstUnusedItems = new List<SortOrder.Item>();
-
-            for (int i = 0; i < vItems.Length; i++)
-            {
-                if (!lbItems.Items.Contains(vItems[i]))
-                {
-                    lstUnusedItems.Add(vItems[i]);
-                }
-                else { }
-            }
-
-            AddSortOrderItemDialog dialog = new AddSortOrderItemDialog(lstUnusedItems)
+            AddSortOrderItemDialog dialog = new AddSortOrderItemDialog(GetUnusedItems())
             {
                 Owner = this
             };
@@ -123,22 +115,76 @@ namespace Spawn.HDT.DustUtility.UI.Dialogs
         #region OnSaveClick
         private void OnSaveClick(object sender, System.Windows.RoutedEventArgs e)
         {
-            string strOrder = string.Empty;
-
-            for (int i = 0; i < lbItems.Items.Count; i++)
-            {
-                strOrder = $"{strOrder};{lbItems.Items[i]}";
-            }
-
-            strOrder = strOrder.Substring(1, strOrder.Length - 1);
-
-            Settings.SortOrder = strOrder;
+            SaveSortOrder();
 
             DialogResult = true;
 
             Close();
         }
-        #endregion 
         #endregion
+        #endregion
+
+        #region SaveSortOrder
+        private void SaveSortOrder()
+        {
+            string strOrder = string.Empty;
+
+            for (int i = 0; i < lbItems.Items.Count; i++)
+            {
+                strOrder = $"{strOrder};{(lbItems.Items[i] as SortOrder.ItemContainer).Value}";
+            }
+
+            strOrder = strOrder.Substring(1, strOrder.Length - 1);
+
+            Settings.SortOrder = strOrder;
+        }
+        #endregion
+
+        #region GetUnusedItems
+        private List<SortOrder.ItemContainer> GetUnusedItems()
+        {
+            List<SortOrder.ItemContainer> lstRet = new List<SortOrder.ItemContainer>();
+
+            SortOrder.Item[] vItems = (SortOrder.Item[])Enum.GetValues(typeof(SortOrder.Item));
+
+            SortOrder.ItemContainer[] vItemContainers = new SortOrder.ItemContainer[lbItems.Items.Count];
+
+            lbItems.Items.CopyTo(vItemContainers, 0);
+
+            for (int i = 0; i < vItems.Length; i++)
+            {
+                SortOrder.ItemContainer itemContainer = new SortOrder.ItemContainer(vItems[i]);
+
+                if (!vItemContainers.Contains(itemContainer, s_itemContainerComparer))
+                {
+                    lstRet.Add(itemContainer);
+                }
+                else { }
+            }
+
+            return lstRet;
+        } 
+        #endregion
+
+        private class ItemContainerComparer : IEqualityComparer<SortOrder.ItemContainer>
+        {
+            public bool Equals(SortOrder.ItemContainer x, SortOrder.ItemContainer y)
+            {
+                bool blnRet = false;
+
+                if (x != null && y != null)
+                {
+                    blnRet = GetHashCode(x) == GetHashCode(y);
+                }
+                else { }
+
+                return blnRet;
+            }
+
+            public int GetHashCode(SortOrder.ItemContainer obj)
+            {
+                return obj.Name.GetHashCode() + obj.Value.GetHashCode();
+            }
+        }
     }
 }

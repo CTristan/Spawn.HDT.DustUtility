@@ -21,7 +21,7 @@
         </Grid.RowDefinitions>
 
         <Border Grid.Row="0" Grid.RowSpan="6" BorderBrush="Silver" BorderThickness="1" Margin="0,0,0,5">
-            <ListBox Name="lbItems" SelectionChanged="OnItemSelectionChanged"/>
+            <ListBox Name="lbItems" SelectionChanged="OnItemSelectionChanged" DisplayMemberPath="Name" SelectedValuePath="Value"/>
         </Border>
 
         <Button Name="addButtom" Content="Add" Grid.Column="1" Grid.Row="0" Margin="5,5,0,5" Click="OnAddItemClick"/>

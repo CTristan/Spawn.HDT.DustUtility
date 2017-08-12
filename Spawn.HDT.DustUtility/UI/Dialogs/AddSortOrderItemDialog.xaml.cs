@@ -7,8 +7,12 @@ namespace Spawn.HDT.DustUtility.UI.Dialogs
 {
     public partial class AddSortOrderItemDialog
     {
+        #region Member Variables
+        private SortOrder.ItemContainer m_selectedItem;
+        #endregion
+
         #region Properties
-        public SortOrder.Item SelectedItem => (SortOrder.Item)cbItems.SelectedItem; 
+        public SortOrder.ItemContainer SelectedItem => m_selectedItem; 
         #endregion
 
         #region Ctor
@@ -18,18 +22,24 @@ namespace Spawn.HDT.DustUtility.UI.Dialogs
 
         }
 
-        public AddSortOrderItemDialog(List<SortOrder.Item> items)
+        public AddSortOrderItemDialog(List<SortOrder.ItemContainer> items)
         {
             InitializeComponent();
 
-            if (items != null && items.Count > 0)
+            if (items == null || items?.Count == 0)
             {
-                cbItems.ItemsSource = items;
+                items = new List<SortOrder.ItemContainer>();
+
+                SortOrder.Item[] vItems = (SortOrder.Item[])Enum.GetValues(typeof(SortOrder.Item));
+
+                for (int i = 0; i < vItems.Length; i++)
+                {
+                    items.Add(new SortOrder.ItemContainer(vItems[i]));
+                }
             }
-            else
-            {
-                cbItems.ItemsSource = Enum.GetValues(typeof(SortOrder.Item));
-            }
+            else { }
+
+            cbItems.ItemsSource = items;
 
             cbItems.SelectedIndex = 0;
         }
@@ -39,6 +49,8 @@ namespace Spawn.HDT.DustUtility.UI.Dialogs
         #region OnOkClick
         private void OnOkClick(object sender, RoutedEventArgs e)
         {
+            m_selectedItem = (SortOrder.ItemContainer)cbItems.SelectedItem;
+
             DialogResult = true;
 
             Close();

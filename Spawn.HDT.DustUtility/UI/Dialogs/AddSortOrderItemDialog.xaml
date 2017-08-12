@@ -15,7 +15,7 @@
 
         <Label Content="Select item" Height="25" Margin="0,7,0,0"/>
 
-        <ComboBox Name="cbItems" Grid.Row="1" VerticalAlignment="Center" Width="200" Margin="5,0,5,0"/>
+        <ComboBox Name="cbItems" Grid.Row="1" DisplayMemberPath="Name" SelectedValuePath="Value" VerticalAlignment="Center" Width="200" Margin="5,0,5,0"/>
 
         <WrapPanel Grid.Row="2" HorizontalAlignment="Right" Margin="0,10,5,5">
             <Button Content="_Ok" IsDefault="True" Click="OnOkClick" Width="75" Margin="0,0,10,0"/>
