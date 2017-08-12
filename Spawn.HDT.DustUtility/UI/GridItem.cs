@@ -31,8 +31,12 @@ namespace Spawn.HDT.DustUtility.UI
         public string CardClass { get; set; }
         #endregion
 
-        #region Set
-        public string Set { get; set; }
+        #region CardSet
+        public string CardSet { get; set; }
+        #endregion
+
+        #region ManaCost
+        public int ManaCost { get; set; }
         #endregion
 
         #region Tag

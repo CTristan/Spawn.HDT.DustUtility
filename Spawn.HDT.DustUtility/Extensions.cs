@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
+using System.Linq.Expressions;
 using HearthDb;
 using HearthDb.Enums;
 using Spawn.HDT.DustUtility.Offline;
@@ -115,6 +117,20 @@ namespace Spawn.HDT.DustUtility
             TextInfo textInfo = CultureInfo.InvariantCulture.TextInfo;
 
             return textInfo.ToTitleCase(cardClass.ToString().ToLowerInvariant());
+        }
+        #endregion
+
+        #region OrderBy
+        // All credits to Aaron Powell https://stackoverflow.com/a/307600
+        public static IQueryable<T> OrderBy<T>(this IQueryable<T> source, string strProperty)
+        {
+            var type = typeof(T);
+            var property = type.GetProperty(strProperty);
+            var parameter = Expression.Parameter(type, "p");
+            var propertyAccess = Expression.MakeMemberAccess(parameter, property);
+            var orderByExp = Expression.Lambda(propertyAccess, parameter);
+            MethodCallExpression resultExp = Expression.Call(typeof(Queryable), "OrderBy", new System.Type[] { type, property.PropertyType }, source.Expression, Expression.Quote(orderByExp));
+            return source.Provider.CreateQuery<T>(resultExp);
         }
         #endregion
     }

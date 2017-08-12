@@ -68,13 +68,13 @@ namespace Spawn.HDT.DustUtility.Search
                 case Item.Rarity:
                     strRet = "Rarity";
                     break;
-                case Item.Class:
+                case Item.CardClass:
                     strRet = "Class";
                     break;
                 case Item.CardSet:
                     strRet = "Set";
                     break;
-                case Item.Cost:
+                case Item.ManaCost:
                     strRet = "Mana Cost";
                     break;
                 default:
@@ -110,9 +110,9 @@ namespace Spawn.HDT.DustUtility.Search
             Golden,
             Dust,
             Rarity,
-            Class,
+            CardClass,
             CardSet,
-            Cost
+            ManaCost
         }
     }
 }
