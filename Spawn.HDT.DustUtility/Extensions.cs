@@ -21,7 +21,7 @@ namespace Spawn.HDT.DustUtility
         #region GetCard
         public static HearthMirror.Objects.Card GetCard(this HearthMirror.Objects.Deck deck, string strId)
         {
-            return deck.Cards.Find(delegate (HearthMirror.Objects.Card c) { return strId.Equals(c.Id); });
+            return deck.Cards.Find(delegate (HearthMirror.Objects.Card c) { return string.CompareOrdinal(c.Id, strId) == 0; });
         }
         #endregion
 
