@@ -57,22 +57,27 @@ namespace Spawn.HDT.DustUtility
         #region Ctor
         static Settings()
         {
-            string strSortOrder = Properties.Settings.Default.SortOrder;
-
-            if (!strSortOrder.Contains("ManaCost"))
+            if (Properties.Settings.Default.Version == 1)
             {
-                strSortOrder = strSortOrder.Replace("Cost", "ManaCost");
+                string strSortOrder = Properties.Settings.Default.SortOrder;
+
+                if (!strSortOrder.Contains("ManaCost"))
+                {
+                    strSortOrder = strSortOrder.Replace("Cost", "ManaCost");
+                }
+                else { }
+
+                if (!strSortOrder.Contains("CardClass"))
+                {
+                    strSortOrder = strSortOrder.Replace("Class", "CardClass");
+                }
+                else { }
+
+                Properties.Settings.Default.SortOrder = strSortOrder;
+                Properties.Settings.Default.Version = 2;
+                Properties.Settings.Default.Save(); 
             }
             else { }
-
-            if (!strSortOrder.Contains("CardClass"))
-            {
-                strSortOrder = strSortOrder.Replace("Class", "CardClass");
-            }
-            else { }
-
-            Properties.Settings.Default.SortOrder = strSortOrder;
-            Properties.Settings.Default.Save();
         }
         #endregion
     }

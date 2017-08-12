@@ -152,9 +152,7 @@ namespace Spawn.HDT.DustUtility.UI
 
             if (dialog.ShowDialog().Value)
             {
-                //IEnumerable<GridItem> items = dataGrid.ItemsSource as IEnumerable<GridItem>;
-
-                //dataGrid.ItemsSource = OrderItems(items);
+                dataGrid.ItemsSource = OrderItems(dataGrid.ItemsSource as IEnumerable<GridItem>);
             }
             else { }
         }
