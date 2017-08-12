@@ -38,39 +38,43 @@ namespace Spawn.HDT.DustUtility.Update
         {
             bool blnRet = false;
 
-            HttpWebRequest request = WebRequest.CreateHttp(LatestReleaseUrl);
-
-            HttpWebResponse response = await request.GetResponseAsync() as HttpWebResponse;
-
-            if (response.StatusCode == HttpStatusCode.OK)
+            try
             {
-                Match versionMatch = s_versionRegex.Match(response.ResponseUri.AbsoluteUri);
+                HttpWebRequest request = WebRequest.CreateHttp(LatestReleaseUrl);
 
-                if (versionMatch.Success)
+                HttpWebResponse response = await request.GetResponseAsync() as HttpWebResponse;
+
+                if (response.StatusCode == HttpStatusCode.OK)
                 {
-                    Version newVersion = new Version(versionMatch.Value);
+                    Match versionMatch = s_versionRegex.Match(response.ResponseUri.AbsoluteUri);
 
-                    blnRet = newVersion > Assembly.GetExecutingAssembly().GetName().Version;
-                    //blnRet = newVersion > new Version(0, 0);
-
-                    if (blnRet)
+                    if (versionMatch.Success)
                     {
-                        s_newVersion = newVersion;
+                        Version newVersion = new Version(versionMatch.Value);
 
-                        string strResult;
+                        blnRet = newVersion > Assembly.GetExecutingAssembly().GetName().Version;
+                        //blnRet = newVersion > new Version(0, 0);
 
-                        using (WebClient webClient = new WebClient())
+                        if (blnRet)
                         {
-                            strResult = await webClient.DownloadStringTaskAsync(response.ResponseUri);
+                            s_newVersion = newVersion;
 
-                            strResult = strResult.Trim().Replace("\n", string.Empty).Replace("\r", string.Empty);
-                        }
+                            string strResult;
 
-                        Match updateTextMatch = s_updateTextRegex.Match(strResult);
+                            using (WebClient webClient = new WebClient())
+                            {
+                                strResult = await webClient.DownloadStringTaskAsync(response.ResponseUri);
 
-                        if (updateTextMatch.Success)
-                        {
-                            s_strReleaseNotes = updateTextMatch.Groups["Content"].Value.Replace("<br>", Environment.NewLine);
+                                strResult = strResult.Trim().Replace("\n", string.Empty).Replace("\r", string.Empty);
+                            }
+
+                            Match updateTextMatch = s_updateTextRegex.Match(strResult);
+
+                            if (updateTextMatch.Success)
+                            {
+                                s_strReleaseNotes = updateTextMatch.Groups["Content"].Value.Replace("<br>", Environment.NewLine);
+                            }
+                            else { }
                         }
                         else { }
                     }
@@ -78,7 +82,10 @@ namespace Spawn.HDT.DustUtility.Update
                 }
                 else { }
             }
-            else { }
+            catch
+            {
+                //No internet connection or github down
+            }
 
             return blnRet;
         }
