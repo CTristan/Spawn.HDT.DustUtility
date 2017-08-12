@@ -9,8 +9,8 @@ namespace Spawn.HDT.DustUtility
 {
     public static class Extensions
     {
-        #region Contains
-        public static bool Contains(this HearthMirror.Objects.Deck deck, string strId)
+        #region ContainsCard
+        public static bool ContainsCard(this HearthMirror.Objects.Deck deck, string strId)
         {
             return GetCard(deck, strId) != null;
         }
