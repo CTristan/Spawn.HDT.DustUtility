@@ -87,8 +87,8 @@
     <Compile Include="UI\Dialogs\SortOrderDialog.xaml.cs">
       <DependentUpon>SortOrderDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\DustableCardsWindow.xaml.cs">
-      <DependentUpon>DustableCardsWindow.xaml</DependentUpon>
+    <Compile Include="UI\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="DustUtilityPlugin.cs" />
     <Compile Include="Extensions.cs" />
@@ -120,7 +120,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\DustableCardsWindow.xaml">
+    <Page Include="UI\MainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -92,7 +92,7 @@ namespace Spawn.HDT.DustUtility
             {
                 bool blnOfflineMode = !Core.Game.IsRunning && Settings.OfflineMode;
 
-                new DustableCardsWindow(blnOfflineMode).Show();
+                new MainWindow(blnOfflineMode).Show();
             }
             else if (!Settings.OfflineMode)
             {

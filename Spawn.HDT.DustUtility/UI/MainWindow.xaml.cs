@@ -15,7 +15,7 @@ using Spawn.HDT.DustUtility.Update;
 
 namespace Spawn.HDT.DustUtility.UI
 {
-    public partial class DustableCardsWindow
+    public partial class MainWindow
     {
         #region Constants
         private const string SearchResultKey = "searchResult";
@@ -29,12 +29,12 @@ namespace Spawn.HDT.DustUtility.UI
         #endregion
 
         #region Ctor
-        public DustableCardsWindow()
+        public MainWindow()
         {
             InitializeComponent();
         }
 
-        public DustableCardsWindow(bool offlineMode)
+        public MainWindow(bool offlineMode)
             : this()
         {
             m_numericRegex = new Regex("[^0-9]+");
