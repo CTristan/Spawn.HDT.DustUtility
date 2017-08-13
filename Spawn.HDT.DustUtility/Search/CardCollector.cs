@@ -9,6 +9,7 @@ using HearthMirror.Objects;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using Spawn.HDT.DustUtility.Offline;
+using Spawn.HearthstonePackHistory.Hearthstone;
 
 namespace Spawn.HDT.DustUtility.Search
 {
@@ -75,7 +76,7 @@ namespace Spawn.HDT.DustUtility.Search
                 }
                 else
                 {
-                    GetCardByQuery(parameters, lstRet);
+                    GetCardByQueryString(parameters, lstRet);
                 }
             }
             else { }
@@ -104,11 +105,11 @@ namespace Spawn.HDT.DustUtility.Search
 
                 for (int j = 0; j < lstChunk.Count && !blnDone; j++)
                 {
-                    CardWrapper card = lstChunk[j];
+                    CardWrapper cardWrapper = lstChunk[j];
 
-                    nTotalAmount += card.GetDustValue();
+                    nTotalAmount += cardWrapper.GetDustValue();
 
-                    lstCards.Add(card);
+                    lstCards.Add(cardWrapper);
 
                     blnDone = nTotalAmount >= nDustAmount;
                 }
@@ -175,11 +176,51 @@ namespace Spawn.HDT.DustUtility.Search
         }
         #endregion
 
-        #region GetCardsByQuery
-        private void GetCardByQuery(Parameters parameters, List<CardWrapper> lstCards)
+        #region GetCardsByQueryString
+        private void GetCardByQueryString(Parameters parameters, List<CardWrapper> lstCards)
         {
+            bool blnDone = false;
+
+            string strQueryString = parameters.QueryString.ToLowerInvariant();
+
+            for (int i = 0; i < parameters.Rarities.Count && !blnDone; i++)
+            {
+                List<CardWrapper> lstChunk = GetCardsForRarity(parameters.Rarities[i], parameters.IncludeGoldenCards);
+
+                lstChunk = FilterForClasses(lstChunk, parameters.Classes);
+
+                lstChunk = FilterForSets(lstChunk, parameters.Sets);
+
+                for (int j = 0; j < lstChunk.Count; j++)
+                {
+                    CardWrapper cardWrapper = lstChunk[j];
+
+                    if (IsCardMatch(cardWrapper, strQueryString))
+                    {
+                        lstCards.Add(cardWrapper);
+                    }
+                    else { }
+                }
+            }
         }
         #endregion
+
+        private bool IsCardMatch(CardWrapper cardWrapper, string strKeyString)
+        {
+            bool blnRet = false;
+
+            blnRet |= cardWrapper.DbCard.Name.ToLowerInvariant().Contains(strKeyString);
+
+            blnRet |= cardWrapper.DbCard.Race.ToString().Equals(strKeyString.ToUpperInvariant());
+
+            blnRet |= cardWrapper.DbCard.Mechanics.Any(s => s.ToLowerInvariant().Equals(strKeyString));
+
+            blnRet |= CardSets.AllFullName[cardWrapper.DbCard.Set].ToLowerInvariant().Contains(strKeyString);
+
+            blnRet |= cardWrapper.DbCard.Type.ToString().ToLowerInvariant().Equals(strKeyString);
+
+            return blnRet;
+        }
 
         #region GetTotalDustValueForAllCards
         public int GetTotalDustValueForAllCards()
