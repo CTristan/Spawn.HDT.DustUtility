@@ -5,6 +5,7 @@ Enter the amout of dust you are aiming for and the plugin searches through your 
 * Offline Mode - The plugin saves your collection and decks locally, so you are still able to use it while Hearthstone isn't running.
 * Customizable Sort Order - Order the result for your needs. Sortable properties: Mana Cost, Name, Dust, Class, Set, etc...
 * Since version 1.6, you are also able to search through all your cards, instead of just the unused ones.
+* An advanced search was added with version 1.7, which allows you to search for specific cards
 
 ![Overlay](https://i.imgur.com/tIDgbNL.png)
 
@@ -15,6 +16,4 @@ Enter the amout of dust you are aiming for and the plugin searches through your 
 * Check For Updates: Checks if there is new release available on the GitHub page
 
 ## ToDo
-* Save set filters after main window closes
 * History of disenchanted cards (only works with Offline Mode enabled)
-* Enter card name, card id, card ability (Lifesteal, Taunt, etc.) to search for specific card
