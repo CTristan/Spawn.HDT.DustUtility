@@ -21,6 +21,25 @@ namespace Spawn.HDT.DustUtility.UI
         private const string SearchResultKey = "searchResult";
         #endregion
 
+        #region Static
+        private static string s_strSearchHelpText;
+
+        static MainWindow()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append("Search terms:").Append(Environment.NewLine)
+                .Append("- Dust amount (e.g. 500)").Append(Environment.NewLine)
+                .Append("- Card name (e.g. Aya Blackpaw, Aya, Black)").Append(Environment.NewLine)
+                .Append("- Card tribe (e.g. Dragon, Elemental, etc.)").Append(Environment.NewLine)
+                .Append("- Card mechanics (e.g. Battlecry, Taunt, etc.)").Append(Environment.NewLine)
+                .Append("- Card set (e.g. Un'goro, Gadgetzan, Goblins, etc.)").Append(Environment.NewLine)
+                .Append("- Card type (e.g. Minion, Weapon, etc.)").Append(Environment.NewLine);
+
+            s_strSearchHelpText = sb.ToString();
+        }
+        #endregion
+
         #region Member Variables
         private CardCollector m_cardCollector;
         private Parameters m_parameters;
@@ -319,5 +338,11 @@ namespace Spawn.HDT.DustUtility.UI
             return FindResource(SearchResultKey) as SearchResultContainer;
         }
         #endregion
+
+        private async void OnSearchHelpClick(object sender, System.Windows.RoutedEventArgs e)
+        {
+
+            await this.ShowMessageAsync(string.Empty, s_strSearchHelpText);
+        }
     }
 }
