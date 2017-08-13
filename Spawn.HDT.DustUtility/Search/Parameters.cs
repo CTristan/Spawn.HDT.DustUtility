@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using HearthDb.Enums;
+using Hearthstone_Deck_Tracker.Utility.Logging;
 
 namespace Spawn.HDT.DustUtility.Search
 {
@@ -100,6 +101,8 @@ namespace Spawn.HDT.DustUtility.Search
                     CardSet.PROMO,
                     CardSet.HOF
                 };
+
+                Log.WriteLine("Loaded default parameters", LogType.Debug);
             }
         }
         #endregion

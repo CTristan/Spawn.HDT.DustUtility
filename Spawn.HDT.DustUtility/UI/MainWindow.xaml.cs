@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
+using Hearthstone_Deck_Tracker.Utility.Logging;
 using MahApps.Metro.Controls.Dialogs;
 using Spawn.HDT.DustUtility.Converters;
 using Spawn.HDT.DustUtility.Search;
@@ -50,6 +51,8 @@ namespace Spawn.HDT.DustUtility.UI
                 Title = $"{Title} [OFFLINE MODE]";
             }
             else { }
+
+            Log.WriteLine($"OfflineMode={offlineMode}", LogType.Debug);
         }
         #endregion
 
@@ -71,6 +74,8 @@ namespace Spawn.HDT.DustUtility.UI
                 if (result == MessageDialogResult.Affirmative)
                 {
                     System.Diagnostics.Process.Start(GitHubUpdateManager.LatestReleaseUrl);
+
+                    Log.WriteLine("Opening github release page...", LogType.Debug);
                 }
                 else { }
             }
@@ -203,6 +208,7 @@ namespace Spawn.HDT.DustUtility.UI
         #region UpdateUIState
         private void UpdateUIState(bool blnIsEnabled)
         {
+            Log.WriteLine($"Updating UI state: Enabled={blnIsEnabled}", LogType.Debug);
             if (blnIsEnabled)
             {
                 searchButton.Content = "GO!";
@@ -223,6 +229,8 @@ namespace Spawn.HDT.DustUtility.UI
         private SearchResultContainer CreateSearchResult(CardWrapper[] vCards)
         {
             SearchResultContainer retVal = new SearchResultContainer();
+
+            Log.WriteLine("Creating search result...", LogType.Debug);
 
             GridItem[] vItems = new GridItem[vCards.Length];
 

@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Xml.Serialization;
 using HearthMirror;
 using HearthMirror.Objects;
+using Hearthstone_Deck_Tracker.Utility.Logging;
 
 namespace Spawn.HDT.DustUtility.Offline
 {
@@ -205,6 +205,8 @@ namespace Spawn.HDT.DustUtility.Offline
         public static void StartTimer()
         {
             s_timer = new Timer(OnTick, null, 0, 1000 * 10); //every 10s, if successful then every 5 min
+
+            Log.WriteLine("Started cache timer", LogType.Debug);
         }
         #endregion
 
@@ -213,33 +215,47 @@ namespace Spawn.HDT.DustUtility.Offline
         {
             s_timer.Dispose();
             s_timer = null;
+
+            Log.WriteLine("Stopped cache timer", LogType.Debug);
         }
         #endregion
 
         #region OnTick
         private static void OnTick(object state)
         {
-            Debug.WriteLine("Cache OnTick");
+            Log.WriteLine("Cache OnTick", LogType.Debug);
 
             bool blnSuccess = true;
 
             if (!s_blnSavedCollection)
             {
-                Debug.WriteLine("Saving collection");
+                Log.WriteLine("Saving collection", LogType.Debug);
 
                 blnSuccess &= SaveCollection();
 
                 s_blnSavedCollection = blnSuccess;
+
+                if (s_blnSavedCollection)
+                {
+                    Log.WriteLine("Saved collection successfuly", LogType.Info);
+                }
+                else { }
             }
             else { }
 
             if (!s_blnSavedDecks)
             {
-                Debug.WriteLine("Saving decks");
+                Log.WriteLine("Saving decks", LogType.Debug);
 
                 blnSuccess &= SaveDecks();
 
                 s_blnSavedDecks = blnSuccess;
+
+                if (s_blnSavedCollection)
+                {
+                    Log.WriteLine("Saved decks successfuly", LogType.Info);
+                }
+                else { }
             }
             else { }
 
@@ -249,7 +265,7 @@ namespace Spawn.HDT.DustUtility.Offline
 
                 s_timer.Change(nTime, nTime);
 
-                Debug.WriteLine("Changed interval to 5 min.");
+                Log.WriteLine("Changed interval to 5 min.", LogType.Debug);
             }
             else { }
         }

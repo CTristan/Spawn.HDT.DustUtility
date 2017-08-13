@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using Hearthstone_Deck_Tracker.API;
 using Hearthstone_Deck_Tracker.Plugins;
+using Hearthstone_Deck_Tracker.Utility.Logging;
 using Spawn.HDT.DustUtility.Offline;
 using Spawn.HDT.DustUtility.UI;
 using Spawn.HDT.DustUtility.UI.Dialogs;
@@ -26,7 +27,7 @@ namespace Spawn.HDT.DustUtility
         #endregion
 
         #region ButtonText
-        public string ButtonText => "Open Settings";
+        public string ButtonText => "Settings";
         #endregion
 
         #region Author
@@ -57,9 +58,11 @@ namespace Spawn.HDT.DustUtility
         #region OnButtonPress
         public void OnButtonPress()
         {
-            SettingsDialog w = new SettingsDialog();
+            Log.WriteLine("Opening settings dialog", LogType.Debug);
 
-            w.ShowDialog();
+            SettingsDialog dialog = new SettingsDialog();
+
+            dialog.ShowDialog();
         }
         #endregion
 
@@ -95,6 +98,8 @@ namespace Spawn.HDT.DustUtility
                     Cache.StartTimer();
                 }
                 else { }
+
+                Log.WriteLine("Opening main window", LogType.Debug);
 
                 new MainWindow(!Core.Game.IsRunning && Settings.OfflineMode).Show();
             }

@@ -3,6 +3,7 @@ using System.Net;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Hearthstone_Deck_Tracker.Utility.Logging;
 
 namespace Spawn.HDT.DustUtility.Update
 {
@@ -40,6 +41,8 @@ namespace Spawn.HDT.DustUtility.Update
 
             try
             {
+                Log.WriteLine("Checking for updates...", LogType.Info);
+
                 HttpWebRequest request = WebRequest.CreateHttp(LatestReleaseUrl);
 
                 HttpWebResponse response = await request.GetResponseAsync() as HttpWebResponse;
@@ -75,16 +78,22 @@ namespace Spawn.HDT.DustUtility.Update
                                 s_strReleaseNotes = updateTextMatch.Groups["Content"].Value.Replace("<br>", Environment.NewLine);
                             }
                             else { }
+
+                            Log.WriteLine("New release available", LogType.Info);
                         }
-                        else { }
+                        else
+                        {
+                            Log.WriteLine("No update available", LogType.Info);
+                        }
                     }
                     else { }
                 }
                 else { }
             }
-            catch
+            catch (Exception ex)
             {
                 //No internet connection or github down
+                Log.WriteLine($"Couldn't perform update check: {ex}", LogType.Error);
             }
 
             return blnRet;

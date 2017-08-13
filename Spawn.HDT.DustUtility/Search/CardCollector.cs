@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using HearthDb.Enums;
 using HearthMirror;
 using HearthMirror.Objects;
+using Hearthstone_Deck_Tracker.Utility.Logging;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using Spawn.HDT.DustUtility.Offline;
@@ -50,6 +52,17 @@ namespace Spawn.HDT.DustUtility.Search
         {
             bool blnDustMode = s_numericRegex.IsMatch(parameters.QueryString);
 
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append("Collecting cards... ").Append($"(Parameters: QueryString={parameters.QueryString} ")
+                .Append($"IncludeGoldenCards={parameters.IncludeGoldenCards} ")
+                .Append($"UnusedCardsOnly={parameters.UnusedCardsOnly} ")
+                .Append($"Rarities={string.Join(",", parameters.Rarities)} ")
+                .Append($"Classes={string.Join(",", parameters.Classes)} ")
+                .Append($"Sets={string.Join(",", parameters.Sets)}");
+
+            Log.WriteLine(sb.ToString(), LogType.Debug);
+
             List<Card> lstCollection = LoadCollection();
 
             if (parameters.UnusedCardsOnly)
@@ -80,6 +93,8 @@ namespace Spawn.HDT.DustUtility.Search
                 }
             }
             else { }
+
+            Log.WriteLine($"Found {lstRet.Count} cards", LogType.Debug);
 
             return lstRet.ToArray();
         }
@@ -114,7 +129,7 @@ namespace Spawn.HDT.DustUtility.Search
                     blnDone = nTotalAmount >= nDustAmount;
                 }
             }
-
+            
             //Post processing
             //Remove low rarity cards if the total amount is over the targeted amount
             if (nTotalAmount > nDustAmount)
@@ -339,6 +354,8 @@ namespace Spawn.HDT.DustUtility.Search
         {
             List<Card> lstRet = null;
 
+            Log.WriteLine("Loading collection...", LogType.Debug);
+
             if (m_blnOfflineMode)
             {
                 lstRet = Cache.LoadCollection();
@@ -347,6 +364,12 @@ namespace Spawn.HDT.DustUtility.Search
             {
                 lstRet = Reflection.GetCollection();
             }
+
+            if (lstRet != null)
+            {
+                Log.WriteLine("Loaded collection", LogType.Debug);
+            }
+            else { }
 
             return lstRet;
         }
@@ -357,6 +380,8 @@ namespace Spawn.HDT.DustUtility.Search
         {
             List<Deck> lstRet = null;
 
+            Log.WriteLine("Loading decks...", LogType.Debug);
+
             if (m_blnOfflineMode)
             {
                 lstRet = Cache.LoadDecks();
@@ -365,6 +390,12 @@ namespace Spawn.HDT.DustUtility.Search
             {
                 lstRet = Reflection.GetDecks();
             }
+
+            if (lstRet != null)
+            {
+                Log.WriteLine("Loaded decks", LogType.Debug);
+            }
+            else { }
 
             return lstRet;
         }
