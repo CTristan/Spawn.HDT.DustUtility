@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -22,8 +21,6 @@ namespace Spawn.HDT.DustUtility.UI
         #endregion
 
         #region Member Variables
-        private Regex m_numericRegex;
-
         private CardCollector m_cardCollector;
         private Parameters m_parameters;
         #endregion
@@ -37,8 +34,6 @@ namespace Spawn.HDT.DustUtility.UI
         public MainWindow(bool offlineMode)
             : this()
         {
-            m_numericRegex = new Regex("[^0-9]+");
-
             m_cardCollector = new CardCollector(this, offlineMode);
 
             if (Settings.SearchParameters == null)
@@ -158,13 +153,6 @@ namespace Spawn.HDT.DustUtility.UI
         }
         #endregion
 
-        #region OnPreviewTextInput
-        private void OnPreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            e.Handled = m_numericRegex.IsMatch(e.Text);
-        }
-        #endregion
-
         #region OnInputBoxPreviewKeyDown
         private async void OnInputBoxPreviewKeyDown(object sender, KeyEventArgs e)
         {
@@ -194,65 +182,49 @@ namespace Spawn.HDT.DustUtility.UI
         #region SearchAsync
         private async Task SearchAsync()
         {
-            if (!string.IsNullOrEmpty(inputBox.Text) && m_cardCollector != null && m_parameters != null)
+            if (m_cardCollector != null && m_parameters != null)
             {
-                searchButton.IsEnabled = false;
-                searchButton.Content = "...";
-                inputBox.IsEnabled = false;
-                filterButton.IsEnabled = false;
-                sortOrderButton.IsEnabled = false;
-
-                try
-                {
-                    m_parameters.DustAmount = Convert.ToInt32(inputBox.Text);
-                }
-                catch
-                {
-                    m_parameters.DustAmount = Int32.MaxValue;
-                    inputBox.Text = m_parameters.DustAmount.ToString();
-                }
-
                 await Task.Delay(1); //Return to ui thread
 
-                CardWrapper[] vCards = await m_cardCollector.GetDustableCardsAsync(m_parameters);
+                UpdateUIState(false);
 
-                GetResult(vCards).CopyTo(GetSearchResultComponent());
+                m_parameters.QueryString = inputBox.Text;
+                
+                CardWrapper[] vCards = await m_cardCollector.GetCardsAsync(m_parameters);
 
-                searchButton.IsEnabled = true;
-                searchButton.Content = "GO!";
-                inputBox.IsEnabled = true;
-                filterButton.IsEnabled = true;
-                sortOrderButton.IsEnabled = true;
+                CreateSearchResult(vCards).CopyTo(GetSearchResultContainerComponent());
 
-                //dataGrid.ItemsSource = Convert(vCards);
-
-                //await Task.Run(() => m_cardCollector.GetDustableCards(m_parameters)).ContinueWith(t =>
-                //{
-                //    GetResult(t.Result).CopyTo(GetSearchResultComponent());
-
-                //    Dispatcher.InvokeAsync(() =>
-                //    {
-                //        //TODO
-                //        //dataGrid.ItemsSource = lstItems;
-
-                //        searchButton.IsEnabled = true;
-                //        searchButton.Content = "GO!";
-                //        inputBox.IsEnabled = true;
-                //        filterButton.IsEnabled = true;
-                //        sortOrderButton.IsEnabled = true;
-                //    });
-                //});
+                UpdateUIState(true);
             }
             else { }
         }
         #endregion
 
-        #region GetResult
-        private SearchResultContainer GetResult(CardWrapper[] vCards)
+        #region UpdateUIState
+        private void UpdateUIState(bool blnIsEnabled)
+        {
+            if (blnIsEnabled)
+            {
+                searchButton.Content = "GO!";
+            }
+            else
+            {
+                searchButton.Content = "...";
+            }
+            
+            searchButton.IsEnabled = blnIsEnabled;
+            inputBox.IsEnabled = blnIsEnabled;
+            filterButton.IsEnabled = blnIsEnabled;
+            sortOrderButton.IsEnabled = blnIsEnabled;
+        }
+        #endregion
+
+        #region CreateSearchResult
+        private SearchResultContainer CreateSearchResult(CardWrapper[] vCards)
         {
             SearchResultContainer retVal = new SearchResultContainer();
 
-            List<GridItem> lstItems = new List<GridItem>(vCards.Length);
+            GridItem[] vItems = new GridItem[vCards.Length];
 
             for (int i = 0; i < vCards.Length; i++)
             {
@@ -290,26 +262,16 @@ namespace Spawn.HDT.DustUtility.UI
                 retVal.TotalCount += item.Count;
                 retVal.Dust += item.Dust;
 
-                lstItems.Add(item);
+                vItems[i] = item;
             }
 
             //Sort
-            lstItems = OrderItems(lstItems).ToList();
+            vItems = OrderItems(vItems).ToArray();
 
-            for (int i = 0; i < lstItems.Count; i++)
+            for (int i = 0; i < vItems.Length; i++)
             {
-                retVal.GridItems.Add(lstItems[i]);
+                retVal.GridItems.Add(vItems[i]);
             }
-
-            //Dispatcher.Invoke(() =>
-            //{
-            //    lblCards.Content = $"Total: {nTotalCount}";
-            //    lblDust.Content = $"Dust: {nTotalDustAmount}";
-            //    lblCommons.Content = $"Commons: {nCommons}";
-            //    lblRares.Content = $"Rares: {nRares}";
-            //    lblEpics.Content = $"Epics: {nEpics}";
-            //    lblLegendaries.Content = $"Legendaries: {nLegendaries}";
-            //});
             
             return retVal;
         }
@@ -328,7 +290,7 @@ namespace Spawn.HDT.DustUtility.UI
                 
                 for (int i = 0; i < sortOrder.Items.Count; i++)
                 {
-                    query = query.OrderBy(sortOrder.Items[i].Value.ToString());
+                    query = query.OrderBy(sortOrder.Items[i].Value.ToString(), i);
                 }
 
                 retVal = query.ToList();
@@ -343,8 +305,8 @@ namespace Spawn.HDT.DustUtility.UI
         }
         #endregion
 
-        #region GetSearchResultComponent
-        public SearchResultContainer GetSearchResultComponent()
+        #region GetSearchResultContainerComponent
+        public SearchResultContainer GetSearchResultContainerComponent()
         {
             return FindResource(SearchResultKey) as SearchResultContainer;
         }

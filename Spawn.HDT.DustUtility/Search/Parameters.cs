@@ -17,8 +17,8 @@ namespace Spawn.HDT.DustUtility.Search
         #endregion
 
         #region Properties
-        #region DustAmount
-        public int DustAmount { get; set; }
+        #region QueryString
+        public string QueryString { get; set; }
         #endregion
 
         #region IncludeGoldenCards

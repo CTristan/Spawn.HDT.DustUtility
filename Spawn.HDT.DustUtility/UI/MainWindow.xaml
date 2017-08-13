@@ -18,7 +18,7 @@
     </controls:MetroWindow.RightWindowCommands>
     <Grid>
         <Button Content="GO!" Name="searchButton" HorizontalAlignment="Left" Margin="10,10,0,0" Width="100" VerticalAlignment="Top" Click="OnGoClick" IsEnabled="False"/>
-        <TextBox Name="inputBox" HorizontalAlignment="Stretch" Margin="115,10,90,0" VerticalAlignment="Top" Height="20" PreviewTextInput="OnPreviewTextInput" TextChanged="OnInputBoxTextChanged" GotFocus="OnInputBoxGotFocus" PreviewKeyDown="OnInputBoxPreviewKeyDown"/>
+        <TextBox Name="inputBox" HorizontalAlignment="Stretch" Margin="115,10,90,0" VerticalAlignment="Top" Height="20" TextChanged="OnInputBoxTextChanged" GotFocus="OnInputBoxGotFocus" PreviewKeyDown="OnInputBoxPreviewKeyDown"/>
         <Button Content="Filters" Name="filterButton" HorizontalAlignment="Right" Margin="0,10,10,0" Width="75" VerticalAlignment="Top" Click="OnFiltersClick" />
         
         <Border BorderBrush="Silver" BorderThickness="1" HorizontalAlignment="Stretch" Margin="10,40,165,10" VerticalAlignment="Stretch">

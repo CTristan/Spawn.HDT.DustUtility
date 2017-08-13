@@ -1,7 +1,9 @@
-﻿using HearthMirror.Objects;
+﻿using System.Diagnostics;
+using HearthMirror.Objects;
 
 namespace Spawn.HDT.DustUtility.Search
 {
+    [DebuggerDisplay("{Count}x {DbCard.Name} Golden={Card.Premium}")]
     public class CardWrapper
     {
         #region Member Variables

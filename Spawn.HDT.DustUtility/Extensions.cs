@@ -122,14 +122,28 @@ namespace Spawn.HDT.DustUtility
 
         #region OrderBy
         // All credits to Aaron Powell https://stackoverflow.com/a/307600
-        public static IQueryable<T> OrderBy<T>(this IQueryable<T> source, string strProperty)
+        public static IQueryable<T> OrderBy<T>(this IQueryable<T> source, string strProperty, int nIteration)
         {
             var type = typeof(T);
+
             var property = type.GetProperty(strProperty);
+
             var parameter = Expression.Parameter(type, "p");
+
             var propertyAccess = Expression.MakeMemberAccess(parameter, property);
-            var orderByExp = Expression.Lambda(propertyAccess, parameter);
-            MethodCallExpression resultExp = Expression.Call(typeof(Queryable), "OrderBy", new System.Type[] { type, property.PropertyType }, source.Expression, Expression.Quote(orderByExp));
+
+            var expr = Expression.Lambda(propertyAccess, parameter);
+
+            string strMethod = "OrderBy";
+
+            if (nIteration > 0)
+            {
+                strMethod = "ThenBy";
+            }
+            else { }
+
+            MethodCallExpression resultExp = Expression.Call(typeof(Queryable), strMethod, new System.Type[] { type, property.PropertyType }, source.Expression, Expression.Quote(expr));
+
             return source.Provider.CreateQuery<T>(resultExp);
         }
         #endregion
