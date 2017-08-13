@@ -205,6 +205,7 @@ namespace Spawn.HDT.DustUtility.Search
         }
         #endregion
 
+        #region IsCardMatch
         private bool IsCardMatch(CardWrapper cardWrapper, string strKeyString)
         {
             bool blnRet = false;
@@ -220,7 +221,8 @@ namespace Spawn.HDT.DustUtility.Search
             blnRet |= cardWrapper.DbCard.Type.ToString().ToLowerInvariant().Equals(strKeyString);
 
             return blnRet;
-        }
+        } 
+        #endregion
 
         #region GetTotalDustValueForAllCards
         public int GetTotalDustValueForAllCards()

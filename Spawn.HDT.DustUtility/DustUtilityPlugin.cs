@@ -77,9 +77,9 @@ namespace Spawn.HDT.DustUtility
         #region OnUpdate
         public void OnUpdate()
         {
-            if (Core.Game.IsRunning && !Cache.TimerEnabled)
+            if (!Core.Game.IsRunning && Cache.TimerEnabled && Cache.SaveProcessSuccessful)
             {
-                Cache.StartTimer();
+                Cache.StopTimer();
             }
             else { }
         }
@@ -90,9 +90,13 @@ namespace Spawn.HDT.DustUtility
         {
             if (Core.Game.IsRunning || Settings.OfflineMode)
             {
-                bool blnOfflineMode = !Core.Game.IsRunning && Settings.OfflineMode;
+                if (Core.Game.IsRunning && !Cache.TimerEnabled)
+                {
+                    Cache.StartTimer();
+                }
+                else { }
 
-                new MainWindow(blnOfflineMode).Show();
+                new MainWindow(!Core.Game.IsRunning && Settings.OfflineMode).Show();
             }
             else if (!Settings.OfflineMode)
             {

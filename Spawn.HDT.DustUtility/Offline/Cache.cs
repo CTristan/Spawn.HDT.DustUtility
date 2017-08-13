@@ -19,11 +19,15 @@ namespace Spawn.HDT.DustUtility.Offline
         #region Static Variables
         private static Timer s_timer;
         private static bool s_blnSaveCollectionInProgress;
-        private static bool s_blnSaveDecksInProgress; 
+        private static bool s_blnSavedCollection;
+        private static bool s_blnSaveDecksInProgress;
+        private static bool s_blnSavedDecks;
         #endregion
-        
+
         #region Static Properties
         public static bool TimerEnabled => s_timer != null;
+
+        public static bool SaveProcessSuccessful => s_blnSavedCollection && s_blnSavedDecks;
         #endregion
 
         #region SaveCollection
@@ -219,14 +223,33 @@ namespace Spawn.HDT.DustUtility.Offline
 
             bool blnSuccess = true;
 
-            blnSuccess &= SaveCollection();
+            if (!s_blnSavedCollection)
+            {
+                Debug.WriteLine("Saving collection");
 
-            blnSuccess &= SaveDecks();
+                blnSuccess &= SaveCollection();
+
+                s_blnSavedCollection = blnSuccess;
+            }
+            else { }
+
+            if (!s_blnSavedDecks)
+            {
+                Debug.WriteLine("Saving decks");
+
+                blnSuccess &= SaveDecks();
+
+                s_blnSavedDecks = blnSuccess;
+            }
+            else { }
 
             if (blnSuccess)
             {
                 int nTime = 1000 * 60 * 5;
+
                 s_timer.Change(nTime, nTime);
+
+                Debug.WriteLine("Changed interval to 5 min.");
             }
             else { }
         }
