@@ -138,6 +138,13 @@ namespace Spawn.HDT.DustUtility.UI
         }
         #endregion
 
+        #region OnSearchHelpClick
+        private async void OnSearchHelpClick(object sender, System.Windows.RoutedEventArgs e)
+        {
+            await this.ShowMessageAsync(string.Empty, s_strSearchHelpText);
+        } 
+        #endregion
+
         #region OnAutoGeneratingColumn
         private void OnAutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
@@ -338,11 +345,5 @@ namespace Spawn.HDT.DustUtility.UI
             return FindResource(SearchResultKey) as SearchResultContainer;
         }
         #endregion
-
-        private async void OnSearchHelpClick(object sender, System.Windows.RoutedEventArgs e)
-        {
-
-            await this.ShowMessageAsync(string.Empty, s_strSearchHelpText);
-        }
     }
 }
