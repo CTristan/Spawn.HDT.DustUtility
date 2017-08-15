@@ -235,6 +235,7 @@ namespace Spawn.HDT.DustUtility.UI
         private void UpdateUIState(bool blnIsEnabled)
         {
             Log.WriteLine($"Updating UI state: Enabled={blnIsEnabled}", LogType.Debug);
+
             if (blnIsEnabled)
             {
                 searchButton.Content = "GO!";
