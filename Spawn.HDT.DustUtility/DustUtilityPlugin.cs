@@ -155,13 +155,22 @@ namespace Spawn.HDT.DustUtility
             }
             else
             {
-                AccountSelectorDialog accSelectorDialog = new AccountSelectorDialog(GetAccountList());
+                List<string> lstAccounts = GetAccountList();
 
-                if (accSelectorDialog.ShowDialog().Value)
+                if (lstAccounts.Count > 0)
                 {
-                    m_account = Account.Parse(accSelectorDialog.SelectedAccount);
+                    AccountSelectorDialog accSelectorDialog = new AccountSelectorDialog(lstAccounts);
+
+                    if (accSelectorDialog.ShowDialog().Value)
+                    {
+                        m_account = Account.Parse(accSelectorDialog.SelectedAccount);
+                    }
+                    else { } 
                 }
-                else { }
+                else
+                {
+                    m_account = Account.Empty;
+                }
             }
         }
         #endregion
@@ -175,7 +184,7 @@ namespace Spawn.HDT.DustUtility
 
             if (Directory.Exists(strPath))
             {
-                string[] vFiles = Directory.GetFiles(strPath, "*collection.xml");
+                string[] vFiles = Directory.GetFiles(strPath, "*_collection.xml");
 
                 for (int i = 0; i < vFiles.Length; i++)
                 {

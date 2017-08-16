@@ -1,7 +1,9 @@
-﻿using Spawn.HDT.DustUtility.Search;
+﻿using System.Diagnostics;
+using Spawn.HDT.DustUtility.Search;
 
 namespace Spawn.HDT.DustUtility
 {
+    [DebuggerStepThrough]
     public static class Settings
     {
         #region Properties

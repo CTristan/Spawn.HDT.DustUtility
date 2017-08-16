@@ -10,6 +10,10 @@ namespace Spawn.HDT.DustUtility
         public BattleTag BattleTag { get; }
         public Region Region { get; }
         public string AccountString { get; }
+
+        public static Account Empty => new Account(null, Region.UNKNOWN);
+
+        public bool IsEmpty => BattleTag == null && Region == Region.UNKNOWN;
         #endregion
 
         #region Ctor
@@ -18,7 +22,14 @@ namespace Spawn.HDT.DustUtility
             BattleTag = battleTag;
             Region = region;
 
-            AccountString = $"{battleTag.Name}_{battleTag.Number}_{region}";
+            if (BattleTag != null)
+            {
+                AccountString = $"{battleTag.Name}_{battleTag.Number}_{region}"; 
+            }
+            else
+            {
+                AccountString = string.Empty;
+            }
         }
         #endregion
 
@@ -31,9 +42,11 @@ namespace Spawn.HDT.DustUtility
             {
                 Account acc = obj as Account;
 
+                blnRet = true;
+
                 if (acc.BattleTag != null)
                 {
-                    blnRet = acc.BattleTag.Name.Equals(BattleTag.Name);
+                    blnRet &= acc.BattleTag.Name.Equals(BattleTag.Name);
 
                     blnRet &= acc.BattleTag.Number == BattleTag.Number;
                 }

@@ -67,7 +67,11 @@ namespace Spawn.HDT.DustUtility.UI
                 m_parameters = Settings.SearchParameters.DeepClone();
             }
 
-            Title = $"{Title} [{account.BattleTag.Name} ({account.Region})]";
+            if (!account.IsEmpty)
+            {
+                Title = $"{Title} [{account.BattleTag.Name} ({account.Region})]"; 
+            }
+            else { }
 
             if (offlineMode)
             {

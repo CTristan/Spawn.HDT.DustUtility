@@ -283,6 +283,8 @@ namespace Spawn.HDT.DustUtility.Offline
         #region GetFullFileName
         private static string GetFullFileName(Account account, string strType)
         {
+            string strRet = string.Empty;
+
             string strBaseDir = Path.Combine(Config.Instance.DataDir, DustUtilityPlugin.DataFolder);
 
             if (!Directory.Exists(strBaseDir))
@@ -291,7 +293,16 @@ namespace Spawn.HDT.DustUtility.Offline
             }
             else { }
 
-            return Path.Combine(strBaseDir, $"{account.AccountString}_{strType}.xml");
+            if (!account.IsEmpty)
+            {
+                strRet = Path.Combine(strBaseDir, $"{account.AccountString}_{strType}.xml");
+            }
+            else
+            {
+                strRet = Path.Combine(strBaseDir, $"{strType}.xml");
+            }
+
+            return strRet;
         } 
         #endregion
     }
