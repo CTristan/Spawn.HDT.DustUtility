@@ -4,6 +4,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using HearthDb;
 using HearthDb.Enums;
+using Hearthstone_Deck_Tracker;
+using Hearthstone_Deck_Tracker.Enums;
 using Spawn.HDT.DustUtility.Offline;
 using Spawn.HearthstonePackHistory.Hearthstone;
 
@@ -145,6 +147,15 @@ namespace Spawn.HDT.DustUtility
             MethodCallExpression resultExp = Expression.Call(typeof(Queryable), strMethod, new System.Type[] { type, property.PropertyType }, source.Expression, Expression.Quote(expr));
 
             return source.Provider.CreateQuery<T>(resultExp);
+        }
+        #endregion
+
+        #region GetAccountString
+        public static string GetAccountString(this HearthMirror.Objects.BattleTag tag)
+        {
+            Region region = Helper.GetCurrentRegion().Result;
+
+            return $"{tag.Name}_{tag.Number}_{region}";
         }
         #endregion
     }
