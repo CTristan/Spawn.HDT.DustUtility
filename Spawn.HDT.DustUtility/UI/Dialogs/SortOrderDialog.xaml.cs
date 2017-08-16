@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Spawn.HDT.DustUtility.Search;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Spawn.HDT.DustUtility.Search;
 
 namespace Spawn.HDT.DustUtility.UI.Dialogs
 {
@@ -12,7 +12,7 @@ namespace Spawn.HDT.DustUtility.UI.Dialogs
         #endregion
 
         #region Member Variables
-        private int m_nMaxCount; 
+        private int m_nMaxCount;
         #endregion
 
         #region Ctor
@@ -74,7 +74,7 @@ namespace Spawn.HDT.DustUtility.UI.Dialogs
 
             if (lbItems.Items.Count > 0)
             {
-                lbItems.SelectedIndex = nIndex - 1; 
+                lbItems.SelectedIndex = nIndex - 1;
             }
             else { }
 
@@ -109,7 +109,7 @@ namespace Spawn.HDT.DustUtility.UI.Dialogs
             lbItems.Items[nIndex] = item;
 
             lbItems.SelectedIndex = nIndex + 1;
-        } 
+        }
         #endregion
 
         #region OnSaveClick
@@ -163,7 +163,7 @@ namespace Spawn.HDT.DustUtility.UI.Dialogs
             }
 
             return lstRet;
-        } 
+        }
         #endregion
 
         private class ItemContainerComparer : IEqualityComparer<SortOrder.ItemContainer>

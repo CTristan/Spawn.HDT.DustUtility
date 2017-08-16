@@ -1,5 +1,5 @@
-﻿using System.Diagnostics;
-using HearthMirror.Objects;
+﻿using HearthMirror.Objects;
+using System.Diagnostics;
 
 namespace Spawn.HDT.DustUtility.Search
 {
@@ -25,7 +25,7 @@ namespace Spawn.HDT.DustUtility.Search
         #endregion
 
         #region Count
-        public int Count => m_card.Count - MaxCountInDecks; 
+        public int Count => m_card.Count - MaxCountInDecks;
         #endregion
         #endregion
 
@@ -50,7 +50,7 @@ namespace Spawn.HDT.DustUtility.Search
             else { }
 
             return nRet;
-        } 
+        }
         #endregion
     }
 }

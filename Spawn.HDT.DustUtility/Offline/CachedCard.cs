@@ -12,7 +12,7 @@
         #endregion
 
         #region IsGolden
-        public bool IsGolden { get; set; }  
+        public bool IsGolden { get; set; }
         #endregion
         #endregion
     }

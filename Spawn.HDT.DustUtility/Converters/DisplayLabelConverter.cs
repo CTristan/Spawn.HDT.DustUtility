@@ -7,7 +7,7 @@ namespace Spawn.HDT.DustUtility.Converters
     public class DisplayLabelConverter : IValueConverter
     {
         #region Properties
-        public string Prefix { get; set; } 
+        public string Prefix { get; set; }
         #endregion
 
         #region Convert
@@ -21,7 +21,7 @@ namespace Spawn.HDT.DustUtility.Converters
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotSupportedException();
-        } 
+        }
         #endregion
     }
 }

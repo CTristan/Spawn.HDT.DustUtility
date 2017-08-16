@@ -1,7 +1,7 @@
-﻿using System;
-using System.Windows;
-using HearthDb.Enums;
+﻿using HearthDb.Enums;
 using Spawn.HDT.DustUtility.Search;
+using System;
+using System.Windows;
 
 namespace Spawn.HDT.DustUtility.UI.Dialogs
 {
@@ -9,7 +9,7 @@ namespace Spawn.HDT.DustUtility.UI.Dialogs
     {
         #region Properties
         #region Parameters
-        public Parameters Parameters { get; set; } 
+        public Parameters Parameters { get; set; }
         #endregion
         #endregion
 
@@ -71,7 +71,7 @@ namespace Spawn.HDT.DustUtility.UI.Dialogs
         private void OnCancelClick(object sender, RoutedEventArgs e)
         {
             Close();
-        } 
+        }
         #endregion
         #endregion
 

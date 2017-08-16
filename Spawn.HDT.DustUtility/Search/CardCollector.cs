@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using HearthDb.Enums;
+﻿using HearthDb.Enums;
 using HearthMirror;
 using HearthMirror.Objects;
 using Hearthstone_Deck_Tracker.Utility.Logging;
@@ -12,6 +6,12 @@ using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using Spawn.HDT.DustUtility.Offline;
 using Spawn.HearthstonePackHistory.Hearthstone;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace Spawn.HDT.DustUtility.Search
 {
@@ -71,7 +71,7 @@ namespace Spawn.HDT.DustUtility.Search
 
             if (parameters.UnusedCardsOnly)
             {
-                await CheckForUnusedCardsAsync(lstCollection); 
+                await CheckForUnusedCardsAsync(lstCollection);
             }
             else
             {
@@ -120,7 +120,7 @@ namespace Spawn.HDT.DustUtility.Search
 
                 lstChunk = FilterForSets(lstChunk, parameters.Sets);
 
-                lstChunk = lstChunk.OrderBy(c => c.GetDustValue()) .ToList();
+                lstChunk = lstChunk.OrderBy(c => c.GetDustValue()).ToList();
 
                 for (int j = 0; j < lstChunk.Count && !blnDone; j++)
                 {
@@ -133,7 +133,7 @@ namespace Spawn.HDT.DustUtility.Search
                     blnDone = nTotalAmount >= nDustAmount;
                 }
             }
-            
+
             //Post processing
             //Remove low rarity cards if the total amount is over the targeted amount
             if (nTotalAmount > nDustAmount)
@@ -160,7 +160,7 @@ namespace Spawn.HDT.DustUtility.Search
                     for (int i = 0; i < parameters.Rarities.Count && !blnDone; i++)
                     {
                         List<CardWrapper> lstChunk = lstCards.FindAll(c => c.DbCard.Rarity == parameters.Rarities[i]);
-                        
+
                         for (int j = 0; j < lstChunk.Count && !blnDone; j++)
                         {
                             CardWrapper cardWrapper = lstChunk[j];
@@ -240,7 +240,7 @@ namespace Spawn.HDT.DustUtility.Search
             blnRet |= cardWrapper.DbCard.Type.ToString().ToLowerInvariant().Equals(strKeyString) || (strKeyString.Equals("spell") && cardWrapper.DbCard.Type.ToString().ToLowerInvariant().Equals("ability"));
 
             return blnRet;
-        } 
+        }
         #endregion
 
         #region GetTotalDustValueForAllCards

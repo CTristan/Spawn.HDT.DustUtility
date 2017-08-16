@@ -1,6 +1,6 @@
-﻿using System.Diagnostics;
-using HearthDb.Enums;
+﻿using HearthDb.Enums;
 using Spawn.HDT.DustUtility.Search;
+using System.Diagnostics;
 
 namespace Spawn.HDT.DustUtility.UI
 {
@@ -25,7 +25,7 @@ namespace Spawn.HDT.DustUtility.UI
         #endregion
 
         #region Rarity
-        public Rarity Rarity { get; set; } 
+        public Rarity Rarity { get; set; }
         #endregion
 
         #region RarityString

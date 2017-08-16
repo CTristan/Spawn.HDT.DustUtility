@@ -1,6 +1,6 @@
-﻿using System;
-using HearthMirror.Objects;
+﻿using HearthMirror.Objects;
 using Hearthstone_Deck_Tracker.Enums;
+using System;
 
 namespace Spawn.HDT.DustUtility
 {
@@ -24,7 +24,7 @@ namespace Spawn.HDT.DustUtility
 
             if (BattleTag != null)
             {
-                AccountString = $"{battleTag.Name}_{battleTag.Number}_{region}"; 
+                AccountString = $"{battleTag.Name}_{battleTag.Number}_{region}";
             }
             else
             {
@@ -67,7 +67,7 @@ namespace Spawn.HDT.DustUtility
         public override int GetHashCode()
         {
             return base.GetHashCode();
-        } 
+        }
         #endregion
 
         #region [STATIC] Parse
@@ -82,7 +82,7 @@ namespace Spawn.HDT.DustUtility
             };
 
             return new Account(battleTag, (Region)Enum.Parse(typeof(Region), vTemp[2]));
-        } 
+        }
         #endregion
     }
 }

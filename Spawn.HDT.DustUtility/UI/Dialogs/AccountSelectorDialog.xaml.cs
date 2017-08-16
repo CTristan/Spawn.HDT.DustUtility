@@ -6,7 +6,7 @@ namespace Spawn.HDT.DustUtility.UI.Dialogs
     public partial class AccountSelectorDialog
     {
         #region Properties
-        public string SelectedAccount { get; private set; } 
+        public string SelectedAccount { get; private set; }
         #endregion
 
         #region Ctor
@@ -32,7 +32,7 @@ namespace Spawn.HDT.DustUtility.UI.Dialogs
                 cbAccounts.SelectedIndex = 0;
             }
             else { }
-        } 
+        }
         #endregion
 
         #region Events
@@ -51,7 +51,7 @@ namespace Spawn.HDT.DustUtility.UI.Dialogs
         private void OnCancelClick(object sender, RoutedEventArgs e)
         {
             Close();
-        }  
+        }
         #endregion
         #endregion
 

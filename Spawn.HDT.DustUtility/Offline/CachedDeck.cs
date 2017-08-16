@@ -38,7 +38,7 @@ namespace Spawn.HDT.DustUtility.Offline
         #endregion
 
         #region Cards
-        public List<CachedCard> Cards { get; set; }  
+        public List<CachedCard> Cards { get; set; }
         #endregion
         #endregion
     }

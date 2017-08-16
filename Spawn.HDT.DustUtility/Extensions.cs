@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Linq.Expressions;
-using HearthDb;
+﻿using HearthDb;
 using HearthDb.Enums;
 using Spawn.HDT.DustUtility.Offline;
 using Spawn.HearthstonePackHistory.Hearthstone;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace Spawn.HDT.DustUtility
 {
@@ -108,7 +108,7 @@ namespace Spawn.HDT.DustUtility
         public static string GetString(this Rarity rarity)
         {
             TextInfo textInfo = CultureInfo.InvariantCulture.TextInfo;
-            
+
             return textInfo.ToTitleCase(rarity.ToString().ToLowerInvariant());
         }
 

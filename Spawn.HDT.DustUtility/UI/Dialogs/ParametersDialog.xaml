@@ -57,7 +57,7 @@
                     <RowDefinition/>
                     <RowDefinition Height="5"/>
                 </Grid.RowDefinitions>
-                
+
                 <CheckBox Name="cbCommon" Content="Common" Grid.Row="0" VerticalAlignment="Center"/>
                 <CheckBox Name="cbRare" Content="Rare" Grid.Row="1" VerticalAlignment="Center"/>
                 <CheckBox Name="cbEpic"  Content="Epic" Grid.Row="2" VerticalAlignment="Center"/>
@@ -102,7 +102,7 @@
                     <RowDefinition/>
                     <RowDefinition Height="5"/>
                 </Grid.RowDefinitions>
-                
+
                 <CheckBox x:Name="cbGolden" Content="Golden Cards" Grid.Row="0" VerticalAlignment="Center"/>
                 <CheckBox x:Name="cbUnusedOnly" Content="Unused Only" Grid.Row="1" VerticalAlignment="Center"/>
             </Grid>

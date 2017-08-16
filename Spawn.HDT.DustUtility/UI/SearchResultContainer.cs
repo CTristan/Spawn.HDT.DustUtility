@@ -25,7 +25,7 @@ namespace Spawn.HDT.DustUtility.UI
                 m_nDust = value;
                 OnPropertyChanged("Dust");
             }
-        } 
+        }
         #endregion
 
         #region CommonsCount
@@ -37,7 +37,7 @@ namespace Spawn.HDT.DustUtility.UI
                 m_nCommonsCount = value;
                 OnPropertyChanged("CommonsCount");
             }
-        } 
+        }
         #endregion
 
         #region RaresCount
@@ -49,7 +49,7 @@ namespace Spawn.HDT.DustUtility.UI
                 m_nRaresCount = value;
                 OnPropertyChanged("RaresCount");
             }
-        } 
+        }
         #endregion
 
         #region EpicsCount
@@ -61,7 +61,7 @@ namespace Spawn.HDT.DustUtility.UI
                 m_nEpicsCount = value;
                 OnPropertyChanged("EpicsCount");
             }
-        } 
+        }
         #endregion
 
         #region LegendariesCount

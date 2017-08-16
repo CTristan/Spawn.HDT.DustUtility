@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Hearthstone_Deck_Tracker.Utility.Logging;
+using System;
 using System.Net;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Hearthstone_Deck_Tracker.Utility.Logging;
 
 namespace Spawn.HDT.DustUtility.Update
 {

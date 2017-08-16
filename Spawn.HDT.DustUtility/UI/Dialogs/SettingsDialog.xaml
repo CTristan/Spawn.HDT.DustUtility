@@ -15,7 +15,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
         </Grid.ColumnDefinitions>
-        
+
         <CheckBox Name="cbOfflineMode" Grid.Row="0" Grid.Column="2" Content="Offline Mode" VerticalAlignment="Center" Margin="10,0,0,0"/>
         <CheckBox Name="cbCheckForUpdates" Grid.Row="1" Grid.Column="2" Content="Check For Updates" VerticalAlignment="Center" Margin="10,0,0,0"/>
 

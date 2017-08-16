@@ -7,11 +7,11 @@ namespace Spawn.HDT.DustUtility.Search
     public class SortOrder
     {
         #region Member Variables
-        private List<ItemContainer> m_lstItems; 
+        private List<ItemContainer> m_lstItems;
         #endregion
 
         #region Properties
-        public List<ItemContainer> Items => m_lstItems; 
+        public List<ItemContainer> Items => m_lstItems;
         #endregion
 
         #region Ctor
@@ -82,7 +82,7 @@ namespace Spawn.HDT.DustUtility.Search
             }
 
             return strRet;
-        } 
+        }
         #endregion
         #endregion
 
@@ -91,7 +91,7 @@ namespace Spawn.HDT.DustUtility.Search
         {
             #region Properties
             public string Name { get; set; }
-            public Item Value { get; set; } 
+            public Item Value { get; set; }
             #endregion
 
             #region Ctor
@@ -99,7 +99,7 @@ namespace Spawn.HDT.DustUtility.Search
             {
                 Name = ItemToString(item);
                 Value = item;
-            } 
+            }
             #endregion
         }
 

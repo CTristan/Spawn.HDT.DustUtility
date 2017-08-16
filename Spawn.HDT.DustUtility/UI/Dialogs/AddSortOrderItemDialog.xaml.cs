@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Spawn.HDT.DustUtility.Search;
+using System;
 using System.Collections.Generic;
 using System.Windows;
-using Spawn.HDT.DustUtility.Search;
 
 namespace Spawn.HDT.DustUtility.UI.Dialogs
 {
@@ -12,14 +12,13 @@ namespace Spawn.HDT.DustUtility.UI.Dialogs
         #endregion
 
         #region Properties
-        public SortOrder.ItemContainer SelectedItem => m_selectedItem; 
+        public SortOrder.ItemContainer SelectedItem => m_selectedItem;
         #endregion
 
         #region Ctor
         public AddSortOrderItemDialog()
             : this(null)
         {
-
         }
 
         public AddSortOrderItemDialog(List<SortOrder.ItemContainer> items)
@@ -61,7 +60,7 @@ namespace Spawn.HDT.DustUtility.UI.Dialogs
         private void OnCancelClick(object sender, RoutedEventArgs e)
         {
             Close();
-        }  
+        }
         #endregion
         #endregion
     }

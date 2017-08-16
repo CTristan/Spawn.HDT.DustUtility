@@ -1,9 +1,9 @@
-﻿using System;
+﻿using HearthDb.Enums;
+using Hearthstone_Deck_Tracker.Utility.Logging;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
-using HearthDb.Enums;
-using Hearthstone_Deck_Tracker.Utility.Logging;
 
 namespace Spawn.HDT.DustUtility.Search
 {
@@ -47,7 +47,6 @@ namespace Spawn.HDT.DustUtility.Search
         public Parameters()
             : this(false)
         {
-
         }
 
         public Parameters(bool setDefaultValues)
@@ -111,7 +110,7 @@ namespace Spawn.HDT.DustUtility.Search
         public Parameters DeepClone()
         {
             Parameters retVal = new Parameters();
-            
+
             BinaryFormatter bf = new BinaryFormatter();
 
             using (MemoryStream ms = new MemoryStream())
@@ -124,7 +123,7 @@ namespace Spawn.HDT.DustUtility.Search
             }
 
             return retVal;
-        } 
+        }
         #endregion
     }
 }
