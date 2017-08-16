@@ -1,23 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Reflection;
-using System.Windows;
-using System.Windows.Controls;
-using HearthMirror;
+﻿using HearthMirror;
 using Hearthstone_Deck_Tracker.API;
 using Hearthstone_Deck_Tracker.Plugins;
 using Hearthstone_Deck_Tracker.Utility.Logging;
 using Spawn.HDT.DustUtility.Offline;
 using Spawn.HDT.DustUtility.UI;
 using Spawn.HDT.DustUtility.UI.Dialogs;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace Spawn.HDT.DustUtility
 {
     public class DustUtilityPlugin : IPlugin
     {
-        #region Constants
-        public const string DataFolder = "DustUtility";
+        #region Static Variables
+        public static string DataDirectory = Path.Combine(Hearthstone_Deck_Tracker.Config.Instance.DataDir, "DustUtility");
         #endregion
 
         #region Member Variables
@@ -165,7 +165,7 @@ namespace Spawn.HDT.DustUtility
                     {
                         m_account = Account.Parse(accSelectorDialog.SelectedAccount);
                     }
-                    else { } 
+                    else { }
                 }
                 else
                 {
@@ -180,11 +180,9 @@ namespace Spawn.HDT.DustUtility
         {
             List<string> lstRet = new List<string>();
 
-            string strPath = Path.Combine(Hearthstone_Deck_Tracker.Config.Instance.DataDir, DataFolder);
-
-            if (Directory.Exists(strPath))
+            if (Directory.Exists(DataDirectory))
             {
-                string[] vFiles = Directory.GetFiles(strPath, "*_collection.xml");
+                string[] vFiles = Directory.GetFiles(DataDirectory, "*_collection.xml");
 
                 for (int i = 0; i < vFiles.Length; i++)
                 {
@@ -203,7 +201,7 @@ namespace Spawn.HDT.DustUtility
             if (m_window != null)
             {
                 Log.WriteLine("Switching accounts...", LogType.Debug);
-                
+
                 Account oldAcc = m_account;
 
                 m_account = null;

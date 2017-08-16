@@ -1,15 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-using System.Windows.Input;
-using Hearthstone_Deck_Tracker.Utility.Logging;
+﻿using Hearthstone_Deck_Tracker.Utility.Logging;
 using MahApps.Metro.Controls.Dialogs;
 using Spawn.HDT.DustUtility.Search;
 using Spawn.HDT.DustUtility.UI.Dialogs;
 using Spawn.HDT.DustUtility.Update;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
+using System.Windows.Input;
 
 namespace Spawn.HDT.DustUtility.UI
 {
@@ -38,6 +40,74 @@ namespace Spawn.HDT.DustUtility.UI
         }
         #endregion
 
+        #region Attached DP
+        #region RowPopup
+        public static Popup GetRowPopup(DependencyObject obj)
+        {
+            return (Popup)obj.GetValue(RowPopupProperty);
+        }
+
+        public static void SetRowPopup(DependencyObject obj, Popup value)
+        {
+            obj.SetValue(RowPopupProperty, value);
+        }
+
+        // Using a DependencyProperty as the backing store for RowPopup.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty RowPopupProperty =
+            DependencyProperty.RegisterAttached("RowPopup", typeof(Popup), typeof(MainWindow), new PropertyMetadata(null));
+        #endregion
+
+        #region RowPopupImage
+        public static string GetRowPopupImage(DependencyObject obj)
+        {
+            return (string)obj.GetValue(RowPopupImageProperty);
+        }
+
+        public static void SetRowPopupImage(DependencyObject obj, string value)
+        {
+            obj.SetValue(RowPopupImageProperty, value);
+        }
+
+        // Using a DependencyProperty as the backing store for RowPopupImage.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty RowPopupImageProperty =
+            DependencyProperty.RegisterAttached("RowPopupImage", typeof(string), typeof(MainWindow), new PropertyMetadata("/Spawn.HDT.DustUtility;component/Resources/legend_cardback.png"));
+        #endregion
+
+        #region ShowPopup
+        public static bool GetShowPopup(DependencyObject obj)
+        {
+            return (bool)obj.GetValue(ShowPopupProperty);
+        }
+
+        public static void SetShowPopup(DependencyObject obj, bool value)
+        {
+            obj.SetValue(ShowPopupProperty, value);
+        }
+
+        // Using a DependencyProperty as the backing store for ShowPopup.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ShowPopupProperty =
+            DependencyProperty.RegisterAttached("ShowPopup", typeof(bool), typeof(MainWindow), new PropertyMetadata(false, new PropertyChangedCallback(ShowPopupCallback)));
+
+        private static void ShowPopupCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is DataGridRow)
+            {
+                if (((DataGridRow)d).IsFocused == true)
+                {
+                    Popup p = GetRowPopup(d);
+                    p.IsOpen = Convert.ToBoolean(e.NewValue);
+                }
+                else
+                {
+                    Popup p = GetRowPopup(d);
+                    p.IsOpen = Convert.ToBoolean(e.NewValue);
+                }
+            }
+            else { }
+        }
+        #endregion
+        #endregion
+
         #region Member Variables
         private DustUtilityPlugin m_plugin;
 
@@ -60,7 +130,7 @@ namespace Spawn.HDT.DustUtility.UI
 
             if (Settings.SearchParameters == null)
             {
-                m_parameters = new Parameters(true); 
+                m_parameters = new Parameters(true);
             }
             else
             {
@@ -69,7 +139,7 @@ namespace Spawn.HDT.DustUtility.UI
 
             if (!account.IsEmpty)
             {
-                Title = $"{Title} [{account.BattleTag.Name} ({account.Region})]"; 
+                Title = $"{Title} [{account.BattleTag.Name} ({account.Region})]";
             }
             else { }
 
@@ -151,7 +221,7 @@ namespace Spawn.HDT.DustUtility.UI
         private async void OnSearchHelpClick(object sender, System.Windows.RoutedEventArgs e)
         {
             await this.ShowMessageAsync(string.Empty, s_strSearchHelpText);
-        } 
+        }
         #endregion
 
         #region OnSortOrderClick
@@ -178,7 +248,7 @@ namespace Spawn.HDT.DustUtility.UI
                 await SearchAsync();
             }
             else { }
-        } 
+        }
         #endregion
 
         #region OnInputBoxTextChanged
@@ -213,7 +283,7 @@ namespace Spawn.HDT.DustUtility.UI
                 UpdateUIState(false);
 
                 m_parameters.QueryString = inputBox.Text;
-                
+
                 CardWrapper[] vCards = await m_cardCollector.GetCardsAsync(m_parameters);
 
                 CreateSearchResult(vCards).CopyTo(GetSearchResultContainerComponent());
@@ -237,7 +307,7 @@ namespace Spawn.HDT.DustUtility.UI
             {
                 searchButton.Content = "...";
             }
-            
+
             searchButton.IsEnabled = blnIsEnabled;
             inputBox.IsEnabled = blnIsEnabled;
             filterButton.IsEnabled = blnIsEnabled;
@@ -301,7 +371,7 @@ namespace Spawn.HDT.DustUtility.UI
             {
                 retVal.GridItems.Add(vItems[i]);
             }
-            
+
             return retVal;
         }
         #endregion
@@ -316,7 +386,7 @@ namespace Spawn.HDT.DustUtility.UI
             if (sortOrder != null && sortOrder.Items.Count > 0)
             {
                 IQueryable<GridItem> query = items.AsQueryable();
-                
+
                 for (int i = 0; i < sortOrder.Items.Count; i++)
                 {
                     query = query.OrderBy(sortOrder.Items[i].Value.ToString(), i);
@@ -340,5 +410,18 @@ namespace Spawn.HDT.DustUtility.UI
             return FindResource(SearchResultKey) as SearchResultContainer;
         }
         #endregion
+
+        private void OnDataGridMouseMove(object sender, MouseEventArgs e)
+        {
+            if (cardImagePopup.IsOpen)
+            {
+                Point currentPos = e.GetPosition(dataGrid);
+
+                // The + 20 part is so your mouse pointer doesn't overlap.
+                cardImagePopup.HorizontalOffset = currentPos.X + 20;
+                cardImagePopup.VerticalOffset = currentPos.Y;
+            }
+            else { }
+        }
     }
 }

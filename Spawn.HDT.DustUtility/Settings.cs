@@ -1,5 +1,5 @@
-﻿using System.Diagnostics;
-using Spawn.HDT.DustUtility.Search;
+﻿using Spawn.HDT.DustUtility.Search;
+using System.Diagnostics;
 
 namespace Spawn.HDT.DustUtility
 {
@@ -54,6 +54,18 @@ namespace Spawn.HDT.DustUtility
             }
         }
         #endregion
+
+        #region UseImageCache
+        public static bool UseImageCache
+        {
+            get => Properties.Settings.Default.UseImageCache;
+            set
+            {
+                Properties.Settings.Default.UseImageCache = value;
+                Properties.Settings.Default.Save();
+            }
+        }
+        #endregion
         #endregion
 
         #region Ctor
@@ -77,7 +89,7 @@ namespace Spawn.HDT.DustUtility
 
                 Properties.Settings.Default.SortOrder = strSortOrder;
                 Properties.Settings.Default.Version = 2;
-                Properties.Settings.Default.Save(); 
+                Properties.Settings.Default.Save();
             }
             else { }
         }

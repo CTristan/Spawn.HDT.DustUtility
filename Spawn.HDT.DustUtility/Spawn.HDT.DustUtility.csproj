@@ -54,6 +54,9 @@
       <HintPath>..\..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.4.0\MahApps.Metro.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="Microsoft.CSharp" />
@@ -76,6 +79,7 @@
       <Link>CardSets.cs</Link>
     </Compile>
     <Compile Include="Account.cs" />
+    <Compile Include="HearthstoneCardImageManager.cs" />
     <Compile Include="Converters\DisplayLabelConverter.cs" />
     <Compile Include="Search\CardCollector.cs" />
     <Compile Include="Converters\CountLabelConverter.cs" />
@@ -83,6 +87,9 @@
     <Compile Include="Offline\CachedCard.cs" />
     <Compile Include="Offline\CachedDeck.cs" />
     <Compile Include="Search\Parameters.cs" />
+    <Compile Include="UI\Components\CardTooltip.xaml.cs">
+      <DependentUpon>CardTooltip.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Dialogs\AccountSelectorDialog.xaml.cs">
       <DependentUpon>AccountSelectorDialog.xaml</DependentUpon>
     </Compile>
@@ -119,6 +126,10 @@
     <Compile Include="Update\GitHubUpdateManager.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="UI\Components\CardTooltip.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\Dialogs\AccountSelectorDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -145,11 +156,17 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\legend_cardback.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

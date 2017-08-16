@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Threading;
-using System.Xml.Serialization;
-using HearthMirror;
+﻿using HearthMirror;
 using HearthMirror.Objects;
 using Hearthstone_Deck_Tracker;
 using Hearthstone_Deck_Tracker.Utility.Logging;
+using System.Collections.Generic;
+using System.IO;
+using System.Threading;
+using System.Xml.Serialization;
 
 namespace Spawn.HDT.DustUtility.Offline
 {
@@ -285,25 +285,23 @@ namespace Spawn.HDT.DustUtility.Offline
         {
             string strRet = string.Empty;
 
-            string strBaseDir = Path.Combine(Config.Instance.DataDir, DustUtilityPlugin.DataFolder);
-
-            if (!Directory.Exists(strBaseDir))
+            if (!Directory.Exists(DustUtilityPlugin.DataDirectory))
             {
-                Directory.CreateDirectory(strBaseDir);
+                Directory.CreateDirectory(DustUtilityPlugin.DataDirectory);
             }
             else { }
 
             if (!account.IsEmpty)
             {
-                strRet = Path.Combine(strBaseDir, $"{account.AccountString}_{strType}.xml");
+                strRet = Path.Combine(DustUtilityPlugin.DataDirectory, $"{account.AccountString}_{strType}.xml");
             }
             else
             {
-                strRet = Path.Combine(strBaseDir, $"{strType}.xml");
+                strRet = Path.Combine(DustUtilityPlugin.DataDirectory, $"{strType}.xml");
             }
 
             return strRet;
-        } 
+        }
         #endregion
     }
 }
