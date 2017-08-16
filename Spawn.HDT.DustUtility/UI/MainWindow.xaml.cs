@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using Hearthstone_Deck_Tracker.Utility.Logging;
 using MahApps.Metro.Controls.Dialogs;
+using Spawn.HDT.DustUtility.Offline;
 using Spawn.HDT.DustUtility.Search;
 using Spawn.HDT.DustUtility.UI.Dialogs;
 using Spawn.HDT.DustUtility.Update;
@@ -49,10 +50,10 @@ namespace Spawn.HDT.DustUtility.UI
             InitializeComponent();
         }
 
-        public MainWindow(bool offlineMode)
+        public MainWindow(Account account, Cache cache, bool offlineMode)
             : this()
         {
-            m_cardCollector = new CardCollector(this, offlineMode);
+            m_cardCollector = new CardCollector(this, cache, offlineMode);
 
             if (Settings.SearchParameters == null)
             {
@@ -63,12 +64,15 @@ namespace Spawn.HDT.DustUtility.UI
                 m_parameters = Settings.SearchParameters.DeepClone();
             }
 
+            Title = $"{Title} [{account.BattleTag.Name} ({account.Region})]";
+
             if (offlineMode)
             {
                 Title = $"{Title} [OFFLINE MODE]";
             }
             else { }
 
+            Log.WriteLine($"Account={account.AccountString}", LogType.Debug);
             Log.WriteLine($"OfflineMode={offlineMode}", LogType.Debug);
         }
         #endregion

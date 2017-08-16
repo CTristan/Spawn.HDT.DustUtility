@@ -72,6 +72,7 @@
     <Compile Include="..\..\Spawn.HearthstonePackHistory\Spawn.HearthstonePackHistory\Hearthstone\CardSets.cs">
       <Link>CardSets.cs</Link>
     </Compile>
+    <Compile Include="Account.cs" />
     <Compile Include="Converters\DisplayLabelConverter.cs" />
     <Compile Include="Search\CardCollector.cs" />
     <Compile Include="Converters\CountLabelConverter.cs" />
@@ -79,6 +80,9 @@
     <Compile Include="Offline\CachedCard.cs" />
     <Compile Include="Offline\CachedDeck.cs" />
     <Compile Include="Search\Parameters.cs" />
+    <Compile Include="UI\Dialogs\AccountSelectorDialog.xaml.cs">
+      <DependentUpon>AccountSelectorDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\SearchResultContainer.cs" />
     <Compile Include="UI\SortOrder.cs" />
     <Compile Include="UI\Dialogs\AddSortOrderItemDialog.xaml.cs">
@@ -112,6 +116,10 @@
     <Compile Include="Update\GitHubUpdateManager.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="UI\Dialogs\AccountSelectorDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\Dialogs\AddSortOrderItemDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -1,8 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
+using HearthMirror;
+using HearthMirror.Objects;
 using Hearthstone_Deck_Tracker.API;
+using Hearthstone_Deck_Tracker.Enums;
 using Hearthstone_Deck_Tracker.Plugins;
 using Hearthstone_Deck_Tracker.Utility.Logging;
 using Spawn.HDT.DustUtility.Offline;
@@ -13,8 +18,15 @@ namespace Spawn.HDT.DustUtility
 {
     public class DustUtilityPlugin : IPlugin
     {
+        #region Constants
+        public const string DataFolder = "DustUtility";
+        #endregion
+
         #region Member Variables
         private MenuItem m_menuItem;
+
+        private Account m_account;
+        private Cache m_cache;
         #endregion
 
         #region Properties
@@ -69,9 +81,9 @@ namespace Spawn.HDT.DustUtility
         #region OnUnload
         public void OnUnload()
         {
-            if (Cache.TimerEnabled)
+            if (m_cache != null && m_cache.TimerEnabled)
             {
-                Cache.StopTimer();
+                m_cache.StopTimer();
             }
             else { }
         }
@@ -80,9 +92,9 @@ namespace Spawn.HDT.DustUtility
         #region OnUpdate
         public void OnUpdate()
         {
-            if (!Core.Game.IsRunning && Cache.TimerEnabled && Cache.SaveProcessSuccessful)
+            if (!Core.Game.IsRunning && (m_cache != null && m_cache.TimerEnabled && m_cache.SaveProcessSuccessful))
             {
-                Cache.StopTimer();
+                m_cache.StopTimer();
             }
             else { }
         }
@@ -93,22 +105,97 @@ namespace Spawn.HDT.DustUtility
         {
             if (Core.Game.IsRunning || Settings.OfflineMode)
             {
-                if (Core.Game.IsRunning && !Cache.TimerEnabled)
+                if (m_account == null)
                 {
-                    Cache.StartTimer();
+                    ObtainAccount();
                 }
                 else { }
 
-                Log.WriteLine("Opening main window", LogType.Debug);
-
-                new MainWindow(!Core.Game.IsRunning && Settings.OfflineMode).Show();
+                if (m_account != null)
+                {
+                    OpenMainWindow();
+                }
+                else { }
             }
             else if (!Settings.OfflineMode)
             {
-                MessageBox.Show("Hearthstone isn't running!", "Dust Utility", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Hearthstone isn't running!", Name, MessageBoxButton.OK, MessageBoxImage.Error);
             }
             else { }
         }
+        #endregion
+
+        #region OpenMainWindow
+        private void OpenMainWindow()
+        {
+            if (m_cache != null)
+            {
+                m_cache.StopTimer();
+            }
+            else { }
+
+            m_cache = new Cache(m_account);
+
+            if (Core.Game.IsRunning)
+            {
+                m_cache.StartTimer();
+            }
+            else { }
+
+            Log.WriteLine("Opening main window", LogType.Debug);
+
+            new MainWindow(m_account, m_cache, !Core.Game.IsRunning && Settings.OfflineMode).Show();
+        }
+        #endregion
+
+        #region ObtainAccount
+        private void ObtainAccount()
+        {
+            if (Core.Game.IsRunning)
+            {
+                m_account = new Account(Reflection.GetBattleTag(), Hearthstone_Deck_Tracker.Helper.GetCurrentRegion().Result);
+            }
+            else
+            {
+                AccountSelectorDialog accSelectorDialog = new AccountSelectorDialog(GetAccountList());
+
+                if (accSelectorDialog.ShowDialog().Value)
+                {
+                    string[] vTemp = accSelectorDialog.SelectedAccount.Split('_');
+
+                    BattleTag battleTag = new BattleTag()
+                    {
+                        Name = vTemp[0],
+                        Number = Convert.ToInt32(vTemp[1])
+                    };
+
+                    m_account = new Account(battleTag, (Region)Enum.Parse(typeof(Region), vTemp[2]));
+                }
+                else { }
+            }
+        }
+        #endregion
+
+        #region GetAccountList
+        private List<string> GetAccountList()
+        {
+            List<string> lstRet = new List<string>();
+
+            string strPath = Path.Combine(Hearthstone_Deck_Tracker.Config.Instance.DataDir, DataFolder);
+
+            if (Directory.Exists(strPath))
+            {
+                string[] vFiles = Directory.GetFiles(strPath, "*collection.xml");
+
+                for (int i = 0; i < vFiles.Length; i++)
+                {
+                    lstRet.Add(Path.GetFileNameWithoutExtension(vFiles[i]));
+                }
+            }
+            else { }
+
+            return lstRet;
+        } 
         #endregion
     }
 }
