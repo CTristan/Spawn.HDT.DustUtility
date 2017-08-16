@@ -173,7 +173,7 @@ namespace Spawn.HDT.DustUtility.UI
         #region OnInputBoxPreviewKeyDown
         private async void OnInputBoxPreviewKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Enter)
+            if (e.Key == Key.Enter && searchButton.IsEnabled)
             {
                 await SearchAsync();
             }
@@ -273,14 +273,15 @@ namespace Spawn.HDT.DustUtility.UI
                         retVal.LegendariesCount += wrapper.Count;
                         break;
                 }
-                
+
                 GridItem item = new GridItem()
                 {
                     Count = wrapper.Count,
                     Dust = wrapper.GetDustValue(),
                     Golden = wrapper.Card.Premium,
                     Name = wrapper.DbCard.Name,
-                    Rarity = wrapper.DbCard.Rarity.GetString(),
+                    Rarity = wrapper.DbCard.Rarity,
+                    RarityString = wrapper.DbCard.Rarity.GetString(),
                     CardClass = wrapper.DbCard.Class.GetString(),
                     CardSet = wrapper.DbCard.Set.GetString(),
                     ManaCost = wrapper.DbCard.Cost,

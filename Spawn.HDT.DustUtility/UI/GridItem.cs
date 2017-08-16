@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using HearthDb.Enums;
 using Spawn.HDT.DustUtility.Search;
 
 namespace Spawn.HDT.DustUtility.UI
@@ -24,7 +25,11 @@ namespace Spawn.HDT.DustUtility.UI
         #endregion
 
         #region Rarity
-        public string Rarity { get; set; }
+        public Rarity Rarity { get; set; } 
+        #endregion
+
+        #region RarityString
+        public string RarityString { get; set; }
         #endregion
 
         #region CardClass
