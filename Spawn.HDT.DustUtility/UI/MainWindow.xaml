@@ -34,7 +34,14 @@
                     <converters:CountLabelConverter x:Key="countLabelConverter"/>
                     <util:CardRarityToColorConverter x:Key="rarityConverter"/>
                     <Style TargetType="DataGridCell">
-                        <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                        <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+                        <Setter Property="Foreground" Value="Black"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="{x:Null}"/>
+                                <Setter Property="BorderBrush" Value="{x:Null}"/>
+                            </Trigger>
+                        </Style.Triggers>
                     </Style>
                 </DataGrid.Resources>
                 <DataGrid.Columns>
