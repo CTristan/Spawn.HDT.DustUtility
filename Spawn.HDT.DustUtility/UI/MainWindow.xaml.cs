@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Input;
 using Hearthstone_Deck_Tracker.Utility.Logging;
 using MahApps.Metro.Controls.Dialogs;
-using Spawn.HDT.DustUtility.Converters;
 using Spawn.HDT.DustUtility.Search;
 using Spawn.HDT.DustUtility.UI.Dialogs;
 using Spawn.HDT.DustUtility.Update;
@@ -143,29 +141,6 @@ namespace Spawn.HDT.DustUtility.UI
         {
             await this.ShowMessageAsync(string.Empty, s_strSearchHelpText);
         } 
-        #endregion
-
-        #region OnAutoGeneratingColumn
-        private void OnAutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
-        {
-            string strHeader = e.Column.Header.ToString().ToLowerInvariant();
-
-            if (strHeader.Equals("cardclass"))
-            {
-                e.Column.Header = "Class";
-            }
-            else if (strHeader.Equals("cardset"))
-            {
-                e.Column.Header = "Set";
-            }
-            else if (strHeader.Equals("count"))
-            {
-                ((e.Column as DataGridTextColumn).Binding as Binding).Converter = new CountLabelConverter();
-            }
-            else { }
-
-            e.Cancel = strHeader.Equals("tag") || strHeader.Equals("manacost");
-        }
         #endregion
 
         #region OnSortOrderClick

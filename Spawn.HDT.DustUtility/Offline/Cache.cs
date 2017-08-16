@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Xml.Serialization;
@@ -274,7 +273,7 @@ namespace Spawn.HDT.DustUtility.Offline
         #region GetFullFileName
         private static string GetFullFileName(string strFileName)
         {
-            string strBaseDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "HearthstoneDeckTracker", "DustUtility");
+            string strBaseDir = Path.Combine(Hearthstone_Deck_Tracker.Config.Instance.DataDir, "DustUtility");
 
             if (!Directory.Exists(strBaseDir))
             {
