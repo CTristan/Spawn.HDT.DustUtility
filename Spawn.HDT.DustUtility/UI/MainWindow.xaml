@@ -13,7 +13,10 @@
     </Window.Resources>
     <controls:MetroWindow.RightWindowCommands>
         <controls:WindowCommands>
-            <Button Content="SHOW COLLECTION VALUE..." Click="OnTotalDustClick" />
+            <StackPanel Orientation="Horizontal">
+                <Button Name="switchAccountsButton" Content="SWITCH ACCOUNTS..." Click="OnSwitchAccountsClick" />
+                <Button Content="SHOW COLLECTION VALUE..." Click="OnTotalDustClick" />
+            </StackPanel>
         </controls:WindowCommands>
     </controls:MetroWindow.RightWindowCommands>
     <Grid>

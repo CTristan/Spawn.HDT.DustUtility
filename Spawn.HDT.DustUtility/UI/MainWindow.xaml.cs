@@ -7,7 +7,6 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using Hearthstone_Deck_Tracker.Utility.Logging;
 using MahApps.Metro.Controls.Dialogs;
-using Spawn.HDT.DustUtility.Offline;
 using Spawn.HDT.DustUtility.Search;
 using Spawn.HDT.DustUtility.UI.Dialogs;
 using Spawn.HDT.DustUtility.Update;
@@ -40,6 +39,8 @@ namespace Spawn.HDT.DustUtility.UI
         #endregion
 
         #region Member Variables
+        private DustUtilityPlugin m_plugin;
+
         private CardCollector m_cardCollector;
         private Parameters m_parameters;
         #endregion
@@ -50,10 +51,12 @@ namespace Spawn.HDT.DustUtility.UI
             InitializeComponent();
         }
 
-        public MainWindow(Account account, Cache cache, bool offlineMode)
+        public MainWindow(DustUtilityPlugin plugin, Account account, bool offlineMode)
             : this()
         {
-            m_cardCollector = new CardCollector(this, cache, offlineMode);
+            m_plugin = plugin;
+
+            m_cardCollector = new CardCollector(this, account, offlineMode);
 
             if (Settings.SearchParameters == null)
             {
@@ -185,6 +188,13 @@ namespace Spawn.HDT.DustUtility.UI
         private void OnInputBoxGotFocus(object sender, System.Windows.RoutedEventArgs e)
         {
             (sender as TextBox).SelectAll();
+        }
+        #endregion
+
+        #region OnSwitchAccountsClick
+        private void OnSwitchAccountsClick(object sender, System.Windows.RoutedEventArgs e)
+        {
+            m_plugin.SwitchAccounts();
         }
         #endregion
         #endregion

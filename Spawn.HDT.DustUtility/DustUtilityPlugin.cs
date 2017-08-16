@@ -5,9 +5,7 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using HearthMirror;
-using HearthMirror.Objects;
 using Hearthstone_Deck_Tracker.API;
-using Hearthstone_Deck_Tracker.Enums;
 using Hearthstone_Deck_Tracker.Plugins;
 using Hearthstone_Deck_Tracker.Utility.Logging;
 using Spawn.HDT.DustUtility.Offline;
@@ -24,9 +22,9 @@ namespace Spawn.HDT.DustUtility
 
         #region Member Variables
         private MenuItem m_menuItem;
+        private Window m_window;
 
         private Account m_account;
-        private Cache m_cache;
         #endregion
 
         #region Properties
@@ -51,7 +49,7 @@ namespace Spawn.HDT.DustUtility
         #endregion
 
         #region MenuItem
-        public MenuItem MenuItem => m_menuItem; 
+        public MenuItem MenuItem => m_menuItem;
         #endregion
         #endregion
 
@@ -66,7 +64,7 @@ namespace Spawn.HDT.DustUtility
             m_menuItem.Click += OnClick;
         }
         #endregion
-        
+
         #region OnButtonPress
         public void OnButtonPress()
         {
@@ -81,9 +79,9 @@ namespace Spawn.HDT.DustUtility
         #region OnUnload
         public void OnUnload()
         {
-            if (m_cache != null && m_cache.TimerEnabled)
+            if (Cache.TimerEnabled)
             {
-                m_cache.StopTimer();
+                Cache.StopTimer();
             }
             else { }
         }
@@ -92,9 +90,9 @@ namespace Spawn.HDT.DustUtility
         #region OnUpdate
         public void OnUpdate()
         {
-            if (!Core.Game.IsRunning && (m_cache != null && m_cache.TimerEnabled && m_cache.SaveProcessSuccessful))
+            if (!Core.Game.IsRunning && Cache.TimerEnabled)
             {
-                m_cache.StopTimer();
+                Cache.StopTimer();
             }
             else { }
         }
@@ -107,7 +105,7 @@ namespace Spawn.HDT.DustUtility
             {
                 if (m_account == null)
                 {
-                    ObtainAccount();
+                    ObtainAccount(false);
                 }
                 else { }
 
@@ -128,30 +126,30 @@ namespace Spawn.HDT.DustUtility
         #region OpenMainWindow
         private void OpenMainWindow()
         {
-            if (m_cache != null)
+            if (m_window == null)
             {
-                m_cache.StopTimer();
+                if (Settings.OfflineMode && Core.Game.IsRunning && !Cache.TimerEnabled)
+                {
+                    Cache.StartTimer();
+                }
+                else { }
+
+                Log.WriteLine("Opening main window", LogType.Debug);
+
+                m_window = new MainWindow(this, m_account, !Core.Game.IsRunning && Settings.OfflineMode);
+
+                m_window.Closed += new EventHandler((s, e) => m_window = null);
+
+                m_window.Show();
             }
             else { }
-
-            m_cache = new Cache(m_account);
-
-            if (Core.Game.IsRunning)
-            {
-                m_cache.StartTimer();
-            }
-            else { }
-
-            Log.WriteLine("Opening main window", LogType.Debug);
-
-            new MainWindow(m_account, m_cache, !Core.Game.IsRunning && Settings.OfflineMode).Show();
         }
         #endregion
 
         #region ObtainAccount
-        private void ObtainAccount()
+        private void ObtainAccount(bool blnIsSwitching)
         {
-            if (Core.Game.IsRunning)
+            if (Core.Game.IsRunning && !blnIsSwitching)
             {
                 m_account = new Account(Reflection.GetBattleTag(), Hearthstone_Deck_Tracker.Helper.GetCurrentRegion().Result);
             }
@@ -161,15 +159,7 @@ namespace Spawn.HDT.DustUtility
 
                 if (accSelectorDialog.ShowDialog().Value)
                 {
-                    string[] vTemp = accSelectorDialog.SelectedAccount.Split('_');
-
-                    BattleTag battleTag = new BattleTag()
-                    {
-                        Name = vTemp[0],
-                        Number = Convert.ToInt32(vTemp[1])
-                    };
-
-                    m_account = new Account(battleTag, (Region)Enum.Parse(typeof(Region), vTemp[2]));
+                    m_account = Account.Parse(accSelectorDialog.SelectedAccount);
                 }
                 else { }
             }
@@ -195,7 +185,40 @@ namespace Spawn.HDT.DustUtility
             else { }
 
             return lstRet;
-        } 
+        }
+        #endregion
+
+        #region SwitchAccounts
+        public void SwitchAccounts()
+        {
+            if (m_window != null)
+            {
+                Log.WriteLine("Switching accounts...", LogType.Debug);
+                
+                Account oldAcc = m_account;
+
+                m_account = null;
+
+                ObtainAccount(true);
+
+                if (m_account == null)
+                {
+                    m_account = oldAcc;
+                }
+                else { }
+
+                if (!m_account.Equals(oldAcc))
+                {
+                    m_window.Close();
+                }
+                else { }
+
+                OpenMainWindow();
+
+                Log.WriteLine($"Switched accounts: Old={oldAcc.AccountString} New={m_account.AccountString}", LogType.Info);
+            }
+            else { }
+        }
         #endregion
     }
 }

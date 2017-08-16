@@ -24,7 +24,7 @@ namespace Spawn.HDT.DustUtility.Search
         #region Member Variables
         private MetroWindow m_mainWindow;
 
-        private Cache m_cache;
+        private Account m_account;
 
         private List<CardWrapper> m_lstUnusedCards;
         private bool m_blnOfflineMode;
@@ -39,11 +39,11 @@ namespace Spawn.HDT.DustUtility.Search
         #endregion
 
         #region Ctor
-        public CardCollector(MetroWindow mainWindow, Cache cache, bool offlineMode)
+        public CardCollector(MetroWindow mainWindow, Account account, bool offlineMode)
         {
             m_mainWindow = mainWindow;
 
-            m_cache = cache;
+            m_account = account;
 
             m_blnOfflineMode = offlineMode;
 
@@ -362,7 +362,7 @@ namespace Spawn.HDT.DustUtility.Search
 
             if (m_blnOfflineMode)
             {
-                lstRet = m_cache.LoadCollection();
+                lstRet = Cache.LoadCollection(m_account);
             }
             else
             {
@@ -388,7 +388,7 @@ namespace Spawn.HDT.DustUtility.Search
 
             if (m_blnOfflineMode)
             {
-                lstRet = m_cache.LoadDecks();
+                lstRet = Cache.LoadDecks(m_account);
             }
             else
             {

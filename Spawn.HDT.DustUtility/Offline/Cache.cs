@@ -4,55 +4,47 @@ using System.Threading;
 using System.Xml.Serialization;
 using HearthMirror;
 using HearthMirror.Objects;
+using Hearthstone_Deck_Tracker;
 using Hearthstone_Deck_Tracker.Utility.Logging;
 
 namespace Spawn.HDT.DustUtility.Offline
 {
-    public class Cache
+    public static class Cache
     {
         #region Constants
         private const string CollectionString = "collection";
         private const string DecksString = "decks";
         #endregion
 
-        #region Member Variables
-        private Timer m_timer;
+        #region Static Variables
+        private static Timer s_timer;
 
-        private Account m_account;
-
-        private bool m_blnSaveCollectionInProgress;
-        private bool m_blnSavedCollection;
-        private bool m_blnSaveDecksInProgress;
-        private bool m_blnSavedDecks;
+        private static bool s_blnSaveCollectionInProgress;
+        private static bool s_blnSavedCollection;
+        private static bool s_blnSaveDecksInProgress;
+        private static bool s_blnSavedDecks;
         #endregion
 
-        #region Properties
-        public bool TimerEnabled => m_timer != null;
+        #region Static Properties
+        public static bool TimerEnabled => s_timer != null;
 
-        public bool SaveProcessSuccessful => m_blnSavedCollection && m_blnSavedDecks;
-        #endregion
-
-        #region Ctor
-        public Cache(Account account)
-        {
-            m_account = account;
-        } 
+        //public static bool SaveProcessSuccessful => s_blnSavedCollection && s_blnSavedDecks;
         #endregion
 
         #region SaveCollection
-        public bool SaveCollection()
+        public static bool SaveCollection(Account account)
         {
             bool blnRet = false;
 
             List<Card> lstCollection = Reflection.GetCollection();
 
-            if (lstCollection != null && lstCollection.Count > 0 && !m_blnSaveCollectionInProgress)
+            if (lstCollection != null && lstCollection.Count > 0 && !s_blnSaveCollectionInProgress)
             {
-                m_blnSaveCollectionInProgress = true;
+                s_blnSaveCollectionInProgress = true;
 
                 List<CachedCard> lstCachedCards = lstCollection.ToCachedCards();
 
-                string strPath = GetFullFileName(CollectionString);
+                string strPath = GetFullFileName(account, CollectionString);
 
                 if (File.Exists(strPath))
                 {
@@ -67,7 +59,7 @@ namespace Spawn.HDT.DustUtility.Offline
                     serializer.Serialize(writer, lstCachedCards);
                 }
 
-                m_blnSaveCollectionInProgress = false;
+                s_blnSaveCollectionInProgress = false;
 
                 blnRet = true;
             }
@@ -78,15 +70,15 @@ namespace Spawn.HDT.DustUtility.Offline
         #endregion
 
         #region SaveDecks
-        public bool SaveDecks()
+        public static bool SaveDecks(Account account)
         {
             bool blnRet = false;
 
             List<Deck> lstDecks = Reflection.GetDecks();
 
-            if (lstDecks != null && (lstDecks.Count > 0 && lstDecks[0].Cards.Count > 0) && !m_blnSaveDecksInProgress)
+            if (lstDecks != null && (lstDecks.Count > 0 && lstDecks[0].Cards.Count > 0) && !s_blnSaveDecksInProgress)
             {
-                m_blnSaveDecksInProgress = true;
+                s_blnSaveDecksInProgress = true;
 
                 List<CachedDeck> lstCachedDecks = new List<CachedDeck>();
 
@@ -110,7 +102,7 @@ namespace Spawn.HDT.DustUtility.Offline
                     lstCachedDecks.Add(cachedDeck);
                 }
 
-                string strPath = GetFullFileName(DecksString);
+                string strPath = GetFullFileName(account, DecksString);
 
                 if (File.Exists(strPath))
                 {
@@ -125,7 +117,7 @@ namespace Spawn.HDT.DustUtility.Offline
                     serializer.Serialize(writer, lstCachedDecks);
                 }
 
-                m_blnSaveDecksInProgress = false;
+                s_blnSaveDecksInProgress = false;
 
                 blnRet = true;
             }
@@ -136,11 +128,11 @@ namespace Spawn.HDT.DustUtility.Offline
         #endregion
 
         #region LoadCollection
-        public List<Card> LoadCollection()
+        public static List<Card> LoadCollection(Account account)
         {
             List<Card> lstRet = new List<Card>();
 
-            string strPath = GetFullFileName(CollectionString);
+            string strPath = GetFullFileName(account, CollectionString);
 
             if (File.Exists(strPath))
             {
@@ -167,11 +159,11 @@ namespace Spawn.HDT.DustUtility.Offline
         #endregion
 
         #region LoadDecks
-        public List<Deck> LoadDecks()
+        public static List<Deck> LoadDecks(Account account)
         {
             List<Deck> lstRet = new List<Deck>();
 
-            string strPath = GetFullFileName(DecksString);
+            string strPath = GetFullFileName(account, DecksString);
 
             if (File.Exists(strPath))
             {
@@ -211,40 +203,48 @@ namespace Spawn.HDT.DustUtility.Offline
         #endregion
 
         #region StartTimer
-        public void StartTimer()
+        public static void StartTimer()
         {
-            m_timer = new Timer(OnTick, null, 0, 1000 * 10); //every 10s, if successful then every 5 min
+            if (s_timer != null)
+            {
+                StopTimer();
+            }
+            else { }
+
+            s_timer = new Timer(OnTick, null, 0, 1000 * 10); //every 10s, if successful then every 5 min
 
             Log.WriteLine("Started cache timer", LogType.Debug);
         }
         #endregion
 
         #region StopTimer
-        public void StopTimer()
+        public static void StopTimer()
         {
-            m_timer.Dispose();
-            m_timer = null;
+            s_timer.Dispose();
+            s_timer = null;
 
             Log.WriteLine("Stopped cache timer", LogType.Debug);
         }
         #endregion
 
         #region OnTick
-        private void OnTick(object state)
+        private static void OnTick(object state)
         {
             Log.WriteLine("Cache OnTick", LogType.Debug);
 
             bool blnSuccess = true;
 
-            if (!m_blnSavedCollection)
+            Account account = new Account(Reflection.GetBattleTag(), Helper.GetCurrentRegion().Result);
+
+            if (!s_blnSavedCollection)
             {
                 Log.WriteLine("Saving collection", LogType.Debug);
 
-                blnSuccess &= SaveCollection();
+                blnSuccess &= SaveCollection(account);
 
-                m_blnSavedCollection = blnSuccess;
+                s_blnSavedCollection = blnSuccess;
 
-                if (m_blnSavedCollection)
+                if (s_blnSavedCollection)
                 {
                     Log.WriteLine("Saved collection successfuly", LogType.Info);
                 }
@@ -252,15 +252,15 @@ namespace Spawn.HDT.DustUtility.Offline
             }
             else { }
 
-            if (!m_blnSavedDecks)
+            if (!s_blnSavedDecks)
             {
                 Log.WriteLine("Saving decks", LogType.Debug);
 
-                blnSuccess &= SaveDecks();
+                blnSuccess &= SaveDecks(account);
 
-                m_blnSavedDecks = blnSuccess;
+                s_blnSavedDecks = blnSuccess;
 
-                if (m_blnSavedCollection)
+                if (s_blnSavedCollection)
                 {
                     Log.WriteLine("Saved decks successfuly", LogType.Info);
                 }
@@ -272,7 +272,7 @@ namespace Spawn.HDT.DustUtility.Offline
             {
                 int nTime = 1000 * 60 * 5;
 
-                m_timer.Change(nTime, nTime);
+                s_timer.Change(nTime, nTime);
 
                 Log.WriteLine("Changed interval to 5 min.", LogType.Debug);
             }
@@ -281,9 +281,9 @@ namespace Spawn.HDT.DustUtility.Offline
         #endregion
 
         #region GetFullFileName
-        private string GetFullFileName(string strType)
+        private static string GetFullFileName(Account account, string strType)
         {
-            string strBaseDir = Path.Combine(Hearthstone_Deck_Tracker.Config.Instance.DataDir, DustUtilityPlugin.DataFolder);
+            string strBaseDir = Path.Combine(Config.Instance.DataDir, DustUtilityPlugin.DataFolder);
 
             if (!Directory.Exists(strBaseDir))
             {
@@ -291,7 +291,7 @@ namespace Spawn.HDT.DustUtility.Offline
             }
             else { }
 
-            return Path.Combine(strBaseDir, $"{m_account.AccountString}_{strType}.xml");
+            return Path.Combine(strBaseDir, $"{account.AccountString}_{strType}.xml");
         } 
         #endregion
     }
