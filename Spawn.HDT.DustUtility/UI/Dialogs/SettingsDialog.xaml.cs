@@ -1,4 +1,6 @@
-﻿namespace Spawn.HDT.DustUtility.UI.Dialogs
+﻿using Spawn.HDT.DustUtility.Net;
+
+namespace Spawn.HDT.DustUtility.UI.Dialogs
 {
     public partial class SettingsDialog
     {
