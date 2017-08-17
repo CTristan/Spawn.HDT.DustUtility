@@ -17,7 +17,10 @@
     <Setting Name="Version" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">1</Value>
     </Setting>
-    <Setting Name="UseImageCache" Type="System.Boolean" Scope="User">
+    <Setting Name="LocalImageCache" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="CardImageTooltip" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>

@@ -6,18 +6,27 @@
         public SettingsDialog()
         {
             InitializeComponent();
-
-            cbOfflineMode.IsChecked = Settings.OfflineMode;
-            cbCheckForUpdates.IsChecked = Settings.CheckForUpdate;
         }
         #endregion
 
         #region Events
+        #region OnWindowLoaded
+        private void OnWindowLoaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            cbOfflineMode.IsChecked = Settings.OfflineMode;
+            cbCheckForUpdates.IsChecked = Settings.CheckForUpdate;
+            cbCardImageTooltip.IsChecked = Settings.CardImageTooltip;
+            cbLocalImageCache.IsChecked = Settings.LocalImageCache;
+        }
+        #endregion
+
         #region OnOkClick
         private void OnOkClick(object sender, System.Windows.RoutedEventArgs e)
         {
             Settings.OfflineMode = cbOfflineMode.IsChecked.Value;
             Settings.CheckForUpdate = cbCheckForUpdates.IsChecked.Value;
+            Settings.CardImageTooltip = cbCardImageTooltip.IsChecked.Value;
+            Settings.LocalImageCache = cbLocalImageCache.IsChecked.Value;
 
             Close();
         }
@@ -27,6 +36,24 @@
         private void OnCancelClick(object sender, System.Windows.RoutedEventArgs e)
         {
             Close();
+        }
+        #endregion
+
+        #region OnLocalImageCacheIsEnabledChanged
+        private void OnLocalImageCacheIsEnabledChanged(object sender, System.Windows.DependencyPropertyChangedEventArgs e)
+        {
+            if (!((bool)e.NewValue))
+            {
+                cbLocalImageCache.IsChecked = false;
+            }
+            else { }
+        }
+        #endregion
+
+        #region OnClearLocalImageCacheClick
+        private void OnClearLocalImageCacheClick(object sender, System.Windows.RoutedEventArgs e)
+        {
+            HearthstoneCardImageManager.ClearLocalCache();
         }
         #endregion
         #endregion

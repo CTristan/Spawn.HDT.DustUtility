@@ -3,9 +3,12 @@ using HearthDb.Enums;
 using Spawn.HDT.DustUtility.Offline;
 using Spawn.HearthstonePackHistory.Hearthstone;
 using System.Collections.Generic;
+using System.Drawing.Imaging;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Windows.Media.Imaging;
 
 namespace Spawn.HDT.DustUtility
 {
@@ -145,6 +148,29 @@ namespace Spawn.HDT.DustUtility
             MethodCallExpression resultExp = Expression.Call(typeof(Queryable), strMethod, new System.Type[] { type, property.PropertyType }, source.Expression, Expression.Quote(expr));
 
             return source.Provider.CreateQuery<T>(resultExp);
+        }
+        #endregion
+
+        #region ToBitmapImage
+        public static BitmapImage ToBitmapImage(this System.Drawing.Bitmap bitmap)
+        {
+            BitmapImage retVal = null;
+
+            using (MemoryStream ms = new MemoryStream())
+            {
+                bitmap.Save(ms, ImageFormat.Png);
+
+                ms.Position = 0;
+
+                retVal = new BitmapImage();
+
+                retVal.BeginInit();
+                retVal.CacheOption = BitmapCacheOption.OnLoad;
+                retVal.StreamSource = ms;
+                retVal.EndInit();
+            }
+
+            return retVal;
         }
         #endregion
     }

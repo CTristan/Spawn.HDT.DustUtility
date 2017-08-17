@@ -1,6 +1,7 @@
 ﻿using Hearthstone_Deck_Tracker.Utility.Logging;
 using MahApps.Metro.Controls.Dialogs;
 using Spawn.HDT.DustUtility.Search;
+using Spawn.HDT.DustUtility.UI.Components;
 using Spawn.HDT.DustUtility.UI.Dialogs;
 using Spawn.HDT.DustUtility.Update;
 using System;
@@ -57,20 +58,37 @@ namespace Spawn.HDT.DustUtility.UI
             DependencyProperty.RegisterAttached("RowPopup", typeof(Popup), typeof(MainWindow), new PropertyMetadata(null));
         #endregion
 
-        #region RowPopupImage
-        public static string GetRowPopupImage(DependencyObject obj)
+        #region RowPopupCardWrapper
+        private static CardImageContainer s_container;
+
+        public static string GetRowPopupCardWrapper(DependencyObject obj)
         {
-            return (string)obj.GetValue(RowPopupImageProperty);
+            return (string)obj.GetValue(RowPopupCardWrapperProperty);
         }
 
-        public static void SetRowPopupImage(DependencyObject obj, string value)
+        public static void SetRowPopupCardWrapper(DependencyObject obj, string value)
         {
-            obj.SetValue(RowPopupImageProperty, value);
+            obj.SetValue(RowPopupCardWrapperProperty, value);
         }
 
-        // Using a DependencyProperty as the backing store for RowPopupImage.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty RowPopupImageProperty =
-            DependencyProperty.RegisterAttached("RowPopupImage", typeof(string), typeof(MainWindow), new PropertyMetadata("/Spawn.HDT.DustUtility;component/Resources/legend_cardback.png"));
+        // Using a DependencyProperty as the backing store for RowPopupCardWrapper.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty RowPopupCardWrapperProperty =
+            DependencyProperty.RegisterAttached("RowPopupCardWrapper", typeof(CardWrapper), typeof(MainWindow), new PropertyMetadata(null, new PropertyChangedCallback(SetRowPopupCardIdCallback)));
+
+        private static void SetRowPopupCardIdCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (s_container != null)
+            {
+                s_container.CardWrapper = e.NewValue as CardWrapper;
+
+                if (e.NewValue != null)
+                {
+                    Log.WriteLine($"Setting new card id for popup: Id={s_container.CardWrapper.Card.Id}", LogType.Debug);
+                }
+                else { }
+            }
+            else { }
+        }
         #endregion
 
         #region ShowPopup
@@ -90,7 +108,7 @@ namespace Spawn.HDT.DustUtility.UI
 
         private static void ShowPopupCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (d is DataGridRow)
+            if (Settings.CardImageTooltip && d is DataGridRow)
             {
                 if (((DataGridRow)d).IsFocused == true)
                 {
@@ -119,6 +137,8 @@ namespace Spawn.HDT.DustUtility.UI
         public MainWindow()
         {
             InitializeComponent();
+
+            s_container = cardImageContainer;
         }
 
         public MainWindow(DustUtilityPlugin plugin, Account account, bool offlineMode)
@@ -271,6 +291,20 @@ namespace Spawn.HDT.DustUtility.UI
             m_plugin.SwitchAccounts();
         }
         #endregion
+
+        #region OnDataGridMouseMove
+        private void OnDataGridMouseMove(object sender, MouseEventArgs e)
+        {
+            if (cardImagePopup.IsOpen)
+            {
+                Point position = e.GetPosition(dataGrid);
+
+                cardImagePopup.HorizontalOffset = position.X + 20;
+                cardImagePopup.VerticalOffset = position.Y;
+            }
+            else { }
+        }
+        #endregion
         #endregion
 
         #region SearchAsync
@@ -410,18 +444,5 @@ namespace Spawn.HDT.DustUtility.UI
             return FindResource(SearchResultKey) as SearchResultContainer;
         }
         #endregion
-
-        private void OnDataGridMouseMove(object sender, MouseEventArgs e)
-        {
-            if (cardImagePopup.IsOpen)
-            {
-                Point currentPos = e.GetPosition(dataGrid);
-
-                // The + 20 part is so your mouse pointer doesn't overlap.
-                cardImagePopup.HorizontalOffset = currentPos.X + 20;
-                cardImagePopup.VerticalOffset = currentPos.Y;
-            }
-            else { }
-        }
     }
 }

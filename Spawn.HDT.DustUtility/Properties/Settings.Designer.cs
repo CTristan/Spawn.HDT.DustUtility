@@ -85,12 +85,24 @@ namespace Spawn.HDT.DustUtility.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool UseImageCache {
+        public bool LocalImageCache {
             get {
-                return ((bool)(this["UseImageCache"]));
+                return ((bool)(this["LocalImageCache"]));
             }
             set {
-                this["UseImageCache"] = value;
+                this["LocalImageCache"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool CardImageTooltip {
+            get {
+                return ((bool)(this["CardImageTooltip"]));
+            }
+            set {
+                this["CardImageTooltip"] = value;
             }
         }
     }

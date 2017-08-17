@@ -4,22 +4,35 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
-        mc:Ignorable="d" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
+        mc:Ignorable="d" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Loaded="OnWindowLoaded"
         Title="Dust Utility - Settings" GlowBrush="Black" SizeToContent="WidthAndHeight">
     <Grid Margin="5">
         <Grid.RowDefinitions>
-            <RowDefinition Height="25"/>
-            <RowDefinition Height="25"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="60"/>
         </Grid.ColumnDefinitions>
 
-        <CheckBox Name="cbOfflineMode" Grid.Row="0" Grid.Column="2" Content="Offline Mode" VerticalAlignment="Center" Margin="10,0,0,0"/>
-        <CheckBox Name="cbCheckForUpdates" Grid.Row="1" Grid.Column="2" Content="Check For Updates" VerticalAlignment="Center" Margin="10,0,0,0"/>
+        <Label Content="Offline Mode" Grid.Row="0" Grid.Column="0" Margin="10,0,0,0"/>
+        <Label Content="Check For Updates" Grid.Row="1" Grid.Column="0" Margin="10,0,0,0"/>
+        <Label Content="Card Image Tooltip" Grid.Row="2" Grid.Column="0" Margin="10,0,0,0"/>
+        <Label Content="Local Image Cache" Grid.Row="3" Grid.Column="0" Margin="10,0,0,0"/>
 
-        <WrapPanel Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Right" Margin="0,20,5,5">
+        <Button Content="Clear Local Cache" Grid.Row="4" Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="5,0,5,0" Click="OnClearLocalImageCacheClick"/>
+
+        <CheckBox Name="cbOfflineMode" Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,5,0"/>
+        <CheckBox Name="cbCheckForUpdates" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,5,0"/>
+        <CheckBox Name="cbCardImageTooltip" Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,5,0"/>
+        <CheckBox Name="cbLocalImageCache" Grid.Row="3" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,5,0" IsEnabled="{Binding ElementName=cbCardImageTooltip, Path=IsChecked}" IsEnabledChanged="OnLocalImageCacheIsEnabledChanged"/>
+
+        <WrapPanel Grid.Row="12" Grid.ColumnSpan="2" HorizontalAlignment="Right" Margin="0,20,5,5">
             <Button Content="_Ok" IsDefault="True" Click="OnOkClick" Width="75" Margin="0,0,10,0"/>
             <Button Content="_Cancel" IsCancel="True" Click="OnCancelClick" Width="75"/>
         </WrapPanel>

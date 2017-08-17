@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Net;
@@ -17,12 +16,8 @@ namespace Spawn.HDT.DustUtility
         private const string CacheFolderName = "image_cache";
         #endregion
 
-        #region Static Member Variables
-        private static Dictionary<string, Stream> s_dDefaultCache;
-        private static Dictionary<string, Stream> s_dPremiumCache;
-
-        private static Dictionary<string, Stream> DefaultCache => s_dDefaultCache ?? (s_dDefaultCache = new Dictionary<string, Stream>());
-        private static Dictionary<string, Stream> PremiumCache => s_dPremiumCache ?? (s_dPremiumCache = new Dictionary<string, Stream>());
+        #region Static Properties
+        public static int MaxCacheCount = 30;
         #endregion
 
         #region GetStreamAsync
@@ -32,90 +27,76 @@ namespace Spawn.HDT.DustUtility
 
             if (!string.IsNullOrEmpty(strCardId))
             {
-                if (blnPremium && PremiumCache.ContainsKey(strCardId))
+                string strPath = GetLocalCachePath(strCardId, blnPremium);
+
+                if (File.Exists(strPath))
                 {
-                    retVal = PremiumCache[strCardId];
-                }
-                else if (!blnPremium && DefaultCache.ContainsKey(strCardId))
-                {
-                    retVal = DefaultCache[strCardId];
+                    try
+                    {
+                        retVal = File.Open(strPath, FileMode.Open);
+                    }
+                    catch (Exception ex)
+                    {
+                        System.Diagnostics.Debug.WriteLine(ex.ToString());
+                    }
                 }
                 else { }
 
                 if (retVal == null)
                 {
-                    string strPath = GetLocalCachePath(strCardId, blnPremium);
-
-                    if (File.Exists(strPath))
+                    try
                     {
-                        try
-                        {
-                            retVal = File.Open(strPath, FileMode.Open);
-                        }
-                        catch (Exception ex)
-                        {
-                            System.Diagnostics.Debug.WriteLine(ex.ToString());
-                        }
-                    }
-                    else { }
+                        HttpWebRequest request = CreateCardDataRequest(strCardId);
 
-                    if (retVal == null)
-                    {
-                        try
+                        HttpWebResponse response = await request.GetResponseAsync() as HttpWebResponse;
+
+                        if (response.StatusCode == HttpStatusCode.OK)
                         {
-                            HttpWebRequest request = CreateCardDataRequest(strCardId);
+                            string strJson;
 
-                            HttpWebResponse response = await request.GetResponseAsync() as HttpWebResponse;
-
-                            if (response.StatusCode == HttpStatusCode.OK)
+                            using (Stream responseStream = response.GetResponseStream())
                             {
-                                string strJson;
-
-                                using (Stream responseStream = response.GetResponseStream())
+                                using (StreamReader reader = new StreamReader(responseStream))
                                 {
-                                    using (StreamReader reader = new StreamReader(responseStream))
-                                    {
-                                        strJson = await reader.ReadToEndAsync();
-                                    }
+                                    strJson = await reader.ReadToEndAsync();
                                 }
+                            }
 
-                                if (!string.IsNullOrEmpty(strJson))
+                            if (!string.IsNullOrEmpty(strJson))
+                            {
+                                var cardData = JsonConvert.DeserializeObject<JArray>(strJson)[0];
+
+                                string strUrl = cardData.Value<string>("img");
+
+                                if (blnPremium)
                                 {
-                                    var cardData = JsonConvert.DeserializeObject<JArray>(strJson)[0];
+                                    strUrl = cardData.Value<string>("imgGold");
+                                }
+                                else { }
 
-                                    string strUrl = cardData.Value<string>("img");
+                                HttpWebRequest imageRequest = CreateImageRequest(strUrl);
 
-                                    if (blnPremium)
+                                HttpWebResponse imageResponse = await imageRequest.GetResponseAsync() as HttpWebResponse;
+
+                                if (response.StatusCode == HttpStatusCode.OK)
+                                {
+                                    using (Stream responseStream = imageResponse.GetResponseStream())
                                     {
-                                        strUrl = cardData.Value<string>("imgGold");
+                                        retVal = new MemoryStream();
+
+                                        await responseStream.CopyToAsync(retVal);
                                     }
-                                    else { }
 
-                                    HttpWebRequest imageRequest = CreateImageRequest(strUrl);
+                                    retVal.Position = 0;
 
-                                    HttpWebResponse imageResponse = await imageRequest.GetResponseAsync() as HttpWebResponse;
-
-                                    if (response.StatusCode == HttpStatusCode.OK)
+                                    if (Settings.LocalImageCache)
                                     {
-                                        using (Stream responseStream = imageResponse.GetResponseStream())
+                                        using (FileStream fs = File.Open(strPath, FileMode.Create))
                                         {
-                                            retVal = new MemoryStream();
-
-                                            await responseStream.CopyToAsync(retVal);
+                                            await retVal.CopyToAsync(fs);
                                         }
 
                                         retVal.Position = 0;
-
-                                        if (Settings.UseImageCache)
-                                        {
-                                            using (FileStream fs = File.Open(strPath, FileMode.Create))
-                                            {
-                                                await retVal.CopyToAsync(fs);
-                                            }
-
-                                            retVal.Position = 0;
-                                        }
-                                        else { }
                                     }
                                     else { }
                                 }
@@ -123,25 +104,12 @@ namespace Spawn.HDT.DustUtility
                             }
                             else { }
                         }
-                        catch
-                        {
-                            //No internet connection
-                        }
+                        else { }
                     }
-                    else { }
-
-                    if (retVal != null)
+                    catch
                     {
-                        if (blnPremium)
-                        {
-                            PremiumCache[strCardId] = retVal;
-                        }
-                        else
-                        {
-                            DefaultCache[strCardId] = retVal;
-                        }
+                        //No internet connection
                     }
-                    else { }
                 }
                 else { }
             }
@@ -204,30 +172,9 @@ namespace Spawn.HDT.DustUtility
         #endregion
         #endregion
 
-        #region ClearMemoryCache
-        public static void ClearMemoryCache()
-        {
-            foreach (var item in DefaultCache)
-            {
-                item.Value.Dispose();
-            }
-
-            DefaultCache.Clear();
-
-            foreach (var item in PremiumCache)
-            {
-                item.Value.Dispose();
-            }
-
-            PremiumCache.Clear();
-        }
-        #endregion
-
         #region ClearLocalCache
         public static void ClearLocalCache()
         {
-            ClearMemoryCache();
-
             Directory.Delete(Path.Combine(DustUtilityPlugin.DataDirectory, CacheFolderName), true);
         }
         #endregion
@@ -262,35 +209,6 @@ namespace Spawn.HDT.DustUtility
             }
 
             return strRet;
-        }
-        #endregion
-
-        #region Dispose
-        public static void Dispose()
-        {
-            if (s_dDefaultCache != null)
-            {
-                foreach (var item in s_dDefaultCache)
-                {
-                    item.Value.Dispose();
-                }
-            }
-            else { }
-
-            s_dDefaultCache?.Clear();
-            s_dDefaultCache = null;
-
-            if (s_dPremiumCache != null)
-            {
-                foreach (var item in s_dPremiumCache)
-                {
-                    item.Value.Dispose();
-                }
-            }
-            else { }
-
-            s_dPremiumCache?.Clear();
-            s_dPremiumCache = null;
         }
         #endregion
     }

@@ -77,13 +77,18 @@
                     <Style TargetType="DataGridRow">
                         <Setter Property="ui:MainWindow.RowPopup" Value="{Binding ElementName=cardImagePopup}"/>
                         <Setter Property="ui:MainWindow.ShowPopup" Value="{Binding IsMouseOver, Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="ui:MainWindow.RowPopupCardWrapper" Value="{Binding Path=Tag}"/>
+                            </Trigger>
+                        </Style.Triggers>
                     </Style>
                 </DataGrid.RowStyle>
             </DataGrid>
         </Border>
 
         <Popup Name="cardImagePopup" AllowsTransparency="True" Placement="Relative" PlacementTarget="{Binding ElementName=dataGrid}" IsOpen="False">
-            <components:CardTooltip/>
+            <components:CardImageContainer x:Name="cardImageContainer"/>
         </Popup>
 
         <Button Name="sortOrderButton" Content="Sort Order" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,20,10" Width="130" Height="21" Click="OnSortOrderClick"/>

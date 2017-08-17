@@ -55,13 +55,25 @@ namespace Spawn.HDT.DustUtility
         }
         #endregion
 
-        #region UseImageCache
-        public static bool UseImageCache
+        #region LocalImageCache
+        public static bool LocalImageCache
         {
-            get => Properties.Settings.Default.UseImageCache;
+            get => Properties.Settings.Default.LocalImageCache;
             set
             {
-                Properties.Settings.Default.UseImageCache = value;
+                Properties.Settings.Default.LocalImageCache = value;
+                Properties.Settings.Default.Save();
+            }
+        }
+        #endregion
+
+        #region CardImageTooltip
+        public static bool CardImageTooltip
+        {
+            get => Properties.Settings.Default.CardImageTooltip;
+            set
+            {
+                Properties.Settings.Default.CardImageTooltip = value;
                 Properties.Settings.Default.Save();
             }
         }

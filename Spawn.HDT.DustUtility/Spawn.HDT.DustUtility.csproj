@@ -54,8 +54,8 @@
       <HintPath>..\..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.4.0\MahApps.Metro.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -87,8 +87,8 @@
     <Compile Include="Offline\CachedCard.cs" />
     <Compile Include="Offline\CachedDeck.cs" />
     <Compile Include="Search\Parameters.cs" />
-    <Compile Include="UI\Components\CardTooltip.xaml.cs">
-      <DependentUpon>CardTooltip.xaml</DependentUpon>
+    <Compile Include="UI\Components\CardImageContainer.xaml.cs">
+      <DependentUpon>CardImageContainer.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Dialogs\AccountSelectorDialog.xaml.cs">
       <DependentUpon>AccountSelectorDialog.xaml</DependentUpon>
@@ -126,7 +126,7 @@
     <Compile Include="Update\GitHubUpdateManager.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="UI\Components\CardTooltip.xaml">
+    <Page Include="UI\Components\CardImageContainer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
