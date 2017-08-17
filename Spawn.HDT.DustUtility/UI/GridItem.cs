@@ -48,5 +48,24 @@ namespace Spawn.HDT.DustUtility.UI
         public CardWrapper Tag { get; set; }
         #endregion
         #endregion
+
+        #region [STATIC] FromCardWrapper
+        public static GridItem FromCardWrapper(CardWrapper wrapper)
+        {
+            return new GridItem()
+            {
+                Count = wrapper.Count,
+                Dust = wrapper.GetDustValue(),
+                Golden = wrapper.Card.Premium,
+                Name = wrapper.DbCard.Name,
+                Rarity = wrapper.DbCard.Rarity,
+                RarityString = wrapper.DbCard.Rarity.GetString(),
+                CardClass = wrapper.DbCard.Class.GetString(),
+                CardSet = wrapper.DbCard.Set.GetString(),
+                ManaCost = wrapper.DbCard.Cost,
+                Tag = wrapper
+            }; ;
+        }
+        #endregion
     }
 }

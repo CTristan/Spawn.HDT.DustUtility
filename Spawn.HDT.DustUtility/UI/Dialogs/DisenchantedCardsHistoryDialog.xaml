@@ -1,0 +1,13 @@
+﻿<controls:MetroWindow x:Class="Spawn.HDT.DustUtility.UI.Dialogs.DisenchantedCardsHistoryDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:components="clr-namespace:Spawn.HDT.DustUtility.UI.Components"
+        mc:Ignorable="d" WindowStartupLocation="CenterOwner" GlowBrush="Black"
+        Title="Dust Utility - History" Height="450" Width="700">
+    <Grid>
+        <components:CardsDataGrid x:Name="grid"/>
+    </Grid>
+</controls:MetroWindow>

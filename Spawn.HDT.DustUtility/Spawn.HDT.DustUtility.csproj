@@ -98,6 +98,9 @@
     <Compile Include="UI\Dialogs\AccountSelectorDialog.xaml.cs">
       <DependentUpon>AccountSelectorDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Dialogs\DisenchantedCardsHistoryDialog.xaml.cs">
+      <DependentUpon>DisenchantedCardsHistoryDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\SearchResultContainer.cs" />
     <Compile Include="UI\SortOrder.cs" />
     <Compile Include="UI\Dialogs\AddSortOrderItemDialog.xaml.cs">
@@ -144,6 +147,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Dialogs\AddSortOrderItemDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Dialogs\DisenchantedCardsHistoryDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

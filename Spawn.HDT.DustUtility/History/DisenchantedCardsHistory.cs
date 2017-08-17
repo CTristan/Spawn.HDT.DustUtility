@@ -59,6 +59,31 @@ namespace Spawn.HDT.DustUtility.History
         }
         #endregion
 
+        #region GetHistory
+        public static List<Card> GetHistory(Account account)
+        {
+            List<Card> lstHistory = Cache.LoadCollection(account, DisenchantedString);
+
+            List<IGrouping<string, Card>> lstGroupedById = lstHistory.GroupBy(c => c.Id).ToList();
+
+            lstHistory.Clear();
+
+            for (int i = 0; i < lstGroupedById.Count; i++)
+            {
+                List<IGrouping<bool, Card>> lstGroupedByPremium = lstGroupedById[i].GroupBy(c => c.Premium).ToList();
+
+                for (int j = 0; j < lstGroupedByPremium.Count; j++)
+                {
+                    IGrouping<bool, Card> grouping = lstGroupedByPremium[j];
+
+                    lstHistory.Add(grouping.Aggregate((a, b) => new Card(a.Id, a.Count + b.Count, a.Premium)));
+                }
+            }
+
+            return lstHistory;
+        }
+        #endregion
+
         private class CardComparer : IEqualityComparer<Card>
         {
             public bool Equals(Card x, Card y)

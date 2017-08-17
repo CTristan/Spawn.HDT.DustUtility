@@ -41,6 +41,8 @@ namespace Spawn.HDT.DustUtility.UI
         #region Member Variables
         private DustUtilityPlugin m_plugin;
 
+        private Account m_account;
+
         private CardCollector m_cardCollector;
         private Parameters m_parameters;
         #endregion
@@ -56,7 +58,9 @@ namespace Spawn.HDT.DustUtility.UI
         {
             m_plugin = plugin;
 
-            m_cardCollector = new CardCollector(this, account, offlineMode);
+            m_account = account;
+
+            m_cardCollector = new CardCollector(this, m_account, offlineMode);
 
             if (Settings.SearchParameters == null)
             {
@@ -67,9 +71,9 @@ namespace Spawn.HDT.DustUtility.UI
                 m_parameters = Settings.SearchParameters.DeepClone();
             }
 
-            if (!account.IsEmpty)
+            if (!m_account.IsEmpty)
             {
-                Title = $"{Title} [{account.BattleTag.Name} ({account.Region})]";
+                Title = $"{Title} [{m_account.BattleTag.Name} ({m_account.Region})]";
             }
             else { }
 
@@ -79,7 +83,7 @@ namespace Spawn.HDT.DustUtility.UI
             }
             else { }
 
-            Log.WriteLine($"Account={account.AccountString}", LogType.Debug);
+            Log.WriteLine($"Account={m_account.AccountString}", LogType.Debug);
             Log.WriteLine($"OfflineMode={offlineMode}", LogType.Debug);
         }
         #endregion
@@ -208,6 +212,15 @@ namespace Spawn.HDT.DustUtility.UI
             m_plugin.SwitchAccounts();
         }
         #endregion
+
+        #region OnHistoryClick
+        private void OnHistoryClick(object sender, System.Windows.RoutedEventArgs e)
+        {
+            DisenchantedCardsHistoryDialog dialog = new DisenchantedCardsHistoryDialog(m_account);
+
+            dialog.ShowDialog();
+        }
+        #endregion
         #endregion
 
         #region SearchAsync
@@ -281,19 +294,7 @@ namespace Spawn.HDT.DustUtility.UI
                         break;
                 }
 
-                GridItem item = new GridItem()
-                {
-                    Count = wrapper.Count,
-                    Dust = wrapper.GetDustValue(),
-                    Golden = wrapper.Card.Premium,
-                    Name = wrapper.DbCard.Name,
-                    Rarity = wrapper.DbCard.Rarity,
-                    RarityString = wrapper.DbCard.Rarity.GetString(),
-                    CardClass = wrapper.DbCard.Class.GetString(),
-                    CardSet = wrapper.DbCard.Set.GetString(),
-                    ManaCost = wrapper.DbCard.Cost,
-                    Tag = wrapper
-                };
+                GridItem item = GridItem.FromCardWrapper(wrapper);
 
                 retVal.TotalCount += item.Count;
                 retVal.Dust += item.Dust;
