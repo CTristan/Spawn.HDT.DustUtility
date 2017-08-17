@@ -227,5 +227,29 @@ namespace Spawn.HDT.DustUtility
             else { }
         }
         #endregion
+
+        #region GetFullFileName
+        public static string GetFullFileName(Account account, string strType)
+        {
+            string strRet = string.Empty;
+
+            if (!Directory.Exists(DataDirectory))
+            {
+                Directory.CreateDirectory(DataDirectory);
+            }
+            else { }
+
+            if (!account.IsEmpty)
+            {
+                strRet = Path.Combine(DataDirectory, $"{account.AccountString}_{strType}.xml");
+            }
+            else
+            {
+                strRet = Path.Combine(DataDirectory, $"{strType}.xml");
+            }
+
+            return strRet;
+        }
+        #endregion
     }
 }

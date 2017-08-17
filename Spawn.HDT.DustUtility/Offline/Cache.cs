@@ -2,6 +2,7 @@
 using HearthMirror.Objects;
 using Hearthstone_Deck_Tracker;
 using Hearthstone_Deck_Tracker.Utility.Logging;
+using Spawn.HDT.DustUtility.History;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
@@ -20,9 +21,7 @@ namespace Spawn.HDT.DustUtility.Offline
         private static Timer s_timer;
 
         private static bool s_blnSaveCollectionInProgress;
-        private static bool s_blnSavedCollection;
         private static bool s_blnSaveDecksInProgress;
-        private static bool s_blnSavedDecks;
         #endregion
 
         #region Static Properties
@@ -32,19 +31,23 @@ namespace Spawn.HDT.DustUtility.Offline
         #endregion
 
         #region SaveCollection
-        public static bool SaveCollection(Account account)
+        public static bool SaveCollection(Account account, List<Card> lstCollection = null, string strType = CollectionString)
         {
             bool blnRet = false;
 
-            List<Card> lstCollection = Reflection.GetCollection();
+            if (lstCollection == null)
+            {
+                lstCollection = Reflection.GetCollection();
+            }
+            else { }
 
             if (lstCollection != null && lstCollection.Count > 0 && !s_blnSaveCollectionInProgress)
             {
                 s_blnSaveCollectionInProgress = true;
 
-                List<CachedCard> lstCachedCards = lstCollection.ToCachedCards();
+                string strPath = DustUtilityPlugin.GetFullFileName(account, strType);
 
-                string strPath = GetFullFileName(account, CollectionString);
+                List<CachedCard> lstCachedCards = lstCollection.ToCachedCards();
 
                 if (File.Exists(strPath))
                 {
@@ -59,9 +62,9 @@ namespace Spawn.HDT.DustUtility.Offline
                     serializer.Serialize(writer, lstCachedCards);
                 }
 
-                s_blnSaveCollectionInProgress = false;
-
                 blnRet = true;
+
+                s_blnSaveCollectionInProgress = false;
             }
             else { }
 
@@ -102,7 +105,7 @@ namespace Spawn.HDT.DustUtility.Offline
                     lstCachedDecks.Add(cachedDeck);
                 }
 
-                string strPath = GetFullFileName(account, DecksString);
+                string strPath = DustUtilityPlugin.GetFullFileName(account, DecksString);
 
                 if (File.Exists(strPath))
                 {
@@ -117,9 +120,9 @@ namespace Spawn.HDT.DustUtility.Offline
                     serializer.Serialize(writer, lstCachedDecks);
                 }
 
-                s_blnSaveDecksInProgress = false;
-
                 blnRet = true;
+
+                s_blnSaveDecksInProgress = false;
             }
             else { }
 
@@ -128,11 +131,11 @@ namespace Spawn.HDT.DustUtility.Offline
         #endregion
 
         #region LoadCollection
-        public static List<Card> LoadCollection(Account account)
+        public static List<Card> LoadCollection(Account account, string strType = CollectionString)
         {
             List<Card> lstRet = new List<Card>();
 
-            string strPath = GetFullFileName(account, CollectionString);
+            string strPath = DustUtilityPlugin.GetFullFileName(account, strType);
 
             if (File.Exists(strPath))
             {
@@ -163,7 +166,7 @@ namespace Spawn.HDT.DustUtility.Offline
         {
             List<Deck> lstRet = new List<Deck>();
 
-            string strPath = GetFullFileName(account, DecksString);
+            string strPath = DustUtilityPlugin.GetFullFileName(account, DecksString);
 
             if (File.Exists(strPath))
             {
@@ -236,71 +239,37 @@ namespace Spawn.HDT.DustUtility.Offline
 
             Account account = new Account(Reflection.GetBattleTag(), Helper.GetCurrentRegion().Result);
 
-            if (!s_blnSavedCollection)
+            DisenchantedCardsHistory.CheckCollection(account, Reflection.GetCollection());
+
+            Log.WriteLine("Saving collection", LogType.Debug);
+
+            blnSuccess &= SaveCollection(account);
+
+            if (blnSuccess)
             {
-                Log.WriteLine("Saving collection", LogType.Debug);
-
-                blnSuccess &= SaveCollection(account);
-
-                s_blnSavedCollection = blnSuccess;
-
-                if (s_blnSavedCollection)
-                {
-                    Log.WriteLine("Saved collection successfuly", LogType.Info);
-                }
-                else { }
+                Log.WriteLine("Saved collection successfuly", LogType.Info);
             }
             else { }
 
-            if (!s_blnSavedDecks)
+            Log.WriteLine("Saving decks", LogType.Debug);
+
+            blnSuccess &= SaveDecks(account);
+
+            if (blnSuccess)
             {
-                Log.WriteLine("Saving decks", LogType.Debug);
-
-                blnSuccess &= SaveDecks(account);
-
-                s_blnSavedDecks = blnSuccess;
-
-                if (s_blnSavedCollection)
-                {
-                    Log.WriteLine("Saved decks successfuly", LogType.Info);
-                }
-                else { }
+                Log.WriteLine("Saved decks successfuly", LogType.Info);
             }
             else { }
 
             if (blnSuccess)
             {
-                int nTime = 1000 * 60 * 5;
+                int nTime = 1000 * 60;
 
                 s_timer.Change(nTime, nTime);
 
-                Log.WriteLine("Changed interval to 5 min.", LogType.Debug);
+                Log.WriteLine("Changed interval to 1 min.", LogType.Debug);
             }
             else { }
-        }
-        #endregion
-
-        #region GetFullFileName
-        private static string GetFullFileName(Account account, string strType)
-        {
-            string strRet = string.Empty;
-
-            if (!Directory.Exists(DustUtilityPlugin.DataDirectory))
-            {
-                Directory.CreateDirectory(DustUtilityPlugin.DataDirectory);
-            }
-            else { }
-
-            if (!account.IsEmpty)
-            {
-                strRet = Path.Combine(DustUtilityPlugin.DataDirectory, $"{account.AccountString}_{strType}.xml");
-            }
-            else
-            {
-                strRet = Path.Combine(DustUtilityPlugin.DataDirectory, $"{strType}.xml");
-            }
-
-            return strRet;
         }
         #endregion
     }
