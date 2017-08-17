@@ -71,6 +71,7 @@ namespace Spawn.HDT.DustUtility.UI.Components
                 if (m_currentImage != null)
                 {
                     m_currentImage.Dispose();
+                    m_currentImage = null;
                 }
                 else { }
 
