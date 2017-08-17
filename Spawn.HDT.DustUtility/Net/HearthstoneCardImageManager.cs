@@ -6,7 +6,7 @@ using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace Spawn.HDT.DustUtility
+namespace Spawn.HDT.DustUtility.Net
 {
     public static class HearthstoneCardImageManager
     {

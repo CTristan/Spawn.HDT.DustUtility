@@ -1,4 +1,5 @@
-﻿using Spawn.HDT.DustUtility.Search;
+﻿using Spawn.HDT.DustUtility.Net;
+using Spawn.HDT.DustUtility.Search;
 using System;
 using System.Drawing;
 using System.IO;
@@ -56,7 +57,7 @@ namespace Spawn.HDT.DustUtility.UI.Components
         }
         #endregion
 
-        #region OnPropertyChanged
+        #region OnCardWrapperChanged
         private async void OnCardWrapperChanged(object sender, EventArgs e)
         {
             if (CardWrapper != null && Visibility == Visibility.Visible)

@@ -79,7 +79,7 @@
       <Link>CardSets.cs</Link>
     </Compile>
     <Compile Include="Account.cs" />
-    <Compile Include="HearthstoneCardImageManager.cs" />
+    <Compile Include="Net\HearthstoneCardImageManager.cs" />
     <Compile Include="Converters\DisplayLabelConverter.cs" />
     <Compile Include="Search\CardCollector.cs" />
     <Compile Include="Converters\CountLabelConverter.cs" />

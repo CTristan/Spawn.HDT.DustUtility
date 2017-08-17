@@ -55,7 +55,7 @@
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
                     <DataGridTextColumn Header="Mana Cost" Binding="{Binding Path=ManaCost}"/>
-                    <DataGridTextColumn Header="Golden" Binding="{Binding Path=Golden}"/>
+                    <DataGridCheckBoxColumn Header="Golden" Binding="{Binding Path=Golden}"/>
                     <DataGridTextColumn Header="Dust" Binding="{Binding Path=Dust}">
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
