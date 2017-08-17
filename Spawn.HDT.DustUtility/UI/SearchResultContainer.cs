@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 
 namespace Spawn.HDT.DustUtility.UI
@@ -135,6 +136,18 @@ namespace Spawn.HDT.DustUtility.UI
                 }
             }
             else { }
+        }
+        #endregion
+
+        #region SetGridItems
+        public void SetGridItems(List<GridItem> lstItems)
+        {
+            m_lstGridItems.Clear();
+
+            for (int i = 0; i < lstItems.Count; i++)
+            {
+                m_lstGridItems.Add(lstItems[i]);
+            }
         }
         #endregion
 

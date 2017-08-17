@@ -1,7 +1,6 @@
 ﻿using Hearthstone_Deck_Tracker.Utility.Logging;
 using MahApps.Metro.Controls.Dialogs;
 using Spawn.HDT.DustUtility.Search;
-using Spawn.HDT.DustUtility.UI.Components;
 using Spawn.HDT.DustUtility.UI.Dialogs;
 using Spawn.HDT.DustUtility.Update;
 using System;
@@ -9,9 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 
 namespace Spawn.HDT.DustUtility.UI
@@ -41,91 +38,6 @@ namespace Spawn.HDT.DustUtility.UI
         }
         #endregion
 
-        #region Attached DP
-        #region RowPopup
-        public static Popup GetRowPopup(DependencyObject obj)
-        {
-            return (Popup)obj.GetValue(RowPopupProperty);
-        }
-
-        public static void SetRowPopup(DependencyObject obj, Popup value)
-        {
-            obj.SetValue(RowPopupProperty, value);
-        }
-
-        // Using a DependencyProperty as the backing store for RowPopup.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty RowPopupProperty =
-            DependencyProperty.RegisterAttached("RowPopup", typeof(Popup), typeof(MainWindow), new PropertyMetadata(null));
-        #endregion
-
-        #region RowPopupCardWrapper
-        private static CardImageContainer s_container;
-
-        public static string GetRowPopupCardWrapper(DependencyObject obj)
-        {
-            return (string)obj.GetValue(RowPopupCardWrapperProperty);
-        }
-
-        public static void SetRowPopupCardWrapper(DependencyObject obj, string value)
-        {
-            obj.SetValue(RowPopupCardWrapperProperty, value);
-        }
-
-        // Using a DependencyProperty as the backing store for RowPopupCardWrapper.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty RowPopupCardWrapperProperty =
-            DependencyProperty.RegisterAttached("RowPopupCardWrapper", typeof(CardWrapper), typeof(MainWindow), new PropertyMetadata(null, new PropertyChangedCallback(SetRowPopupCardIdCallback)));
-
-        private static void SetRowPopupCardIdCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            if (s_container != null)
-            {
-                s_container.CardWrapper = e.NewValue as CardWrapper;
-
-                if (e.NewValue != null)
-                {
-                    Log.WriteLine($"Setting new card id for popup: Id={s_container.CardWrapper.Card.Id}", LogType.Debug);
-                }
-                else { }
-            }
-            else { }
-        }
-        #endregion
-
-        #region ShowPopup
-        public static bool GetShowPopup(DependencyObject obj)
-        {
-            return (bool)obj.GetValue(ShowPopupProperty);
-        }
-
-        public static void SetShowPopup(DependencyObject obj, bool value)
-        {
-            obj.SetValue(ShowPopupProperty, value);
-        }
-
-        // Using a DependencyProperty as the backing store for ShowPopup.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ShowPopupProperty =
-            DependencyProperty.RegisterAttached("ShowPopup", typeof(bool), typeof(MainWindow), new PropertyMetadata(false, new PropertyChangedCallback(ShowPopupCallback)));
-
-        private static void ShowPopupCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            if (Settings.CardImageTooltip && d is DataGridRow)
-            {
-                if (((DataGridRow)d).IsFocused == true)
-                {
-                    Popup p = GetRowPopup(d);
-                    p.IsOpen = Convert.ToBoolean(e.NewValue);
-                }
-                else
-                {
-                    Popup p = GetRowPopup(d);
-                    p.IsOpen = Convert.ToBoolean(e.NewValue);
-                }
-            }
-            else { }
-        }
-        #endregion
-        #endregion
-
         #region Member Variables
         private DustUtilityPlugin m_plugin;
 
@@ -137,8 +49,6 @@ namespace Spawn.HDT.DustUtility.UI
         public MainWindow()
         {
             InitializeComponent();
-
-            s_container = cardImageContainer;
         }
 
         public MainWindow(DustUtilityPlugin plugin, Account account, bool offlineMode)
@@ -254,7 +164,14 @@ namespace Spawn.HDT.DustUtility.UI
 
             if (dialog.ShowDialog().Value)
             {
-                dataGrid.ItemsSource = OrderItems(dataGrid.ItemsSource as IEnumerable<GridItem>);
+                //TODO
+                //dataGrid.ItemsSource = OrderItems(dataGrid.ItemsSource as IEnumerable<GridItem>);
+
+                SearchResultContainer container = GetSearchResultContainerComponent();
+
+                IEnumerable<GridItem> orderedItems = OrderItems(container.GridItems);
+
+                container.SetGridItems(orderedItems.ToList());
             }
             else { }
         }
@@ -289,20 +206,6 @@ namespace Spawn.HDT.DustUtility.UI
         private void OnSwitchAccountsClick(object sender, System.Windows.RoutedEventArgs e)
         {
             m_plugin.SwitchAccounts();
-        }
-        #endregion
-
-        #region OnDataGridMouseMove
-        private void OnDataGridMouseMove(object sender, MouseEventArgs e)
-        {
-            if (cardImagePopup.IsOpen)
-            {
-                Point position = e.GetPosition(dataGrid);
-
-                cardImagePopup.HorizontalOffset = position.X + 20;
-                cardImagePopup.VerticalOffset = position.Y;
-            }
-            else { }
         }
         #endregion
         #endregion

@@ -92,6 +92,9 @@
     <Compile Include="UI\Components\CardImageContainer.xaml.cs">
       <DependentUpon>CardImageContainer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Components\CardsDataGrid.xaml.cs">
+      <DependentUpon>CardsDataGrid.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Dialogs\AccountSelectorDialog.xaml.cs">
       <DependentUpon>AccountSelectorDialog.xaml</DependentUpon>
     </Compile>
@@ -129,6 +132,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="UI\Components\CardImageContainer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Components\CardsDataGrid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

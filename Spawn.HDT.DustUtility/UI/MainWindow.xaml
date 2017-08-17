@@ -3,15 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:ui="clr-namespace:Spawn.HDT.DustUtility.UI"
+        xmlns:local="clr-namespace:Spawn.HDT.DustUtility.UI"
         xmlns:components="clr-namespace:Spawn.HDT.DustUtility.UI.Components"
         xmlns:converters="clr-namespace:Spawn.HDT.DustUtility.Converters"
-        xmlns:util="clr-namespace:Spawn.HearthPwnScraper.Utilities"
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
         mc:Ignorable="d" ResizeMode="CanResizeWithGrip" GlowBrush="Black" Title="Dust Utility"
         Height="450" Width="800" MinHeight="350" MinWidth="600" Loaded="OnWindowLoaded">
     <Window.Resources>
-        <ui:SearchResultContainer x:Key="searchResult"/>
+        <local:SearchResultContainer x:Key="searchResult"/>
     </Window.Resources>
 
     <controls:MetroWindow.RightWindowCommands>
@@ -30,66 +29,8 @@
         <Button Content="Filters" Name="filterButton" HorizontalAlignment="Right" Margin="0,10,10,0" Width="75" VerticalAlignment="Top" Click="OnFiltersClick"/>
 
         <Border BorderBrush="Silver" BorderThickness="1" HorizontalAlignment="Stretch" Margin="10,40,165,10" VerticalAlignment="Stretch">
-            <DataGrid Name="dataGrid" ItemsSource="{Binding Source={StaticResource searchResult}, Path=GridItems}" CanUserSortColumns="False" AutoGenerateColumns="False" IsReadOnly="True" GridLinesVisibility="None" RowBackground="#ECE3CA" AlternatingRowBackground="#E1D7BD" MouseMove="OnDataGridMouseMove">
-                <DataGrid.Resources>
-                    <converters:CountLabelConverter x:Key="countLabelConverter"/>
-                    <util:CardRarityToColorConverter x:Key="rarityConverter"/>
-                    <Style TargetType="DataGridCell">
-                        <Setter Property="TextBlock.TextAlignment" Value="Center"/>
-                        <Setter Property="Foreground" Value="Black"/>
-                        <Style.Triggers>
-                            <Trigger Property="IsSelected" Value="True">
-                                <Setter Property="Background" Value="{x:Null}"/>
-                                <Setter Property="BorderBrush" Value="{x:Null}"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </DataGrid.Resources>
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Count" Binding="{Binding Path=Count, Converter={StaticResource countLabelConverter}}"/>
-                    <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}">
-                        <DataGridTextColumn.ElementStyle>
-                            <Style TargetType="TextBlock">
-                                <Setter Property="Foreground" Value="{Binding Rarity, Converter={StaticResource rarityConverter}}"/>
-                            </Style>
-                        </DataGridTextColumn.ElementStyle>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Header="Mana Cost" Binding="{Binding Path=ManaCost}"/>
-                    <DataGridCheckBoxColumn Header="Golden" Binding="{Binding Path=Golden}"/>
-                    <DataGridTextColumn Header="Dust" Binding="{Binding Path=Dust}">
-                        <DataGridTextColumn.ElementStyle>
-                            <Style TargetType="TextBlock">
-                                <Setter Property="Foreground" Value="{Binding Rarity, Converter={StaticResource rarityConverter}}"/>
-                            </Style>
-                        </DataGridTextColumn.ElementStyle>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Header="Rarity" Binding="{Binding Path=RarityString}">
-                        <DataGridTextColumn.ElementStyle>
-                            <Style TargetType="TextBlock">
-                                <Setter Property="Foreground" Value="{Binding Rarity, Converter={StaticResource rarityConverter}}"/>
-                            </Style>
-                        </DataGridTextColumn.ElementStyle>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Header="Class" Binding="{Binding Path=CardClass}"/>
-                    <DataGridTextColumn Header="Set" Binding="{Binding Path=CardSet}"/>
-                </DataGrid.Columns>
-                <DataGrid.RowStyle>
-                    <Style TargetType="DataGridRow">
-                        <Setter Property="ui:MainWindow.RowPopup" Value="{Binding ElementName=cardImagePopup}"/>
-                        <Setter Property="ui:MainWindow.ShowPopup" Value="{Binding IsMouseOver, Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="ui:MainWindow.RowPopupCardWrapper" Value="{Binding Path=Tag}"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </DataGrid.RowStyle>
-            </DataGrid>
+            <components:CardsDataGrid GridItems="{Binding Source={StaticResource searchResult}, Path=GridItems}"/>
         </Border>
-
-        <Popup Name="cardImagePopup" AllowsTransparency="True" Placement="Relative" PlacementTarget="{Binding ElementName=dataGrid}" IsOpen="False">
-            <components:CardImageContainer x:Name="cardImageContainer"/>
-        </Popup>
 
         <Button Name="sortOrderButton" Content="Sort Order" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,20,10" Width="130" Height="21" Click="OnSortOrderClick"/>
 
