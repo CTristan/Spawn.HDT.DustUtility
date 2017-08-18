@@ -80,11 +80,16 @@ namespace Spawn.HDT.DustUtility.UI
             if (offlineMode)
             {
                 Title = $"{Title} [OFFLINE MODE]";
+
+                switchAccountsButton.Visibility = System.Windows.Visibility.Visible;
             }
-            else
+            else { }
+
+            if (Settings.OfflineMode)
             {
-                switchAccountsButton.Visibility = System.Windows.Visibility.Hidden;
+                historyButton.Visibility = System.Windows.Visibility.Visible;
             }
+            else { }
 
             Log.WriteLine($"Account={m_account.AccountString}", LogType.Debug);
             Log.WriteLine($"OfflineMode={offlineMode}", LogType.Debug);
