@@ -1,4 +1,5 @@
 ﻿using HearthMirror.Objects;
+using Hearthstone_Deck_Tracker.Utility.Logging;
 using Spawn.HDT.DustUtility.History;
 using System.Collections.Generic;
 
@@ -23,6 +24,8 @@ namespace Spawn.HDT.DustUtility.UI.Dialogs
             {
                 grid.GridItems.Add(GridItem.FromCardWrapper(new Search.CardWrapper(lstHistory[i])));
             }
+
+            Log.WriteLine($"Loaded history: {lstHistory.Count} entries", LogType.Debug);
         }
         #endregion
     }

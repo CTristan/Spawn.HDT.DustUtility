@@ -216,6 +216,8 @@ namespace Spawn.HDT.DustUtility.UI
         #region OnHistoryClick
         private void OnHistoryClick(object sender, System.Windows.RoutedEventArgs e)
         {
+            Log.WriteLine("Opening history dialog...", LogType.Debug);
+
             DisenchantedCardsHistoryDialog dialog = new DisenchantedCardsHistoryDialog(m_account);
 
             dialog.ShowDialog();

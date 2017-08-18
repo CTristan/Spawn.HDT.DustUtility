@@ -134,7 +134,7 @@ namespace Spawn.HDT.DustUtility
                 }
                 else { }
 
-                Log.WriteLine("Opening main window", LogType.Debug);
+                Log.WriteLine($"Opening main window for {m_account.AccountString}", LogType.Info);
 
                 m_window = new MainWindow(this, m_account, !Core.Game.IsRunning && Settings.OfflineMode);
 
@@ -172,6 +172,8 @@ namespace Spawn.HDT.DustUtility
                     m_account = Account.Empty;
                 }
             }
+
+            Log.WriteLine($"Account: {m_account?.AccountString}", LogType.Debug);
         }
         #endregion
 

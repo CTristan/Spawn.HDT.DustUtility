@@ -1,4 +1,5 @@
-﻿using Spawn.HDT.DustUtility.Net;
+﻿using Hearthstone_Deck_Tracker.Utility.Logging;
+using Spawn.HDT.DustUtility.Net;
 
 namespace Spawn.HDT.DustUtility.UI.Dialogs
 {
@@ -29,6 +30,8 @@ namespace Spawn.HDT.DustUtility.UI.Dialogs
             Settings.CheckForUpdate = cbCheckForUpdates.IsChecked.Value;
             Settings.CardImageTooltip = cbCardImageTooltip.IsChecked.Value;
             Settings.LocalImageCache = cbLocalImageCache.IsChecked.Value;
+
+            Log.WriteLine("Saved settings", LogType.Info);
 
             Close();
         }

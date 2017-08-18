@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Spawn.HDT.DustUtility.UI.Components"
+             xmlns:ui="clr-namespace:Spawn.HDT.DustUtility.UI"
              xmlns:converters="clr-namespace:Spawn.HDT.DustUtility.Converters"
              xmlns:util="clr-namespace:Spawn.HearthPwnScraper.Utilities"
              mc:Ignorable="d" x:Name="cardsGrid"
@@ -54,11 +55,14 @@
             </DataGrid.Columns>
             <DataGrid.RowStyle>
                 <Style TargetType="DataGridRow">
-                    <Setter Property="local:CardsDataGrid.RowPopup" Value="{Binding ElementName=cardImagePopup}"/>
-                    <Setter Property="local:CardsDataGrid.ShowPopup" Value="{Binding IsMouseOver, Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
+                    <Setter Property="ui:AttachedProperties.RowPopup" Value="{Binding ElementName=cardImagePopup}"/>
+                    <Setter Property="ui:AttachedProperties.ShowPopup" Value="{Binding IsMouseOver, Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
                     <Style.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="local:CardsDataGrid.RowPopupCardWrapper" Value="{Binding Path=Tag}"/>
+                            <Setter Property="ui:AttachedProperties.RowPopupCardWrapper" Value="{Binding Path=Tag}"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="False">
+                            <Setter Property="ui:AttachedProperties.RowPopupCardWrapper" Value="{x:Null}"/>
                         </Trigger>
                     </Style.Triggers>
                 </Style>
@@ -66,7 +70,7 @@
         </DataGrid>
 
         <Popup Name="cardImagePopup" AllowsTransparency="True" Placement="Relative" PlacementTarget="{Binding ElementName=dataGrid}" IsOpen="False">
-            <local:CardImageContainer x:Name="cardImageContainer"/>
+            <local:CardImageContainer/>
         </Popup>
     </Grid>
 </UserControl>

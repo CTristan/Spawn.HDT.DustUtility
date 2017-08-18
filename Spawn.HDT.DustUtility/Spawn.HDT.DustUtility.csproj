@@ -89,6 +89,7 @@
     <Compile Include="Offline\CachedCard.cs" />
     <Compile Include="Offline\CachedDeck.cs" />
     <Compile Include="Search\Parameters.cs" />
+    <Compile Include="UI\AttachedProperties.cs" />
     <Compile Include="UI\Components\CardImageContainer.xaml.cs">
       <DependentUpon>CardImageContainer.xaml</DependentUpon>
     </Compile>

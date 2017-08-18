@@ -1,4 +1,5 @@
-﻿using Spawn.HDT.DustUtility.Net;
+﻿using Hearthstone_Deck_Tracker.Utility.Logging;
+using Spawn.HDT.DustUtility.Net;
 using Spawn.HDT.DustUtility.Search;
 using System;
 using System.Drawing;
@@ -60,21 +61,25 @@ namespace Spawn.HDT.DustUtility.UI.Components
         #region OnCardWrapperChanged
         private async void OnCardWrapperChanged(object sender, EventArgs e)
         {
+            if (m_currentImage != null)
+            {
+                Log.WriteLine("Disposing current image...", LogType.Debug);
+
+                m_currentImage.Dispose();
+                m_currentImage = null;
+            }
+            else { }
+
             if (CardWrapper != null && Visibility == Visibility.Visible)
             {
+                Log.WriteLine($"Loading image for {CardWrapper.Card.Id} (Premium={CardWrapper.Card.Premium})", LogType.Debug);
+
                 m_currentImage = (await HearthstoneCardImageManager.GetStreamAsync(CardWrapper.Card.Id, CardWrapper.Card.Premium));
 
                 image.Source = (Image.FromStream(m_currentImage) as Bitmap).ToBitmapImage();
             }
             else
             {
-                if (m_currentImage != null)
-                {
-                    m_currentImage.Dispose();
-                    //m_currentImage = null;
-                }
-                else { }
-
                 image.Source = m_defaultImageSource;
             }
         }
