@@ -44,7 +44,7 @@ namespace Spawn.HDT.DustUtility.UI
 
         private static void SetRowPopupCardIdCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (d is DataGridRow && (e.NewValue != null && e.NewValue is CardWrapper))
+            if (Settings.CardImageTooltip && d is DataGridRow && (e.NewValue != null && e.NewValue is CardWrapper))
             {
                 CardWrapper cardWrapper = e.NewValue as CardWrapper;
 
