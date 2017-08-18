@@ -30,5 +30,13 @@
 
 ## v1.6.2
 - New version is being displayed correctly in the update notification
+
+## v1.6.3
+- Reworked Filters dialog
+- Added Frozen Throne filter option
+
+## v1.7
+- Filters are being saved persistently
+- Added advanced search
 -----------------------------
 
