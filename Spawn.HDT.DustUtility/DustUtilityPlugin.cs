@@ -73,6 +73,12 @@ namespace Spawn.HDT.DustUtility
             SettingsDialog dialog = new SettingsDialog();
 
             dialog.ShowDialog();
+
+            if (Settings.OfflineMode && Core.Game.IsRunning && !Cache.TimerEnabled && m_window != null)
+            {
+                Cache.StartTimer();
+            }
+            else { }
         }
         #endregion
 
