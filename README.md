@@ -5,7 +5,7 @@ Enter the amout of dust you are aiming for and the plugin searches through your 
 #### Offline Mode
 - The plugin saves your collection and decks locally, so you are still able to use it while Hearthstone isn't running.
 #### Support for multiple accounts and regions
-- If `Offline Mode` is enabled, you are able to switch between multiple accounts and regions, if their collection has been saved once beforehand.
+- With `Offline Mode` enabled, you are able to switch between multiple accounts and regions, if their collection has been saved once beforehand.
 #### List of disenchanted cards
 - If `Offline Mode` is enabled, the plugin is able to create and display a history of cards that have been disenchanted.
 #### Customizable Sort Order
