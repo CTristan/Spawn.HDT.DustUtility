@@ -44,11 +44,15 @@ namespace Spawn.HDT.DustUtility.UI
 
         private static void SetRowPopupCardIdCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (Settings.CardImageTooltip && d is DataGridRow && (e.NewValue != null && e.NewValue is CardWrapper))
+            if (Settings.CardImageTooltip && d is DataGridRow)
             {
                 CardWrapper cardWrapper = e.NewValue as CardWrapper;
 
-                Log.WriteLine($"Setting new card id for popup: Id={cardWrapper.Card.Id} Premium={cardWrapper.Card.Premium}", LogType.Debug);
+                if (cardWrapper != null)
+                {
+                    Log.WriteLine($"Setting new card id for popup: Id={cardWrapper.Card.Id} Premium={cardWrapper.Card.Premium}", LogType.Debug);
+                }
+                else { }
 
                 Popup popup = GetRowPopup(d);
 
