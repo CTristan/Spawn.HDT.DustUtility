@@ -226,7 +226,10 @@ namespace Spawn.HDT.DustUtility.UI
         {
             Log.WriteLine("Opening history dialog...", LogType.Debug);
 
-            DisenchantedCardsHistoryDialog dialog = new DisenchantedCardsHistoryDialog(m_account);
+            DisenchantedCardsHistoryDialog dialog = new DisenchantedCardsHistoryDialog(m_account)
+            {
+                Owner = this
+            };
 
             dialog.ShowDialog();
         }
