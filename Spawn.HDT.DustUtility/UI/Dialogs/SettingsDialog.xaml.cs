@@ -1,5 +1,6 @@
 ﻿using Hearthstone_Deck_Tracker.Utility.Logging;
 using Spawn.HDT.DustUtility.Net;
+using System.Windows;
 
 namespace Spawn.HDT.DustUtility.UI.Dialogs
 {
@@ -9,6 +10,12 @@ namespace Spawn.HDT.DustUtility.UI.Dialogs
         public SettingsDialog()
         {
             InitializeComponent();
+        }
+
+        public SettingsDialog(bool cacheDirectoryExists)
+            : this()
+        {
+            clearCacheButton.IsEnabled = cacheDirectoryExists;
         }
         #endregion
 
@@ -56,9 +63,26 @@ namespace Spawn.HDT.DustUtility.UI.Dialogs
         #endregion
 
         #region OnClearLocalImageCacheClick
-        private void OnClearLocalImageCacheClick(object sender, System.Windows.RoutedEventArgs e)
+        private void OnClearLocalImageCacheClick(object sender, RoutedEventArgs e)
         {
-            HearthstoneCardImageManager.ClearLocalCache();
+            try
+            {
+                MessageBoxResult result = MessageBox.Show("Are you sure you want to clear the local image cache?", "Dust Utility", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    HearthstoneCardImageManager.ClearLocalCache();
+
+                    clearCacheButton.IsEnabled = false;
+                }
+                else { }
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show("Couldn't clear cache directory! Check log for more information.", "Dust Utility", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                Log.WriteLine($"Couldn't clear cache directory: {ex}", LogType.Error);
+            }
         }
         #endregion
         #endregion

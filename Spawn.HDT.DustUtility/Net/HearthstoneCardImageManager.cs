@@ -13,7 +13,7 @@ namespace Spawn.HDT.DustUtility.Net
         #region Constants
         private const string BaseUrl = "https://omgvamp-hearthstone-v1.p.mashape.com";
         private const string ApiKey = "T63EJR1RqumshjNsE8mLzycYVpVIp1PIHqLjsnTaibC4T4grpP";
-        private const string CacheFolderName = "image_cache";
+        public const string CacheFolderName = "image_cache";
         #endregion
 
         #region Static Properties
@@ -175,7 +175,13 @@ namespace Spawn.HDT.DustUtility.Net
         #region ClearLocalCache
         public static void ClearLocalCache()
         {
-            Directory.Delete(Path.Combine(DustUtilityPlugin.DataDirectory, CacheFolderName), true);
+            string strPath = Path.Combine(DustUtilityPlugin.DataDirectory, CacheFolderName);
+
+            if (Directory.Exists(strPath))
+            {
+                Directory.Delete(strPath, true);
+            }
+            else { }
         }
         #endregion
 

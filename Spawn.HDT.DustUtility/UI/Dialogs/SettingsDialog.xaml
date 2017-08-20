@@ -25,7 +25,7 @@
         <Label Content="Card Image Tooltip" Grid.Row="2" Grid.Column="0" Margin="10,0,0,0"/>
         <Label Content="Local Image Cache" Grid.Row="3" Grid.Column="0" Margin="10,0,0,0"/>
 
-        <Button Content="Clear Local Cache" Grid.Row="4" Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="5,0,5,0" Click="OnClearLocalImageCacheClick"/>
+        <Button Name="clearCacheButton" Content="Clear Local Cache" Grid.Row="4" Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="5,0,5,0" Click="OnClearLocalImageCacheClick"/>
 
         <CheckBox Name="cbOfflineMode" Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,5,0"/>
         <CheckBox Name="cbCheckForUpdates" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,5,0"/>
