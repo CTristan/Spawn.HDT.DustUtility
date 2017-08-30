@@ -28,14 +28,14 @@ namespace Spawn.HDT.DustUtility.UI.Components
         #region OnDataGridMouseMove
         private void OnDataGridMouseMove(object sender, MouseEventArgs e)
         {
-            if (cardImagePopup.IsOpen)
-            {
-                Point position = e.GetPosition(dataGrid);
+            //if (cardImagePopup.IsOpen)
+            //{
+            //    Point position = e.GetPosition(dataGrid);
 
-                cardImagePopup.HorizontalOffset = position.X + 20;
-                cardImagePopup.VerticalOffset = position.Y;
-            }
-            else { }
+            //    cardImagePopup.HorizontalOffset = position.X + 20;
+            //    cardImagePopup.VerticalOffset = position.Y;
+            //}
+            //else { }
         }
         #endregion
     }

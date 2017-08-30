@@ -8,7 +8,7 @@
         xmlns:converters="clr-namespace:Spawn.HDT.DustUtility.Converters"
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
         mc:Ignorable="d" ResizeMode="CanResizeWithGrip" GlowBrush="Black" Title="Dust Utility"
-        Height="450" Width="800" MinHeight="350" MinWidth="600" Loaded="OnWindowLoaded" WindowStartupLocation="CenterScreen">
+        Height="450" Width="850" MinHeight="350" MinWidth="600" Loaded="OnWindowLoaded" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <local:SearchResultContainer x:Key="searchResult"/>
     </Window.Resources>
@@ -17,7 +17,7 @@
         <controls:WindowCommands>
             <StackPanel Orientation="Horizontal">
                 <Button Name="switchAccountsButton" Content="SWITCH ACCOUNTS..." Click="OnSwitchAccountsClick" Visibility="Hidden"/>
-                <Button Name="historyButton" Content="HISTORY" Click="OnHistoryClick" Visibility="Hidden"/>
+                <!--<Button Name="historyButton" Content="HISTORY" Click="OnHistoryClick" Visibility="Hidden"/>-->
                 <Button Content="SHOW COLLECTION VALUE..." Click="OnTotalDustClick"/>
             </StackPanel>
         </controls:WindowCommands>

@@ -85,11 +85,11 @@ namespace Spawn.HDT.DustUtility.UI
             }
             else { }
 
-            if (Settings.OfflineMode)
-            {
-                historyButton.Visibility = System.Windows.Visibility.Visible;
-            }
-            else { }
+            //if (Settings.OfflineMode)
+            //{
+            //    historyButton.Visibility = System.Windows.Visibility.Visible;
+            //}
+            //else { }
 
             Log.WriteLine($"Account={m_account.AccountString}", LogType.Debug);
             Log.WriteLine($"OfflineMode={offlineMode}", LogType.Debug);

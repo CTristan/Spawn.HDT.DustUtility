@@ -2,7 +2,6 @@
 using Hearthstone_Deck_Tracker.API;
 using Hearthstone_Deck_Tracker.Plugins;
 using Hearthstone_Deck_Tracker.Utility.Logging;
-using Spawn.HDT.DustUtility.Net;
 using Spawn.HDT.DustUtility.Offline;
 using Spawn.HDT.DustUtility.UI;
 using Spawn.HDT.DustUtility.UI.Dialogs;
@@ -71,7 +70,8 @@ namespace Spawn.HDT.DustUtility
         {
             Log.WriteLine("Opening settings dialog", LogType.Debug);
 
-            SettingsDialog dialog = new SettingsDialog(Directory.Exists(Path.Combine(DataDirectory, HearthstoneCardImageManager.CacheFolderName)));
+            //SettingsDialog dialog = new SettingsDialog(Directory.Exists(Path.Combine(DataDirectory, HearthstoneCardImageManager.CacheFolderName)));
+            SettingsDialog dialog = new SettingsDialog();
 
             dialog.ShowDialog();
 

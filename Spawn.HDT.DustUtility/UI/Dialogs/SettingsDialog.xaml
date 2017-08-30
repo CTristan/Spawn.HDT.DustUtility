@@ -10,9 +10,9 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
             <RowDefinition Height="30"/>
+            <!--<RowDefinition Height="30"/>
             <RowDefinition Height="30"/>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>-->
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -22,15 +22,15 @@
 
         <Label Content="Offline Mode" Grid.Row="0" Grid.Column="0" Margin="10,0,0,0"/>
         <Label Content="Check For Updates" Grid.Row="1" Grid.Column="0" Margin="10,0,0,0"/>
-        <Label Content="Card Image Tooltip" Grid.Row="2" Grid.Column="0" Margin="10,0,0,0"/>
-        <Label Content="Local Image Cache" Grid.Row="3" Grid.Column="0" Margin="10,0,0,0"/>
+        <!--<Label Content="Card Image Tooltip" Grid.Row="2" Grid.Column="0" Margin="10,0,0,0"/>-->
+        <!--<Label Content="Local Image Cache" Grid.Row="3" Grid.Column="0" Margin="10,0,0,0"/>-->
 
-        <Button Name="clearCacheButton" Content="Clear Local Cache" Grid.Row="4" Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="5,0,5,0" Click="OnClearLocalImageCacheClick"/>
+        <!--<Button Name="clearCacheButton" Content="Clear Local Cache" Grid.Row="4" Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="5,0,5,0" Click="OnClearLocalImageCacheClick"/>-->
 
         <CheckBox Name="cbOfflineMode" Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,5,0"/>
         <CheckBox Name="cbCheckForUpdates" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,5,0"/>
-        <CheckBox Name="cbCardImageTooltip" Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,5,0"/>
-        <CheckBox Name="cbLocalImageCache" Grid.Row="3" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,5,0" IsEnabled="{Binding ElementName=cbCardImageTooltip, Path=IsChecked}" IsEnabledChanged="OnLocalImageCacheIsEnabledChanged"/>
+        <!--<CheckBox Name="cbCardImageTooltip" Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,5,0"/>-->
+        <!--<CheckBox Name="cbLocalImageCache" Grid.Row="3" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,5,0" IsEnabled="{Binding ElementName=cbCardImageTooltip, Path=IsChecked}" IsEnabledChanged="OnLocalImageCacheIsEnabledChanged"/>-->
 
         <WrapPanel Grid.Row="12" Grid.ColumnSpan="2" HorizontalAlignment="Right" Margin="0,20,5,5">
             <Button Content="_Ok" IsDefault="True" Click="OnOkClick" Width="75" Margin="0,0,10,0"/>

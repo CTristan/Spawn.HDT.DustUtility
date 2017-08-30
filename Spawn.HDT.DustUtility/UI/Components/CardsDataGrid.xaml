@@ -3,14 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:Spawn.HDT.DustUtility.UI.Components"
-             xmlns:ui="clr-namespace:Spawn.HDT.DustUtility.UI"
              xmlns:converters="clr-namespace:Spawn.HDT.DustUtility.Converters"
              xmlns:util="clr-namespace:Spawn.HearthPwnScraper.Utilities"
              mc:Ignorable="d" x:Name="cardsGrid"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <DataGrid Name="dataGrid" ItemsSource="{Binding ElementName=cardsGrid, Path=GridItems}" CanUserSortColumns="False" AutoGenerateColumns="False" IsReadOnly="True" GridLinesVisibility="None" RowBackground="#ECE3CA" AlternatingRowBackground="#E1D7BD" MouseMove="OnDataGridMouseMove">
+        <DataGrid Name="dataGrid" ItemsSource="{Binding ElementName=cardsGrid, Path=GridItems}" CanUserSortColumns="False" AutoGenerateColumns="False" IsReadOnly="True" GridLinesVisibility="None">
+            <!--RowBackground="#ECE3CA" AlternatingRowBackground="#E1D7BD" MouseMove="OnDataGridMouseMove"-->
             <DataGrid.Resources>
                 <converters:CountLabelConverter x:Key="countLabelConverter"/>
                 <util:CardRarityToColorConverter x:Key="rarityConverter"/>
@@ -53,7 +52,7 @@
                 <DataGridTextColumn Header="Class" Binding="{Binding Path=CardClass}"/>
                 <DataGridTextColumn Header="Set" Binding="{Binding Path=CardSet}"/>
             </DataGrid.Columns>
-            <DataGrid.RowStyle>
+            <!--<DataGrid.RowStyle>
                 <Style TargetType="DataGridRow">
                     <Setter Property="ui:AttachedProperties.RowPopup" Value="{Binding ElementName=cardImagePopup}"/>
                     <Setter Property="ui:AttachedProperties.ShowPopup" Value="{Binding IsMouseOver, Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
@@ -66,11 +65,7 @@
                         </Trigger>
                     </Style.Triggers>
                 </Style>
-            </DataGrid.RowStyle>
+            </DataGrid.RowStyle>-->
         </DataGrid>
-
-        <Popup Name="cardImagePopup" AllowsTransparency="True" Placement="Relative" PlacementTarget="{Binding ElementName=dataGrid}" IsOpen="False">
-            <local:CardImageContainer/>
-        </Popup>
     </Grid>
 </UserControl>
