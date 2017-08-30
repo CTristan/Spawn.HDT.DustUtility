@@ -30,10 +30,11 @@
         <Button Content="Filters" Name="filterButton" HorizontalAlignment="Right" Margin="0,10,10,0" Width="75" VerticalAlignment="Top" Click="OnFiltersClick"/>
 
         <Border BorderBrush="Silver" BorderThickness="1" HorizontalAlignment="Stretch" Margin="10,40,165,10" VerticalAlignment="Stretch">
-            <components:CardsDataGrid GridItems="{Binding Source={StaticResource searchResult}, Path=GridItems}"/>
+            <components:CardsDataGrid GridItems="{Binding Source={StaticResource searchResult}, Path=GridItems}" RowDoubleClick="CardsDataGrid_RowDoubleClick" AllowDrop="False" AllowDrag="True"/>
         </Border>
 
-        <Button Name="sortOrderButton" Content="Sort Order" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,20,10" Width="130" Height="21" Click="OnSortOrderClick"/>
+        <Button Name="sortOrderButton" Content="Sort Order" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,20,40" Width="130" Height="21" Click="OnSortOrderClick"/>
+        <Button Name="openListButton" Content="Open List..." HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,20,10" Width="130" Height="21" Click="OnOpenListClick"/>
 
         <GroupBox Header="Info" HorizontalAlignment="Right" Height="235" Margin="0,40,10,0" VerticalAlignment="Top" Width="150">
             <Grid>

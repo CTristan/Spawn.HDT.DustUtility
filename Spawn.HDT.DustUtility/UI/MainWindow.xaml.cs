@@ -40,8 +40,9 @@ namespace Spawn.HDT.DustUtility.UI
 
         #region Member Variables
         private DustUtilityPlugin m_plugin;
-
         private Account m_account;
+
+        private CardListWindow m_listWindow;
 
         private CardCollector m_cardCollector;
         private Parameters m_parameters;
@@ -184,6 +185,31 @@ namespace Spawn.HDT.DustUtility.UI
                 IEnumerable<GridItem> orderedItems = OrderItems(container.GridItems);
 
                 container.SetGridItems(orderedItems.ToList());
+            }
+            else { }
+        }
+        #endregion
+
+        #region OnOpenListClick
+        private void OnOpenListClick(object sender, System.Windows.RoutedEventArgs e)
+        {
+            if (m_listWindow == null)
+            {
+                m_listWindow = new CardListWindow()
+                {
+                    Owner = this
+                };
+
+                m_listWindow.Closed += new EventHandler((s, args) =>
+                {
+                    openListButton.IsEnabled = true;
+
+                    m_listWindow = null;
+                });
+
+                m_listWindow.Show();
+
+                openListButton.IsEnabled = false;
             }
             else { }
         }
@@ -361,5 +387,10 @@ namespace Spawn.HDT.DustUtility.UI
             return FindResource(SearchResultKey) as SearchResultContainer;
         }
         #endregion
+
+        private void CardsDataGrid_RowDoubleClick(object sender, GridItemEventArgs e)
+        {
+            //TODO: Show card image
+        }
     }
 }

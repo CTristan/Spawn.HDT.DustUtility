@@ -39,13 +39,17 @@ namespace Spawn.HDT.DustUtility.Search
         #endregion
 
         #region GetDustValue
-        public int GetDustValue()
+        public int GetDustValue(int nCount = -1)
         {
             int nRet = m_card.GetDustValue();
 
-            if (MaxCountInDecks == 0)
+            if (nCount == -1 && MaxCountInDecks == 0)
             {
                 nRet *= m_card.Count;
+            }
+            else if (nCount > -1)
+            {
+                nRet *= nCount;
             }
             else { }
 

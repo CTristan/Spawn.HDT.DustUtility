@@ -82,8 +82,14 @@
     <Compile Include="Offline\CachedDeck.cs" />
     <Compile Include="Search\Parameters.cs" />
     <Compile Include="UI\AttachedProperties.cs" />
+    <Compile Include="UI\CardListWindow.xaml.cs">
+      <DependentUpon>CardListWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Components\CardImageContainer.xaml.cs">
       <DependentUpon>CardImageContainer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Components\CardsDataGrid.DragAndDrop.cs">
+      <DependentUpon>CardsDataGrid.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Components\CardsDataGrid.xaml.cs">
       <DependentUpon>CardsDataGrid.xaml</DependentUpon>
@@ -94,6 +100,7 @@
     <Compile Include="UI\Dialogs\DisenchantedCardsHistoryDialog.xaml.cs">
       <DependentUpon>DisenchantedCardsHistoryDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\GridItemEventArgs.cs" />
     <Compile Include="UI\SearchResultContainer.cs" />
     <Compile Include="UI\SortOrder.cs" />
     <Compile Include="UI\Dialogs\AddSortOrderItemDialog.xaml.cs">
@@ -127,6 +134,10 @@
     <Compile Include="Update\GitHubUpdateManager.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="UI\CardListWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\Components\CardImageContainer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

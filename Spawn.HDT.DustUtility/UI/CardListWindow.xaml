@@ -1,0 +1,38 @@
+﻿<controls:MetroWindow x:Class="Spawn.HDT.DustUtility.UI.CardListWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:components="clr-namespace:Spawn.HDT.DustUtility.UI.Components"
+        xmlns:converters="clr-namespace:Spawn.HDT.DustUtility.Converters"
+        mc:Ignorable="d" GlowBrush="Black" WindowStartupLocation="CenterOwner"
+        Title="Selection" Height="450" Width="700">
+    <Grid>
+        <components:CardsDataGrid x:Name="cardsGrid" AllowDrop="True" AllowDrag="False" Margin="0,0,165,0"/>
+
+        <GroupBox Header="Info" HorizontalAlignment="Right" Height="235" Margin="0,10,10,0" VerticalAlignment="Top" Width="150" Grid.Column="3">
+            <Grid>
+                <Grid.Resources>
+                    <converters:DisplayLabelConverter x:Key="dustLabelConverter" Prefix="Dust:"/>
+                    <converters:DisplayLabelConverter x:Key="commonsCountLabelConverter" Prefix="Commons:"/>
+                    <converters:DisplayLabelConverter x:Key="raresCountLabelConverter" Prefix="Rares:"/>
+                    <converters:DisplayLabelConverter x:Key="epicsCountLabelConverter" Prefix="Epics:"/>
+                    <converters:DisplayLabelConverter x:Key="legendariesCountLabelConverter" Prefix="Legendaries:"/>
+                    <converters:DisplayLabelConverter x:Key="totalCountLabelConverter" Prefix="Total:"/>
+                </Grid.Resources>
+
+                <Label Name="lblDust" Content="{Binding Converter={StaticResource dustLabelConverter}}" FontSize="14" FontWeight="Bold" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10,5,10,0"/>
+
+                <Separator Background="Gray" HorizontalAlignment="Stretch" Height="10" Margin="10,33,10,0" VerticalAlignment="Top"/>
+
+                <Label Name="lblCommonsCount" Content="{Binding Converter={StaticResource commonsCountLabelConverter}}" FontSize="14" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10,40,10,0"/>
+                <Label Name="lblRaresCount" Content="{Binding Converter={StaticResource raresCountLabelConverter}}" FontSize="14" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10,70,10,0"/>
+                <Label Name="lblEpicsCount" Content="{Binding Converter={StaticResource epicsCountLabelConverter}}" FontSize="14" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10,100,10,0"/>
+                <Label Name="lblLegendariesCount" Content="{Binding Converter={StaticResource legendariesCountLabelConverter}}" FontSize="14" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10,130,10,0"/>
+
+                <Label Name="lblTotalCount" Content="{Binding Converter={StaticResource totalCountLabelConverter}}" FontSize="14" FontWeight="Bold" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10,160,10,0"/>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</controls:MetroWindow>

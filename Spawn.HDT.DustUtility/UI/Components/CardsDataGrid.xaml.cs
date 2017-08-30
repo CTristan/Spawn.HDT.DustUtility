@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
 
@@ -18,6 +19,22 @@ namespace Spawn.HDT.DustUtility.UI.Components
             DependencyProperty.Register("GridItems", typeof(ObservableCollection<GridItem>), typeof(CardsDataGrid), new PropertyMetadata(new ObservableCollection<GridItem>()));
         #endregion
 
+        #region AllowDrag DP
+        public bool AllowDrag
+        {
+            get { return (bool)GetValue(AllowDragProperty); }
+            set { SetValue(AllowDragProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for AllowDrag.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty AllowDragProperty =
+            DependencyProperty.Register("AllowDrag", typeof(bool), typeof(CardsDataGrid), new PropertyMetadata(false));
+        #endregion
+
+        #region Custom Events
+        public event EventHandler<GridItemEventArgs> RowDoubleClick;
+        #endregion
+
         #region Ctor
         public CardsDataGrid()
         {
@@ -25,18 +42,37 @@ namespace Spawn.HDT.DustUtility.UI.Components
         }
         #endregion
 
-        #region OnDataGridMouseMove
-        private void OnDataGridMouseMove(object sender, MouseEventArgs e)
+        #region Events
+        #region OnDataGridMouseDoubleClick
+        private void OnDataGridMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            //if (cardImagePopup.IsOpen)
-            //{
-            //    Point position = e.GetPosition(dataGrid);
+            if (dataGrid.SelectedItem != null)
+            {
+                GridItemEventArgs args = new GridItemEventArgs(dataGrid.SelectedItem as GridItem);
 
-            //    cardImagePopup.HorizontalOffset = position.X + 20;
-            //    cardImagePopup.VerticalOffset = position.Y;
-            //}
-            //else { }
+                if (RowDoubleClick != null)
+                {
+                    RowDoubleClick(sender, args);
+                }
+                else { }
+            }
+            else { }
         }
+        #endregion
+
+        #region OnDataGridMouseDown
+        private void OnDataGridMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            IInputElement element = dataGrid.InputHitTest(e.GetPosition(dataGrid));
+
+            if (element is System.Windows.Controls.ScrollViewer)
+            {
+                dataGrid.SelectedIndex = -1;
+            }
+            else { }
+        }
+        #endregion
+
         #endregion
     }
 }

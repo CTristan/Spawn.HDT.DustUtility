@@ -8,8 +8,13 @@
              mc:Ignorable="d" x:Name="cardsGrid"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <DataGrid Name="dataGrid" ItemsSource="{Binding ElementName=cardsGrid, Path=GridItems}" CanUserSortColumns="False" AutoGenerateColumns="False" IsReadOnly="True" GridLinesVisibility="None">
-            <!--RowBackground="#ECE3CA" AlternatingRowBackground="#E1D7BD" MouseMove="OnDataGridMouseMove"-->
+        <DataGrid Name="dataGrid" ItemsSource="{Binding ElementName=cardsGrid, Path=GridItems}"
+                  SelectionMode="Single" SelectionUnit="FullRow" CanUserSortColumns="False"
+                  AutoGenerateColumns="False" IsReadOnly="True" GridLinesVisibility="None"
+                  MouseDoubleClick="OnDataGridMouseDoubleClick" MouseDown="OnDataGridMouseDown"
+                  MouseMove="OnDataGridMouseMove" PreviewMouseLeftButtonDown="OnDataGridPreviewMouseLeftButtonDown"
+                  DragEnter="OnDataGridDragEnter" Drop="OnDataGridDrop">
+            <!--RowBackground="#ECE3CA" AlternatingRowBackground="#E1D7BD"-->
             <DataGrid.Resources>
                 <converters:CountLabelConverter x:Key="countLabelConverter"/>
                 <util:CardRarityToColorConverter x:Key="rarityConverter"/>
@@ -21,26 +26,30 @@
                             <Setter Property="Background" Value="{x:Null}"/>
                             <Setter Property="BorderBrush" Value="{x:Null}"/>
                         </Trigger>
+                        <Trigger Property="IsSelected" Value="False">
+                            <Setter Property="Background" Value="{x:Null}"/>
+                            <Setter Property="BorderBrush" Value="{x:Null}"/>
+                        </Trigger>
                     </Style.Triggers>
                 </Style>
             </DataGrid.Resources>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Count" Binding="{Binding Path=Count, Converter={StaticResource countLabelConverter}}"/>
                 <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}">
-                    <DataGridTextColumn.ElementStyle>
+                    <!--<DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="Foreground" Value="{Binding Rarity, Converter={StaticResource rarityConverter}}"/>
                         </Style>
-                    </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn.ElementStyle>-->
                 </DataGridTextColumn>
                 <DataGridTextColumn Header="Mana Cost" Binding="{Binding Path=ManaCost}"/>
                 <DataGridCheckBoxColumn Header="Golden" Binding="{Binding Path=Golden}"/>
                 <DataGridTextColumn Header="Dust" Binding="{Binding Path=Dust}">
-                    <DataGridTextColumn.ElementStyle>
+                    <!--<DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="Foreground" Value="{Binding Rarity, Converter={StaticResource rarityConverter}}"/>
                         </Style>
-                    </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn.ElementStyle>-->
                 </DataGridTextColumn>
                 <DataGridTextColumn Header="Rarity" Binding="{Binding Path=RarityString}">
                     <DataGridTextColumn.ElementStyle>

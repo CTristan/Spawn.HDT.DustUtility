@@ -49,6 +49,25 @@ namespace Spawn.HDT.DustUtility.UI
         #endregion
         #endregion
 
+        #region CreateCopy
+        public GridItem CreateCopy()
+        {
+            return new GridItem()
+            {
+                Count = Count,
+                Name = Name,
+                Golden = Golden,
+                Dust = Dust,
+                Rarity = Rarity,
+                RarityString = RarityString,
+                CardClass = CardClass,
+                CardSet = CardSet,
+                ManaCost = ManaCost,
+                Tag = Tag
+            };
+        }
+        #endregion
+
         #region [STATIC] FromCardWrapper
         public static GridItem FromCardWrapper(CardWrapper wrapper)
         {
