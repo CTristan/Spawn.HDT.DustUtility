@@ -90,7 +90,7 @@ namespace Spawn.HDT.DustUtility.UI.Components
         #endregion
 
         #region OnDataGridDrop
-        private async void OnDataGridDrop(object sender, DragEventArgs e)
+        private void OnDataGridDrop(object sender, DragEventArgs e)
         {
             System.Diagnostics.Debug.WriteLine("drop");
 
