@@ -168,6 +168,7 @@ namespace Spawn.HDT.DustUtility.UI.Dialogs
 
         private class ItemContainerComparer : IEqualityComparer<SortOrder.ItemContainer>
         {
+            #region Equals
             public bool Equals(SortOrder.ItemContainer x, SortOrder.ItemContainer y)
             {
                 bool blnRet = false;
@@ -180,11 +181,14 @@ namespace Spawn.HDT.DustUtility.UI.Dialogs
 
                 return blnRet;
             }
+            #endregion
 
+            #region GetHashCode
             public int GetHashCode(SortOrder.ItemContainer obj)
             {
                 return obj.Name.GetHashCode() + obj.Value.GetHashCode();
             }
+            #endregion
         }
     }
 }
