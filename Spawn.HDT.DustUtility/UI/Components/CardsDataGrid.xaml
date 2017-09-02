@@ -13,25 +13,19 @@
                   AutoGenerateColumns="False" IsReadOnly="True" GridLinesVisibility="None"
                   MouseDoubleClick="OnDataGridMouseDoubleClick" MouseDown="OnDataGridMouseDown"
                   MouseMove="OnDataGridMouseMove" PreviewMouseLeftButtonDown="OnDataGridPreviewMouseLeftButtonDown"
-                  DragEnter="OnDataGridDragEnter" Drop="OnDataGridDrop">
+                  DragEnter="OnDataGridDragEnter" Drop="OnDataGridDrop" ContextMenuOpening="OnContextMenuOpening">
             <!--RowBackground="#ECE3CA" AlternatingRowBackground="#E1D7BD"-->
             <DataGrid.Resources>
                 <converters:CountLabelConverter x:Key="countLabelConverter"/>
                 <util:CardRarityToColorConverter x:Key="rarityConverter"/>
                 <Style TargetType="DataGridCell">
                     <Setter Property="TextBlock.TextAlignment" Value="Center"/>
-                    <Setter Property="Foreground" Value="Black"/>
-                    <Style.Triggers>
-                        <Trigger Property="IsSelected" Value="True">
-                            <Setter Property="Background" Value="{x:Null}"/>
-                            <Setter Property="BorderBrush" Value="{x:Null}"/>
-                        </Trigger>
-                        <Trigger Property="IsSelected" Value="False">
-                            <Setter Property="Background" Value="{x:Null}"/>
-                            <Setter Property="BorderBrush" Value="{x:Null}"/>
-                        </Trigger>
-                    </Style.Triggers>
                 </Style>
+                <ContextMenu x:Key="rowContextMenu">
+                    <ContextMenu.Items>
+                        <MenuItem Header="Delete" Click="OnDeleteRowClick"/>
+                    </ContextMenu.Items>
+                </ContextMenu>
             </DataGrid.Resources>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Count" Binding="{Binding Path=Count, Converter={StaticResource countLabelConverter}}"/>
@@ -61,6 +55,11 @@
                 <DataGridTextColumn Header="Class" Binding="{Binding Path=CardClass}"/>
                 <DataGridTextColumn Header="Set" Binding="{Binding Path=CardSet}"/>
             </DataGrid.Columns>
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Setter Property="ContextMenu" Value="{StaticResource rowContextMenu}"/>
+                </Style>
+            </DataGrid.RowStyle>
             <!--<DataGrid.RowStyle>
                 <Style TargetType="DataGridRow">
                     <Setter Property="ui:AttachedProperties.RowPopup" Value="{Binding ElementName=cardImagePopup}"/>

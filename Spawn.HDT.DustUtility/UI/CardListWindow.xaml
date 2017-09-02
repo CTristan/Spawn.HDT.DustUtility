@@ -7,9 +7,11 @@
         xmlns:components="clr-namespace:Spawn.HDT.DustUtility.UI.Components"
         xmlns:converters="clr-namespace:Spawn.HDT.DustUtility.Converters"
         mc:Ignorable="d" GlowBrush="Black" WindowStartupLocation="CenterOwner"
-        Title="Selection" Height="450" Width="700">
+        Title="Selection" Height="450" Width="700" Name="cardsList">
     <Grid>
-        <components:CardsDataGrid x:Name="cardsGrid" AllowDrop="True" AllowDrag="False" Margin="0,0,165,0"/>
+        <Border BorderBrush="Silver" BorderThickness="1" HorizontalAlignment="Stretch" Margin="0,0,165,0" VerticalAlignment="Stretch">
+            <components:CardsDataGrid x:Name="cardsGrid" AllowDrop="True" AllowDrag="False" ItemDropped="OnCardsGridItemDropped" RowDeleted="OnCardsGridRowDeleted"/>
+        </Border>
 
         <GroupBox Header="Info" HorizontalAlignment="Right" Height="235" Margin="0,10,10,0" VerticalAlignment="Top" Width="150" Grid.Column="3">
             <Grid>
@@ -22,16 +24,16 @@
                     <converters:DisplayLabelConverter x:Key="totalCountLabelConverter" Prefix="Total:"/>
                 </Grid.Resources>
 
-                <Label Name="lblDust" Content="{Binding Converter={StaticResource dustLabelConverter}}" FontSize="14" FontWeight="Bold" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10,5,10,0"/>
+                <Label Name="lblDust" Content="{Binding ElementName=cardsList, Path=DustAmount, Converter={StaticResource dustLabelConverter}}" FontSize="14" FontWeight="Bold" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10,5,10,0"/>
 
                 <Separator Background="Gray" HorizontalAlignment="Stretch" Height="10" Margin="10,33,10,0" VerticalAlignment="Top"/>
 
-                <Label Name="lblCommonsCount" Content="{Binding Converter={StaticResource commonsCountLabelConverter}}" FontSize="14" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10,40,10,0"/>
-                <Label Name="lblRaresCount" Content="{Binding Converter={StaticResource raresCountLabelConverter}}" FontSize="14" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10,70,10,0"/>
-                <Label Name="lblEpicsCount" Content="{Binding Converter={StaticResource epicsCountLabelConverter}}" FontSize="14" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10,100,10,0"/>
-                <Label Name="lblLegendariesCount" Content="{Binding Converter={StaticResource legendariesCountLabelConverter}}" FontSize="14" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10,130,10,0"/>
+                <Label Name="lblCommonsCount" Content="{Binding ElementName=cardsList, Path=CommonsCount, Converter={StaticResource commonsCountLabelConverter}}" FontSize="14" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10,40,10,0"/>
+                <Label Name="lblRaresCount" Content="{Binding ElementName=cardsList, Path=RaresCount, Converter={StaticResource raresCountLabelConverter}}" FontSize="14" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10,70,10,0"/>
+                <Label Name="lblEpicsCount" Content="{Binding ElementName=cardsList, Path=EpicsCount, Converter={StaticResource epicsCountLabelConverter}}" FontSize="14" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10,100,10,0"/>
+                <Label Name="lblLegendariesCount" Content="{Binding ElementName=cardsList, Path=LegendariesCount, Converter={StaticResource legendariesCountLabelConverter}}" FontSize="14" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10,130,10,0"/>
 
-                <Label Name="lblTotalCount" Content="{Binding Converter={StaticResource totalCountLabelConverter}}" FontSize="14" FontWeight="Bold" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10,160,10,0"/>
+                <Label Name="lblTotalCount" Content="{Binding ElementName=cardsList, Path=TotalAmount, Converter={StaticResource totalCountLabelConverter}}" FontSize="14" FontWeight="Bold" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10,160,10,0"/>
             </Grid>
         </GroupBox>
     </Grid>

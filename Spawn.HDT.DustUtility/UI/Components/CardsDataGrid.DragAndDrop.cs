@@ -1,6 +1,4 @@
-﻿using MahApps.Metro.Controls;
-using MahApps.Metro.Controls.Dialogs;
-using System;
+﻿using System;
 using System.Windows;
 using System.Windows.Input;
 
@@ -8,6 +6,19 @@ namespace Spawn.HDT.DustUtility.UI.Components
 {
     public partial class CardsDataGrid
     {
+        #region Custom Events
+        public event EventHandler<GridItemEventArgs> ItemDropped;
+
+        private void OnItemDropped(GridItem item)
+        {
+            if (ItemDropped != null)
+            {
+                ItemDropped(this, new GridItemEventArgs(item));
+            }
+            else { }
+        }
+        #endregion
+
         #region Member Variables
         private Point? m_startPosition;
         private GridItem m_draggedItem;
@@ -89,37 +100,7 @@ namespace Spawn.HDT.DustUtility.UI.Components
 
                 System.Diagnostics.Debug.WriteLine($"Dropped {item.Name}");
 
-                if (item.Count > 1)
-                {
-                    MetroWindow window = Window.GetWindow(this) as MetroWindow;
-
-                    string strResult = await window.ShowInputAsync(string.Empty, "How many copies?");
-
-                    int nNewCount = -1;
-
-                    try
-                    {
-                        nNewCount = Convert.ToInt32(strResult);
-                    }
-                    catch
-                    {
-                        //Invalid input
-                    }
-
-                    if (nNewCount > -1)
-                    {
-                        item.Count = nNewCount;
-                        item.Dust = item.Tag.GetDustValue(nNewCount);
-                    }
-                    else { }
-                }
-                else { }
-
-                if (item.Count > 0)
-                {
-                    GridItems.Add(item);
-                }
-                else { }
+                OnItemDropped(item);
             }
             else { }
         }
