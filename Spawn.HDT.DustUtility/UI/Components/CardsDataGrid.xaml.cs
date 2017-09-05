@@ -126,6 +126,28 @@ namespace Spawn.HDT.DustUtility.UI.Components
             e.Handled = !ContextMenuEnabled;
         }
         #endregion
+
+        #region OnPopupMouseDown
+        private void OnPopupMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            cardImagePopup.IsOpen = false;
+
+            cardImageContainer.CardWrapper = null;
+        }
+        #endregion
+        #endregion
+
+        #region OpenPopup
+        public void OpenPopup(GridItem item)
+        {
+            if (item != null)
+            {
+                cardImagePopup.IsOpen = true;
+
+                cardImageContainer.CardWrapper = item.Tag;
+            }
+            else { }
+        }
         #endregion
     }
 }

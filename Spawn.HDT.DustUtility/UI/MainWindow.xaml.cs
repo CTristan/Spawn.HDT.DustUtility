@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -177,7 +176,6 @@ namespace Spawn.HDT.DustUtility.UI
 
             if (dialog.ShowDialog().Value)
             {
-                //TODO
                 //dataGrid.ItemsSource = OrderItems(dataGrid.ItemsSource as IEnumerable<GridItem>);
 
                 SearchResultContainer container = GetSearchResultContainerComponent();
@@ -212,6 +210,14 @@ namespace Spawn.HDT.DustUtility.UI
                 openListButton.IsEnabled = false;
             }
             else { }
+        }
+        #endregion
+
+        #region OnDataGridRowDoubleClick
+        private void OnDataGridRowDoubleClick(object sender, GridItemEventArgs e)
+        {
+            //TODO: Show card image
+            cardsGrid.OpenPopup(e.Item);
         }
         #endregion
 
@@ -282,10 +288,5 @@ namespace Spawn.HDT.DustUtility.UI
             sortOrderButton.IsEnabled = blnIsEnabled;
         }
         #endregion
-
-        private void CardsDataGrid_RowDoubleClick(object sender, GridItemEventArgs e)
-        {
-            //TODO: Show card image
-        }
     }
 }

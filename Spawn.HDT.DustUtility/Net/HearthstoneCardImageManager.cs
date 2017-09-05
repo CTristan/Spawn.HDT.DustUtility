@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System;
 using System.Drawing;
 using System.IO;
 using System.Net;
@@ -29,18 +28,18 @@ namespace Spawn.HDT.DustUtility.Net
             {
                 string strPath = GetLocalCachePath(strCardId, blnPremium);
 
-                if (File.Exists(strPath))
-                {
-                    try
-                    {
-                        retVal = File.Open(strPath, FileMode.Open);
-                    }
-                    catch (Exception ex)
-                    {
-                        System.Diagnostics.Debug.WriteLine(ex.ToString());
-                    }
-                }
-                else { }
+                //if (File.Exists(strPath))
+                //{
+                //    try
+                //    {
+                //        retVal = File.Open(strPath, FileMode.Open);
+                //    }
+                //    catch (System.Exception ex)
+                //    {
+                //        System.Diagnostics.Debug.WriteLine(ex.ToString());
+                //    }
+                //}
+                //else { }
 
                 if (retVal == null)
                 {
@@ -89,16 +88,16 @@ namespace Spawn.HDT.DustUtility.Net
 
                                     retVal.Position = 0;
 
-                                    if (Settings.LocalImageCache)
-                                    {
-                                        using (FileStream fs = File.Open(strPath, FileMode.Create))
-                                        {
-                                            await retVal.CopyToAsync(fs);
-                                        }
+                                    //if (Settings.LocalImageCache)
+                                    //{
+                                    //using (FileStream fs = File.Open(strPath, FileMode.Create))
+                                    //{
+                                    //    await retVal.CopyToAsync(fs);
+                                    //}
 
-                                        retVal.Position = 0;
-                                    }
-                                    else { }
+                                    //retVal.Position = 0;
+                                    //}
+                                    //else { }
                                 }
                                 else { }
                             }

@@ -29,7 +29,7 @@ namespace Spawn.HDT.DustUtility.UI.Components
 
         #region Member Variables
         private ImageSource m_defaultImageSource;
-        private Stream m_currentImage;
+        private Stream m_currentImageStream;
         #endregion
 
         #region Custom Events
@@ -58,15 +58,19 @@ namespace Spawn.HDT.DustUtility.UI.Components
         }
         #endregion
 
+        #region Events
         #region OnCardWrapperChanged
         private async void OnCardWrapperChanged(object sender, EventArgs e)
         {
-            if (m_currentImage != null)
+            image.Source = m_defaultImageSource;
+            image.Margin = new Thickness();
+
+            if (m_currentImageStream != null)
             {
                 Log.WriteLine("Disposing current image...", LogType.Debug);
 
-                m_currentImage.Dispose();
-                m_currentImage = null;
+                m_currentImageStream.Dispose();
+                m_currentImageStream = null;
             }
             else { }
 
@@ -74,14 +78,59 @@ namespace Spawn.HDT.DustUtility.UI.Components
             {
                 Log.WriteLine($"Loading image for {CardWrapper.Card.Id} (Premium={CardWrapper.Card.Premium})", LogType.Debug);
 
-                m_currentImage = (await HearthstoneCardImageManager.GetStreamAsync(CardWrapper.Card.Id, CardWrapper.Card.Premium));
+                m_currentImageStream = (await HearthstoneCardImageManager.GetStreamAsync(CardWrapper.Card.Id, CardWrapper.Card.Premium));
 
-                image.Source = (Image.FromStream(m_currentImage) as Bitmap).ToBitmapImage();
+                if (m_currentImageStream != null)
+                {
+                    if (CardWrapper.Card.Premium)
+                    {
+                        SetAsGif(m_currentImageStream);
+                    }
+                    else
+                    {
+                        image.Source = (Image.FromStream(m_currentImageStream) as Bitmap).ToBitmapImage();
+                    }
+
+                    SetMargin();
+                }
+                else { }
+            }
+            else { }
+        }
+        #endregion
+        #endregion
+
+        #region GetMargin
+        private void SetMargin()
+        {
+            if (CardWrapper.DbCard.Type == HearthDb.Enums.CardType.HERO)
+            {
+                image.Margin = new Thickness(-10, -35, 0, 25);
             }
             else
             {
-                image.Source = m_defaultImageSource;
+                if (!CardWrapper.Card.Premium &&
+                    (CardWrapper.DbCard.Id.Equals("CFM_321")
+                    || CardWrapper.DbCard.Id.Equals("CFM_619")
+                    || CardWrapper.DbCard.Id.Equals("CFM_621")
+                    || CardWrapper.DbCard.Id.Equals("CFM_649")
+                    || CardWrapper.DbCard.Id.Equals("CFM_685")
+                    || CardWrapper.DbCard.Id.Equals("CFM_902")))
+                {
+                    image.Margin = new Thickness(0, 0, 0, -25);
+                }
+                else
+                {
+                    image.Margin = new Thickness(0, -25, 0, 0);
+                }
             }
+        }
+        #endregion
+
+        #region SetAsGif
+        private void SetAsGif(Stream stream)
+        {
+            image.SetValue(XamlAnimatedGif.AnimationBehavior.SourceStreamProperty, stream);
         }
         #endregion
     }

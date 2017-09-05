@@ -5,12 +5,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:converters="clr-namespace:Spawn.HDT.DustUtility.Converters"
              xmlns:util="clr-namespace:Spawn.HearthPwnScraper.Utilities"
+             xmlns:components="clr-namespace:Spawn.HDT.DustUtility.UI.Components"
              mc:Ignorable="d" x:Name="cardsGrid"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <DataGrid Name="dataGrid" ItemsSource="{Binding ElementName=cardsGrid, Path=GridItems}"
-                  SelectionMode="Single" SelectionUnit="FullRow" CanUserSortColumns="False"
-                  AutoGenerateColumns="False" IsReadOnly="True" GridLinesVisibility="None"
+                  CanUserSortColumns="False" AutoGenerateColumns="False" IsReadOnly="True" GridLinesVisibility="None"
                   MouseDoubleClick="OnDataGridMouseDoubleClick" MouseDown="OnDataGridMouseDown"
                   MouseMove="OnDataGridMouseMove" PreviewMouseLeftButtonDown="OnDataGridPreviewMouseLeftButtonDown"
                   DragEnter="OnDataGridDragEnter" Drop="OnDataGridDrop" ContextMenuOpening="OnContextMenuOpening">
@@ -75,5 +75,9 @@
                 </Style>
             </DataGrid.RowStyle>-->
         </DataGrid>
+
+        <Popup Name="cardImagePopup" AllowsTransparency="True" PlacementTarget="{Binding ElementName=dataGrid}" Placement="Center" IsOpen="False" MouseDown="OnPopupMouseDown">
+            <components:CardImageContainer x:Name="cardImageContainer"/>
+        </Popup>
     </Grid>
 </UserControl>

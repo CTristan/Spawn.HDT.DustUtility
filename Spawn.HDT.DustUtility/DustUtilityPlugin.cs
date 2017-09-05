@@ -53,6 +53,13 @@ namespace Spawn.HDT.DustUtility
         #endregion
         #endregion
 
+        #region Ctor
+        public DustUtilityPlugin()
+        {
+            AppDomain.CurrentDomain.AssemblyResolve += OnAssemblyResolve;
+        }
+        #endregion
+
         #region OnLoad
         public void OnLoad()
         {
@@ -258,6 +265,33 @@ namespace Spawn.HDT.DustUtility
             }
 
             return strRet;
+        }
+        #endregion
+
+        #region OnAssemblyResolve
+        private static Assembly OnAssemblyResolve(object sender, ResolveEventArgs args)
+        {
+            Assembly retVal = null;
+
+            Assembly executingAssembly = Assembly.GetExecutingAssembly();
+            AssemblyName assemblyName = new AssemblyName(args.Name);
+
+            string strPath = $"{assemblyName.Name}.dll";
+
+            using (Stream stream = executingAssembly.GetManifestResourceStream(strPath))
+            {
+                if (stream != null)
+                {
+                    byte[] vRawBytes = new byte[stream.Length];
+
+                    stream.Read(vRawBytes, 0, vRawBytes.Length);
+
+                    retVal = Assembly.Load(vRawBytes);
+                }
+                else { }
+            }
+
+            return retVal;
         }
         #endregion
     }

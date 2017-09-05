@@ -107,7 +107,18 @@ namespace Spawn.HDT.DustUtility.Search
         #region GetCardForDustAmount
         private void GetCardsForDustAmount(Parameters parameters, List<CardWrapper> lstCards)
         {
-            int nDustAmount = Convert.ToInt32(parameters.QueryString);
+            int nDustAmount = 0;
+
+            try
+            {
+                nDustAmount = Convert.ToInt32(parameters.QueryString);
+            }
+            catch
+            {
+                //Invalid value
+                nDustAmount = Int32.MaxValue;
+            }
+
             int nTotalAmount = 0;
 
             bool blnDone = false;
