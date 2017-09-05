@@ -33,7 +33,7 @@ namespace Spawn.HDT.DustUtility
         #endregion
 
         #region Description
-        public string Description => "Enter the amount of dust you want to get and check which cards are currently not used in any deck in order to disenchant them.";
+        public string Description => "Enter the amount of dust you want to get and check which cards are currently not used in any deck in order to see which can be disenchanted.";
         #endregion
 
         #region ButtonText
