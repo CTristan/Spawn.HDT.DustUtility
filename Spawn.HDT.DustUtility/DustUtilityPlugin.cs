@@ -117,7 +117,7 @@ namespace Spawn.HDT.DustUtility
         {
             if (Core.Game.IsRunning || Settings.OfflineMode)
             {
-                if (m_account == null)
+                if (m_account == null || (m_account != null && m_account.IsEmpty))
                 {
                     ObtainAccount(false);
                 }
