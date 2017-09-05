@@ -119,9 +119,13 @@ namespace Spawn.HDT.DustUtility.UI.Components
                 {
                     image.Margin = new Thickness(0, 0, 0, -25);
                 }
-                else
+                else if (!CardWrapper.Card.Premium)
                 {
                     image.Margin = new Thickness(0, -25, 0, 0);
+                }
+                else
+                {
+                    image.Margin = new Thickness();
                 }
             }
         }
