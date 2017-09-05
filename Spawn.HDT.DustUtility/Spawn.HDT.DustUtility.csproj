@@ -35,19 +35,19 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="HearthDb">
-      <HintPath>..\..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.4.1\HearthDb.dll</HintPath>
+      <HintPath>..\..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.4.2\HearthDb.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="HearthMirror">
-      <HintPath>..\..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.4.1\HearthMirror.dll</HintPath>
+      <HintPath>..\..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.4.2\HearthMirror.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="HearthstoneDeckTracker">
-      <HintPath>..\..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.4.1\HearthstoneDeckTracker.exe</HintPath>
+      <HintPath>..\..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.4.2\HearthstoneDeckTracker.exe</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="MahApps.Metro">
-      <HintPath>..\..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.4.1\MahApps.Metro.dll</HintPath>
+      <HintPath>..\..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.4.2\MahApps.Metro.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">

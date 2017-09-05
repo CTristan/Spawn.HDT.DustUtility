@@ -36,5 +36,6 @@
                 <Label Name="lblTotalCount" Content="{Binding ElementName=cardsList, Path=TotalAmount, Converter={StaticResource totalCountLabelConverter}}" FontSize="14" FontWeight="Bold" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10,160,10,0"/>
             </Grid>
         </GroupBox>
+        <CheckBox Name="cbSaveSelection" Content="Save Selection" HorizontalAlignment="Right" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" IsChecked="{Binding ElementName=cardsList, Path=SaveSelection}" Margin="0,0,59,149" Width="100"/>
     </Grid>
 </controls:MetroWindow>

@@ -1,5 +1,6 @@
 ﻿using MahApps.Metro.Controls.Dialogs;
 using System;
+using System.Collections.Generic;
 using System.Windows;
 
 namespace Spawn.HDT.DustUtility.UI
@@ -78,12 +79,47 @@ namespace Spawn.HDT.DustUtility.UI
         public static readonly DependencyProperty TotalAmountProperty =
             DependencyProperty.Register("TotalAmount", typeof(int), typeof(CardListWindow), new PropertyMetadata(0));
         #endregion
+
+        #region SaveSelection
+        public bool SaveSelection
+        {
+            get { return (bool)GetValue(SaveSelectionProperty); }
+            set { SetValue(SaveSelectionProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for SaveSelection.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SaveSelectionProperty =
+            DependencyProperty.Register("SaveSelection", typeof(bool), typeof(CardListWindow), new PropertyMetadata(false));
+        #endregion
+        #endregion
+
+        #region Properties
+        public List<GridItem> CurrentItems { get; private set; }
         #endregion
 
         #region Ctor
         public CardListWindow()
         {
             InitializeComponent();
+
+            CurrentItems = new List<GridItem>();
+
+            cardsGrid.GridItems.Clear();
+        }
+
+        public CardListWindow(List<GridItem> savedItems)
+            : this()
+        {
+            for (int i = 0; i < savedItems.Count; i++)
+            {
+                cardsGrid.GridItems.Add(savedItems[i]);
+
+                UpdateCounterLabels(savedItems[i]);
+            }
+
+            CurrentItems = savedItems;
+
+            cbSaveSelection.IsChecked = CurrentItems.Count > 0;
         }
         #endregion
 
@@ -119,24 +155,9 @@ namespace Spawn.HDT.DustUtility.UI
 
             cardsGrid.GridItems.Add(item);
 
-            TotalAmount += item.Count;
-            DustAmount += item.Dust;
+            CurrentItems.Add(item);
 
-            switch (item.Rarity)
-            {
-                case HearthDb.Enums.Rarity.COMMON:
-                    CommonsCount += 1;
-                    break;
-                case HearthDb.Enums.Rarity.RARE:
-                    RaresCount += 1;
-                    break;
-                case HearthDb.Enums.Rarity.EPIC:
-                    EpicsCount += 1;
-                    break;
-                case HearthDb.Enums.Rarity.LEGENDARY:
-                    LegendariesCount += 1;
-                    break;
-            }
+            UpdateCounterLabels(item);
         }
         #endregion
 
@@ -161,8 +182,34 @@ namespace Spawn.HDT.DustUtility.UI
                     LegendariesCount -= 1;
                     break;
             }
+
+            CurrentItems.Remove(e.Item);
         }
         #endregion
+        #endregion
+
+        #region UpdateCounterLabels
+        private void UpdateCounterLabels(GridItem item)
+        {
+            TotalAmount += item.Count;
+            DustAmount += item.Dust;
+
+            switch (item.Rarity)
+            {
+                case HearthDb.Enums.Rarity.COMMON:
+                    CommonsCount += 1;
+                    break;
+                case HearthDb.Enums.Rarity.RARE:
+                    RaresCount += 1;
+                    break;
+                case HearthDb.Enums.Rarity.EPIC:
+                    EpicsCount += 1;
+                    break;
+                case HearthDb.Enums.Rarity.LEGENDARY:
+                    LegendariesCount += 1;
+                    break;
+            }
+        }
         #endregion
     }
 }
