@@ -81,7 +81,7 @@ namespace Spawn.HDT.DustUtility.UI
             {
                 Title = $"{Title} [OFFLINE MODE]";
 
-                switchAccountsButton.Visibility = System.Windows.Visibility.Visible;
+                switchAccountButton.IsEnabled = m_plugin.HasMultipleAccounts;
             }
             else { }
 
@@ -246,8 +246,8 @@ namespace Spawn.HDT.DustUtility.UI
         }
         #endregion
 
-        #region OnSwitchAccountsClick
-        private void OnSwitchAccountsClick(object sender, System.Windows.RoutedEventArgs e)
+        #region OnSwitchAccountClick
+        private void OnSwitchAccountClick(object sender, System.Windows.RoutedEventArgs e)
         {
             m_plugin.SwitchAccounts();
         }

@@ -51,6 +51,10 @@ namespace Spawn.HDT.DustUtility
         #region MenuItem
         public MenuItem MenuItem => m_menuItem;
         #endregion
+
+        #region HasMultipleAccounts
+        public bool HasMultipleAccounts => GetAccountList().Count > 1;
+        #endregion
         #endregion
 
         #region Ctor
