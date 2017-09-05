@@ -213,14 +213,6 @@ namespace Spawn.HDT.DustUtility.UI
         }
         #endregion
 
-        #region OnDataGridRowDoubleClick
-        private void OnDataGridRowDoubleClick(object sender, GridItemEventArgs e)
-        {
-            //TODO: Show card image
-            cardsGrid.OpenPopup(e.Item);
-        }
-        #endregion
-
         #region OnInputBoxPreviewKeyDown
         private async void OnInputBoxPreviewKeyDown(object sender, KeyEventArgs e)
         {

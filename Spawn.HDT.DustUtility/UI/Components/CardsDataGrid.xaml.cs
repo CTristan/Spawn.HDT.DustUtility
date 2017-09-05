@@ -45,9 +45,11 @@ namespace Spawn.HDT.DustUtility.UI.Components
         #endregion
         #endregion
 
-        #region Custom Events
-        public event EventHandler<GridItemEventArgs> RowDoubleClick;
+        #region Member Variables
+        private bool m_blnDblClick;
+        #endregion
 
+        #region Custom Events
         public event EventHandler<GridItemEventArgs> RowDeleted;
         #endregion
 
@@ -62,17 +64,9 @@ namespace Spawn.HDT.DustUtility.UI.Components
         #region OnDataGridMouseDoubleClick
         private void OnDataGridMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (dataGrid.SelectedItem != null)
-            {
-                GridItemEventArgs args = new GridItemEventArgs(dataGrid.SelectedItem as GridItem);
+            m_blnDblClick = true;
 
-                if (RowDoubleClick != null)
-                {
-                    RowDoubleClick(sender, args);
-                }
-                else { }
-            }
-            else { }
+            OpenPopup();
         }
         #endregion
 
@@ -86,6 +80,21 @@ namespace Spawn.HDT.DustUtility.UI.Components
                 dataGrid.SelectedIndex = -1;
             }
             else { }
+
+            if (!m_blnDblClick)
+            {
+                ClosePopup();
+            }
+            else { }
+
+            m_blnDblClick = false;
+        }
+        #endregion
+
+        #region OnDataGridSelectionChanged
+        private void OnDataGridSelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            ClosePopup();
         }
         #endregion
 
@@ -130,21 +139,32 @@ namespace Spawn.HDT.DustUtility.UI.Components
         #region OnPopupMouseDown
         private void OnPopupMouseDown(object sender, MouseButtonEventArgs e)
         {
-            cardImagePopup.IsOpen = false;
-
-            cardImageContainer.CardWrapper = null;
+            ClosePopup();
         }
         #endregion
         #endregion
 
         #region OpenPopup
-        public void OpenPopup(GridItem item)
+        private void OpenPopup()
         {
-            if (item != null)
+            if (dataGrid.SelectedItem is GridItem)
             {
                 cardImagePopup.IsOpen = true;
 
-                cardImageContainer.CardWrapper = item.Tag;
+                cardImageContainer.CardWrapper = (dataGrid.SelectedItem as GridItem).Tag;
+            }
+            else { }
+        }
+        #endregion
+
+        #region ClosePopup
+        private void ClosePopup()
+        {
+            if (cardImagePopup.IsOpen)
+            {
+                cardImagePopup.IsOpen = false;
+
+                cardImageContainer.CardWrapper = null;
             }
             else { }
         }

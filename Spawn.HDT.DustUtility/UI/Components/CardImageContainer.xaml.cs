@@ -80,7 +80,7 @@ namespace Spawn.HDT.DustUtility.UI.Components
 
                 m_currentImageStream = (await HearthstoneCardImageManager.GetStreamAsync(CardWrapper.Card.Id, CardWrapper.Card.Premium));
 
-                if (m_currentImageStream != null)
+                if (m_currentImageStream != null && CardWrapper != null)
                 {
                     if (CardWrapper.Card.Premium)
                     {
@@ -118,6 +118,25 @@ namespace Spawn.HDT.DustUtility.UI.Components
                     || CardWrapper.DbCard.Id.Equals("CFM_902")))
                 {
                     image.Margin = new Thickness(0, 0, 0, -25);
+                }
+                else if (CardWrapper.Card.Premium)
+                {
+                    if (CardWrapper.DbCard.Type == HearthDb.Enums.CardType.ABILITY && CardWrapper.DbCard.Rarity == HearthDb.Enums.Rarity.LEGENDARY)
+                    {
+                        image.Margin = new Thickness(-15, -30, 0, 0);
+                    }
+                    else if (CardWrapper.DbCard.Type == HearthDb.Enums.CardType.ABILITY || CardWrapper.DbCard.Type == HearthDb.Enums.CardType.WEAPON)
+                    {
+                        image.Margin = new Thickness(0, -30, 0, 0);
+                    }
+                    else if (CardWrapper.DbCard.Type == HearthDb.Enums.CardType.MINION && CardWrapper.DbCard.Rarity != HearthDb.Enums.Rarity.LEGENDARY)
+                    {
+                        image.Margin = new Thickness(0, -20, -10, 0);
+                    }
+                    else
+                    {
+                        image.Margin = new Thickness();
+                    }
                 }
                 else if (!CardWrapper.Card.Premium)
                 {

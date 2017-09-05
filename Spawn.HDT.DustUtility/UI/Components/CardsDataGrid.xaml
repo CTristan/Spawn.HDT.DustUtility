@@ -13,7 +13,8 @@
                   CanUserSortColumns="False" AutoGenerateColumns="False" IsReadOnly="True" GridLinesVisibility="None"
                   MouseDoubleClick="OnDataGridMouseDoubleClick" MouseDown="OnDataGridMouseDown"
                   MouseMove="OnDataGridMouseMove" PreviewMouseLeftButtonDown="OnDataGridPreviewMouseLeftButtonDown"
-                  DragEnter="OnDataGridDragEnter" Drop="OnDataGridDrop" ContextMenuOpening="OnContextMenuOpening">
+                  DragEnter="OnDataGridDragEnter" Drop="OnDataGridDrop" ContextMenuOpening="OnContextMenuOpening"
+                  SelectionChanged="OnDataGridSelectionChanged">
             <!--RowBackground="#ECE3CA" AlternatingRowBackground="#E1D7BD"-->
             <DataGrid.Resources>
                 <converters:CountLabelConverter x:Key="countLabelConverter"/>
