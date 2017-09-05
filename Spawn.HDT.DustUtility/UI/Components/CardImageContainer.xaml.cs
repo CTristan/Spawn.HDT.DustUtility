@@ -134,6 +134,8 @@ namespace Spawn.HDT.DustUtility.UI.Components
         #region SetAsGif
         private void SetAsGif(Stream stream)
         {
+            Log.WriteLine("Setting current image as GIF", LogType.Debug);
+
             image.SetValue(XamlAnimatedGif.AnimationBehavior.SourceStreamProperty, stream);
         }
         #endregion
