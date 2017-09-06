@@ -3,7 +3,7 @@ Enter the amout of dust you are aiming for and the plugin searches through your 
 
 ## Features
 #### Offline Mode
-- The plugin detects the current account and saves it collection and decks locally, so you are still able to use the plugin while Hearthstone isn't running. (Decks are only being saved when in the "Play" menu)
+- The plugin detects the current account and saves it collection and decks locally, so you are still able to use the plugin while Hearthstone isn't running. (Decks are only being saved when you are in the "Play" menu)
 ![Overlay](https://i.imgur.com/O8LwlTT.png)
 
 #### Support for multiple accounts and regions
