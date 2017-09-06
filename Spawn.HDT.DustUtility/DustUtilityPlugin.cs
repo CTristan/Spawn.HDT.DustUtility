@@ -206,7 +206,15 @@ namespace Spawn.HDT.DustUtility
 
                 for (int i = 0; i < vFiles.Length; i++)
                 {
-                    lstRet.Add(Path.GetFileNameWithoutExtension(vFiles[i]));
+                    string strCollectionFileName = vFiles[i];
+
+                    string strDecksFileName = strCollectionFileName.Replace("_collection", "_decks");
+
+                    if (File.Exists(strDecksFileName))
+                    {
+                        lstRet.Add(Path.GetFileNameWithoutExtension(strCollectionFileName));
+                    }
+                    else { }
                 }
             }
             else { }

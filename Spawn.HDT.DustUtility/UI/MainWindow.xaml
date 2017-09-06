@@ -16,7 +16,7 @@
     <controls:MetroWindow.RightWindowCommands>
         <controls:WindowCommands>
             <StackPanel Orientation="Horizontal">
-                <Button Name="switchAccountButton" Content="SWITCH ACCOUNT..." Click="OnSwitchAccountClick" Visibility="Hidden"/>
+                <Button Name="switchAccountButton" Content="SWITCH ACCOUNT..." Click="OnSwitchAccountClick"/>
                 <!--<Button Name="historyButton" Content="HISTORY" Click="OnHistoryClick" Visibility="Hidden"/>-->
                 <Button Content="SHOW COLLECTION VALUE..." Click="OnTotalDustClick"/>
             </StackPanel>
