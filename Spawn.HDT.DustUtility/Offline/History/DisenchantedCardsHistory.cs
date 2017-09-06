@@ -1,9 +1,8 @@
 ﻿using HearthMirror.Objects;
-using Spawn.HDT.DustUtility.Offline;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Spawn.HDT.DustUtility.History
+namespace Spawn.HDT.DustUtility.Offline.History
 {
     public static class DisenchantedCardsHistory
     {
