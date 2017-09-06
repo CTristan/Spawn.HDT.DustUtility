@@ -10,7 +10,8 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <DataGrid Name="dataGrid" ItemsSource="{Binding ElementName=cardsGrid, Path=GridItems}"
-                  CanUserSortColumns="False" AutoGenerateColumns="False" IsReadOnly="True" GridLinesVisibility="None"
+                  CanUserSortColumns="False" AutoGenerateColumns="False" IsReadOnly="True"
+                  SelectionMode="Single" SelectionUnit="FullRow" GridLinesVisibility="None"
                   MouseDoubleClick="OnDataGridMouseDoubleClick" MouseDown="OnDataGridMouseDown"
                   MouseMove="OnDataGridMouseMove" PreviewMouseLeftButtonDown="OnDataGridPreviewMouseLeftButtonDown"
                   DragEnter="OnDataGridDragEnter" Drop="OnDataGridDrop" ContextMenuOpening="OnContextMenuOpening"
@@ -61,6 +62,12 @@
                     <Setter Property="ContextMenu" Value="{StaticResource rowContextMenu}"/>
                 </Style>
             </DataGrid.RowStyle>
+            <DataGrid.CellStyle>
+                <Style TargetType="{x:Type DataGridCell}">
+                    <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+                    <Setter Property="BorderThickness" Value="0"/>
+                </Style>
+            </DataGrid.CellStyle>
             <!--<DataGrid.RowStyle>
                 <Style TargetType="DataGridRow">
                     <Setter Property="ui:AttachedProperties.RowPopup" Value="{Binding ElementName=cardImagePopup}"/>

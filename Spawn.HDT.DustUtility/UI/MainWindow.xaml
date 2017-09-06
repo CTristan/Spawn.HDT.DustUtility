@@ -34,7 +34,7 @@
         </Border>
 
         <Button Name="sortOrderButton" Content="Sort Order" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,20,40" Width="130" Height="21" Click="OnSortOrderClick"/>
-        <Button Name="openListButton" Content="Open List..." HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,20,10" Width="130" Height="21" Click="OnOpenListClick"/>
+        <Button Name="openListButton" Content="Open Selection..." HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,20,10" Width="130" Height="21" Click="OnOpenListClick"/>
 
         <GroupBox Header="Info" HorizontalAlignment="Right" Height="235" Margin="0,40,10,0" VerticalAlignment="Top" Width="150">
             <Grid>
