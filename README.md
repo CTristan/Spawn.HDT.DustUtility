@@ -1,20 +1,33 @@
-# Dust Utility
-Enter the amout of dust you are aiming for and the plugin searches through your collection for cards that aren't being used in any deck in order for you to see which can be disenchanted.
+# Dust Utility v2.0
+Enter the amout of dust you are aiming for and the plugin searches through your whole collection or cards that aren't being used in any deck in order for you to see which you can disenchantt.
 
-### Features
-* Offline Mode - The plugin saves your collection and decks locally, so you are still able to use it while Hearthstone isn't running.
-* Customizable Sort Order - Order the result for your needs. Sortable properties: Mana Cost, Name, Dust, Class, Set, etc...
-* Since version 1.6, you are also able to search through all your cards, instead of just the unused ones.
-* An advanced search was added with version 1.7, which allows you to search for specific cards
+## Features
+#### Offline Mode
+- The plugin detects the current account and saves it collection and decks locally, so you are still able to use the plugin while Hearthstone isn't running. (Decks are only being saved when in the "Play" menu)
+![Overlay](https://i.imgur.com/O8LwlTT.png)
 
-![Overlay](https://i.imgur.com/tIDgbNL.png)
+#### Support for multiple accounts and regions
+- With `Offline Mode` enabled, you are able to switch between multiple accounts and regions, if their collection and decks have been saved.
+![Overlay](https://i.imgur.com/dXi0p5h.png)
 
-![Overlay](https://i.imgur.com/zxdXdwf.png)
+#### Advanced Search
+- Advanced search allows you to search for specific cards. (Click the help button next to the "Filters" button for more information)
+![Overlay](https://i.imgur.com/ZhVga8b.png)
 
-### Settings
-* Offline Mode: After opening the main window the plugin is going to try to store collection and decks locally every 10 sec while Hearthstone is running. (Decks can only be saved after visiting the "Play" menu once) If successful, it will try to store collection and decks every 5 min while Hearthstone is running.
+#### Card Images
+- Double-click a row to show the actual card image (Golden cards are animated).
+![Overlay](https://i.imgur.com/iaV9Zhg.png)
+
+#### Customizable Sort Order
+- Order the result for your needs. Sortable properties: Mana Cost, Name, Dust, Class, Set, etc...
+![Overlay](https://i.imgur.com/awgZcx8.png)
+
+#### Selection Window
+- Drag cards into the selection window to create a list of cards that you want to disenchant (Selection is temporarily storable)
+![Overlay](https://i.imgur.com/fr2cZzm.png)
+
+
+## Settings
+* Offline Mode: After opening the main window the plugin is going to try to store collection and decks locally every 10 sec while Hearthstone is running (Decks can only be saved after visiting the "Play" menu once). If successful, it will try to store collection and decks and check for disenchanted cards every minute while Hearthstone is running.
 * Check For Updates: Checks if there is new release available on the GitHub page after opening the main window.
-
-## ToDo
-* Add support for multiple accounts and regions
-* History of disenchanted cards (only works with Offline Mode enabled)
+![Overlay](https://i.imgur.com/FWou7M5.png)
