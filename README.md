@@ -15,7 +15,7 @@ Enter the amout of dust you are aiming for and the plugin searches through your 
 ![Overlay](https://i.imgur.com/ZhVga8b.png)
 
 #### Card Images
-- Double-click a row to show the actual card image (Golden cards are animated).
+- Double-click a row to display the actual card image (Golden cards are animated, requires internet connection).
 ![Overlay](https://i.imgur.com/iaV9Zhg.png)
 
 #### Customizable Sort Order
