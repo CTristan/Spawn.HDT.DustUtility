@@ -1,5 +1,5 @@
 # Dust Utility v2.0
-Enter the amout of dust you are aiming for and the plugin searches through your whole collection or cards that aren't being used in any deck in order for you to see which you can disenchant.
+Enter the amout of dust you are aiming for and the plugin searches through your whole collection or cards that aren't being used in any deck in order for you to see which can be disenchanted.
 
 ## Features
 #### Offline Mode
