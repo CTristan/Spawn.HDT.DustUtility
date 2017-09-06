@@ -9,7 +9,10 @@
             <SolidColorBrush Color="#FFE3D7C7"/>
         </Grid.Background>
         <Border BorderBrush="Black" BorderThickness="2">
-            <Image Name="image" Source="/Spawn.HDT.DustUtility;component/Resources/legend_cardback.png"/>
+            <Grid>
+                <Image Name="image" Source="/Spawn.HDT.DustUtility;component/Resources/legend_cardback.png" Margin="0,-20,0,0"/>
+                <Label Name="loadingLabel" Content="Loading..." FontWeight="Bold" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+            </Grid>
         </Border>
     </Grid>
 </UserControl>

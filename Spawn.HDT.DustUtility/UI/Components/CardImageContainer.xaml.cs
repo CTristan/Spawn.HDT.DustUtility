@@ -29,6 +29,7 @@ namespace Spawn.HDT.DustUtility.UI.Components
 
         #region Member Variables
         private ImageSource m_defaultImageSource;
+        private Thickness m_defaultImageMargin;
         private Stream m_currentImageStream;
         #endregion
 
@@ -53,6 +54,7 @@ namespace Spawn.HDT.DustUtility.UI.Components
             layoutRoot.DataContext = this;
 
             m_defaultImageSource = image.Source;
+            m_defaultImageMargin = image.Margin;
 
             CardWrapperChanged += OnCardWrapperChanged;
         }
@@ -63,7 +65,9 @@ namespace Spawn.HDT.DustUtility.UI.Components
         private async void OnCardWrapperChanged(object sender, EventArgs e)
         {
             image.Source = m_defaultImageSource;
-            image.Margin = new Thickness();
+            image.Margin = m_defaultImageMargin;
+
+            loadingLabel.Visibility = Visibility.Visible;
 
             if (m_currentImageStream != null)
             {
@@ -82,6 +86,8 @@ namespace Spawn.HDT.DustUtility.UI.Components
 
                 if (m_currentImageStream != null && CardWrapper != null)
                 {
+                    loadingLabel.Visibility = Visibility.Hidden;
+
                     if (CardWrapper.Card.Premium)
                     {
                         SetAsGif(m_currentImageStream);
@@ -100,7 +106,7 @@ namespace Spawn.HDT.DustUtility.UI.Components
         #endregion
         #endregion
 
-        #region GetMargin
+        #region SetMargin
         private void SetMargin()
         {
             if (CardWrapper.DbCard.Type == HearthDb.Enums.CardType.HERO)
