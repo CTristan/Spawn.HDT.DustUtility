@@ -194,10 +194,10 @@ namespace Spawn.HDT.DustUtility.UI
         {
             if (m_listWindow == null)
             {
-                m_listWindow = new CardListWindow(m_lstSavedSelection ?? new List<GridItem>());
-                //{
-                //    Owner = this
-                //};
+                m_listWindow = new CardListWindow(m_lstSavedSelection ?? new List<GridItem>())
+                {
+                    Owner = this
+                };
 
                 m_listWindow.Closed += new EventHandler((s, args) =>
                 {
