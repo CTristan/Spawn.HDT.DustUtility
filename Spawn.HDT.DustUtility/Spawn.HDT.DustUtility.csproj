@@ -79,7 +79,7 @@
       <Link>CardSets.cs</Link>
     </Compile>
     <Compile Include="Account.cs" />
-    <Compile Include="History\DisenchantedCardsHistory.cs" />
+    <Compile Include="Offline\History\DisenchantedCardsHistory.cs" />
     <Compile Include="Net\HearthstoneCardImageManager.cs" />
     <Compile Include="Converters\DisplayLabelConverter.cs" />
     <Compile Include="Search\CardCollector.cs" />

@@ -2,7 +2,6 @@
 using HearthMirror.Objects;
 using Hearthstone_Deck_Tracker;
 using Hearthstone_Deck_Tracker.Utility.Logging;
-using Spawn.HDT.DustUtility.History;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
@@ -239,7 +238,7 @@ namespace Spawn.HDT.DustUtility.Offline
 
             Account account = new Account(Reflection.GetBattleTag(), Helper.GetCurrentRegion().Result);
 
-            DisenchantedCardsHistory.CheckCollection(account, Reflection.GetCollection());
+            //DisenchantedCardsHistory.CheckCollection(account, Reflection.GetCollection());
 
             Log.WriteLine("Saving collection", LogType.Debug);
 
