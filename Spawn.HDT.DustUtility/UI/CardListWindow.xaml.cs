@@ -144,7 +144,7 @@ namespace Spawn.HDT.DustUtility.UI
                     //Invalid input
                 }
 
-                if (nNewCount > -1)
+                if (nNewCount > 0)
                 {
                     item.Count = Math.Min(nNewCount, item.Count);
                     item.Dust = item.Tag.GetDustValue(item.Count);
@@ -170,16 +170,16 @@ namespace Spawn.HDT.DustUtility.UI
             switch (e.Item.Rarity)
             {
                 case HearthDb.Enums.Rarity.COMMON:
-                    CommonsCount -= 1;
+                    CommonsCount -= e.Item.Count;
                     break;
                 case HearthDb.Enums.Rarity.RARE:
-                    RaresCount -= 1;
+                    RaresCount -= e.Item.Count;
                     break;
                 case HearthDb.Enums.Rarity.EPIC:
-                    EpicsCount -= 1;
+                    EpicsCount -= e.Item.Count;
                     break;
                 case HearthDb.Enums.Rarity.LEGENDARY:
-                    LegendariesCount -= 1;
+                    LegendariesCount -= e.Item.Count;
                     break;
             }
 
@@ -197,16 +197,16 @@ namespace Spawn.HDT.DustUtility.UI
             switch (item.Rarity)
             {
                 case HearthDb.Enums.Rarity.COMMON:
-                    CommonsCount += 1;
+                    CommonsCount += item.Count;
                     break;
                 case HearthDb.Enums.Rarity.RARE:
-                    RaresCount += 1;
+                    RaresCount += item.Count;
                     break;
                 case HearthDb.Enums.Rarity.EPIC:
-                    EpicsCount += 1;
+                    EpicsCount += item.Count;
                     break;
                 case HearthDb.Enums.Rarity.LEGENDARY:
-                    LegendariesCount += 1;
+                    LegendariesCount += item.Count;
                     break;
             }
         }
