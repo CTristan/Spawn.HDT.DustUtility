@@ -175,7 +175,11 @@ namespace Spawn.HDT.DustUtility
             {
                 List<string> lstAccounts = GetAccountList();
 
-                if (lstAccounts.Count > 0)
+                if (lstAccounts.Count == 1)
+                {
+                    m_account = Account.Parse(lstAccounts[0]);
+                }
+                else if (lstAccounts.Count > 1)
                 {
                     AccountSelectorDialog accSelectorDialog = new AccountSelectorDialog(lstAccounts);
 
