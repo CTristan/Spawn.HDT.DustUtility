@@ -35,19 +35,19 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="HearthDb">
-      <HintPath>..\..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.4.2\HearthDb.dll</HintPath>
+      <HintPath>..\..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.4.3\HearthDb.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="HearthMirror">
-      <HintPath>..\..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.4.2\HearthMirror.dll</HintPath>
+      <HintPath>..\..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.4.3\HearthMirror.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="HearthstoneDeckTracker">
-      <HintPath>..\..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.4.2\HearthstoneDeckTracker.exe</HintPath>
+      <HintPath>..\..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.4.3\HearthstoneDeckTracker.exe</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="MahApps.Metro">
-      <HintPath>..\..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.4.2\MahApps.Metro.dll</HintPath>
+      <HintPath>..\..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.4.3\MahApps.Metro.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -60,6 +60,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
@@ -106,6 +107,9 @@
     </Compile>
     <Compile Include="UI\Dialogs\DisenchantedCardsHistoryDialog.xaml.cs">
       <DependentUpon>DisenchantedCardsHistoryDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialogs\DownloadProgressDialog.xaml.cs">
+      <DependentUpon>DownloadProgressDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\GridItemEventArgs.cs" />
     <Compile Include="UI\SearchResultContainer.cs" />
@@ -162,6 +166,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Dialogs\DisenchantedCardsHistoryDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Dialogs\DownloadProgressDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -20,7 +20,7 @@ namespace Spawn.HDT.DustUtility.UI.Dialogs
 
         #region Events
         #region OnWindowLoaded
-        private void OnWindowLoaded(object sender, System.Windows.RoutedEventArgs e)
+        private void OnWindowLoaded(object sender, RoutedEventArgs e)
         {
             cbOfflineMode.IsChecked = Settings.OfflineMode;
             cbCheckForUpdates.IsChecked = Settings.CheckForUpdate;
@@ -30,7 +30,7 @@ namespace Spawn.HDT.DustUtility.UI.Dialogs
         #endregion
 
         #region OnOkClick
-        private void OnOkClick(object sender, System.Windows.RoutedEventArgs e)
+        private void OnOkClick(object sender, RoutedEventArgs e)
         {
             Settings.OfflineMode = cbOfflineMode.IsChecked.Value;
             Settings.CheckForUpdate = cbCheckForUpdates.IsChecked.Value;
@@ -44,44 +44,9 @@ namespace Spawn.HDT.DustUtility.UI.Dialogs
         #endregion
 
         #region OnCancelClick
-        private void OnCancelClick(object sender, System.Windows.RoutedEventArgs e)
+        private void OnCancelClick(object sender, RoutedEventArgs e)
         {
             Close();
-        }
-        #endregion
-
-        #region OnLocalImageCacheIsEnabledChanged
-        private void OnLocalImageCacheIsEnabledChanged(object sender, System.Windows.DependencyPropertyChangedEventArgs e)
-        {
-            //if (!((bool)e.NewValue))
-            //{
-            //    cbLocalImageCache.IsChecked = false;
-            //}
-            //else { }
-        }
-        #endregion
-
-        #region OnClearLocalImageCacheClick
-        private void OnClearLocalImageCacheClick(object sender, RoutedEventArgs e)
-        {
-            //try
-            //{
-            //    MessageBoxResult result = MessageBox.Show("Are you sure you want to clear the local image cache?", "Dust Utility", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-            //    if (result == MessageBoxResult.Yes)
-            //    {
-            //        HearthstoneCardImageManager.ClearLocalCache();
-
-            //        clearCacheButton.IsEnabled = false;
-            //    }
-            //    else { }
-            //}
-            //catch (System.Exception ex)
-            //{
-            //    MessageBox.Show("Couldn't clear cache directory! Check log for more information.", "Dust Utility", MessageBoxButton.OK, MessageBoxImage.Error);
-
-            //    Log.WriteLine($"Couldn't clear cache directory: {ex}", LogType.Error);
-            //}
         }
         #endregion
         #endregion

@@ -10,7 +10,7 @@ namespace Spawn.HDT.DustUtility.Update
     public static class GitHubUpdateManager
     {
         #region Constants
-        public const string LatestReleaseUrl = "https://github.com/CLJunge/Spawn.HDT.DustUtility/releases/latest";
+        public const string BaseUrl = "https://github.com/CLJunge/Spawn.HDT.DustUtility/releases";
         #endregion
 
         #region Static Member Variables
@@ -19,11 +19,19 @@ namespace Spawn.HDT.DustUtility.Update
 
         private static Version s_newVersion;
         private static string s_strReleaseNotes;
+
+        private static WebClient m_webClient;
         #endregion
 
         #region Properties
         public static Version NewVersion => s_newVersion;
         public static string ReleaseNotes => s_strReleaseNotes;
+        #endregion
+
+        #region Custom Events
+        public static event DownloadProgressChangedEventHandler DownloadProgressChanged;
+
+        public static event DownloadDataCompletedEventHandler DownloadCompleted;
         #endregion
 
         #region Ctor
@@ -43,7 +51,9 @@ namespace Spawn.HDT.DustUtility.Update
             {
                 Log.WriteLine("Checking for updates...", LogType.Info);
 
-                HttpWebRequest request = WebRequest.CreateHttp(LatestReleaseUrl);
+                string strAddress = $"{BaseUrl}/latest";
+
+                HttpWebRequest request = WebRequest.CreateHttp(strAddress);
 
                 HttpWebResponse response = await request.GetResponseAsync() as HttpWebResponse;
 
@@ -97,6 +107,36 @@ namespace Spawn.HDT.DustUtility.Update
             }
 
             return blnRet;
+        }
+        #endregion
+
+        #region Download
+        public static void Download(Version version)
+        {
+            string strAddress = $"{BaseUrl}/download/{version.ToString(3)}/Spawn.HDT.DustUtility.zip";
+
+            using (m_webClient = new WebClient())
+            {
+                m_webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler((s, e) => DownloadProgressChanged?.Invoke(s, e));
+
+                m_webClient.DownloadDataCompleted += new DownloadDataCompletedEventHandler((s, e) =>
+                {
+                    if (!e.Cancelled)
+                    {
+                        DownloadCompleted?.Invoke(s, e);
+                    }
+                    else { }
+                });
+
+                m_webClient.DownloadDataAsync(new Uri(strAddress));
+            }
+        }
+        #endregion
+
+        #region CancelDownload
+        public static void CancelDownload()
+        {
+            m_webClient?.CancelAsync();
         }
         #endregion
     }

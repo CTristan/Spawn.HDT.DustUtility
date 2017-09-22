@@ -114,9 +114,13 @@ namespace Spawn.HDT.DustUtility.UI
 
                 if (result == MessageDialogResult.Affirmative)
                 {
-                    System.Diagnostics.Process.Start(GitHubUpdateManager.LatestReleaseUrl);
+                    //System.Diagnostics.Process.Start(GitHubUpdateManager.LatestReleaseUrl);
 
-                    Log.WriteLine("Opening github release page...", LogType.Debug);
+                    //Log.WriteLine("Opening github release page...", LogType.Debug);
+
+                    DownloadProgressDialog dialog = new DownloadProgressDialog();
+
+                    dialog.ShowDialog();
                 }
                 else { }
             }
